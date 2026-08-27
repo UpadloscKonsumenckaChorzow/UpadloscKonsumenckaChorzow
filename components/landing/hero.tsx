@@ -67,37 +67,37 @@ export function Hero() {
     <section className="relative overflow-hidden bg-navy text-white">
       {/* 1. GÓRNA CZĘŚĆ HERO */}
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 pt-3 pb-8 sm:pt-5 sm:pb-10 lg:grid-cols-2 lg:gap-12 lg:px-8 lg:pt-6 lg:pb-10">
-        {/* LEWA STRONA - HASŁA I IKONY */}
-        <div className="flex flex-col justify-center">
-          <p className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-gold">
+        {/* LEWA STRONA - CAŁKOWICIE WYŚRODKOWANA NA KAŻDYM EKRANIE */}
+        <div className="mx-auto flex w-full max-w-xl flex-col items-center justify-center text-center">
+          <p className="flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-gold">
             <ShieldCheck className="size-4" />
             Pomoc prawna · Chorzów i Śląsk
           </p>
 
           {/* Hasło główne */}
-          <h1 className="mt-4 font-display text-4xl font-bold leading-[1.1] text-balance sm:text-5xl lg:text-6xl">
+          <h1 className="mt-4 text-center font-display text-4xl font-bold leading-[1.1] text-balance sm:text-5xl lg:text-6xl">
             Upadłość konsumencka{" "}
             <span className="text-gold">– życie bez długów</span>
           </h1>
 
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-white/75 lg:text-lg">
+          <p className="mt-5 max-w-xl text-center text-base leading-relaxed text-white/75 lg:text-lg">
             Przeprowadzimy Cię przez całą procedurę upadłości konsumenckiej, od
             pierwszej rozmowy aż po całkowite umorzenie zobowiązań.
           </p>
 
           {/* Ikonki przyciągające uwagę */}
-          <div className="mt-8 max-w-xl">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-gold/90">
+          <div className="mt-8 w-full max-w-xl">
+            <p className="mb-3 text-center text-xs font-semibold uppercase tracking-wider text-gold/90">
               Pomagamy w sytuacjach takich jak:
             </p>
 
-            <div className="flex flex-wrap gap-2.5">
+            <div className="flex flex-wrap justify-center gap-2.5">
               {problemItems.map((item) => {
                 const Icon = item.icon;
                 return (
                   <div
                     key={item.label}
-                    className="flex flex-1 min-w-37.5 sm:min-w-40 items-center justify-center gap-2.5 rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm font-medium text-white shadow-sm backdrop-blur transition-all hover:border-gold/50 hover:bg-white/10"
+                    className="flex min-w-37.5 sm:min-w-40 items-center justify-center gap-2.5 rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm font-medium text-white shadow-sm backdrop-blur transition-all hover:border-gold/50 hover:bg-white/10"
                   >
                     <Icon className="size-4 shrink-0 text-gold" />
                     <span className="whitespace-nowrap">{item.label}</span>
@@ -108,17 +108,17 @@ export function Hero() {
           </div>
 
           {/* Przyciski Akcji */}
-          <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+          <div className="mt-9 flex w-full flex-col items-center justify-center gap-4 sm:flex-row">
             <a
               href="#kontakt"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-gold px-7 py-4 text-sm font-semibold text-navy-900 transition-colors hover:bg-gold-light"
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg bg-gold px-7 py-4 text-sm font-semibold text-navy-900 transition-colors hover:bg-gold-light"
             >
               Umów bezpłatną konsultację
               <ArrowRight className="size-4" />
             </a>
             <a
               href="tel:515515314"
-              className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/25 px-7 py-4 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border border-white/25 px-7 py-4 text-sm font-semibold text-white transition-colors hover:bg-white/10"
             >
               <Phone className="size-4 text-gold" />
               515 515 314
@@ -148,7 +148,7 @@ export function Hero() {
         </div>
       </div>
 
-      {/* 2. SEKCJA: CO MOŻESZ ZYSKAĆ (ZAKOTWICZONE IKONKI I TEKSTY) */}
+      {/* 2. SEKCJA: CO MOŻESZ ZYSKAĆ */}
       <div className="border-t border-white/10 bg-navy-900/40 py-8 sm:py-10">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <h2 className="text-center font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
@@ -176,7 +176,7 @@ export function Hero() {
         </div>
       </div>
 
-      {/* 3. SEKCJA: GWARANTUJEMY (ZAKOTWICZONE IKONKI I TEKSTY) */}
+      {/* 3. SEKCJA: GWARANTUJEMY */}
       <div className="py-8 sm:py-10">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <h2 className="text-center font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
