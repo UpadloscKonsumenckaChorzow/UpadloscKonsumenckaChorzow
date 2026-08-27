@@ -2,7 +2,7 @@
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://twojadomena.pl";
+  const baseUrl = "https://upadlosckonsumenckachorzow.pl";
 
   return [
     {
