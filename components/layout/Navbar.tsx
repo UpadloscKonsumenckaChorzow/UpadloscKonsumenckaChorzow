@@ -14,7 +14,7 @@ const navLinks = [
 
 function Logo() {
   return (
-    <a href="#" className="flex items-center gap-3 shrink-0">
+    <a href="/" className="flex items-center gap-3 shrink-0">
       {/* TWOJE LOGO / SYGNET */}
       <img
         src="/logo.svg" /* Jeśli używasz PNG, zmień na: /logo.png */

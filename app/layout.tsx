@@ -1,10 +1,12 @@
 // app/layout.tsx
 import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { CookieConsentProvider } from "@/context/CookieConsentContext";
+import { CookieBanner } from "@/components/cookies/CookieBanner";
+import { AnalyticsLoader } from "@/components/cookies/AnalyticsLoader";
 
 // Konfiguracja fontów z polskimi znakami (latin-ext)
 const inter = Inter({
@@ -198,12 +200,20 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-cream font-sans text-ink antialiased selection:bg-gold selection:text-navy-900">
-        <Navbar />
-        {children}
-        <Footer />
+        {/* CookieConsentProvider obejmuje całą aplikację, dzięki czemu
+            baner, ustawienia w stopce i loader GA korzystają z tego samego
+            stanu zgody. */}
+        <CookieConsentProvider>
+          <Navbar />
+          {children}
+          <Footer />
 
-        {/* GOOGLE ANALYTICS 4 */}
-        <GoogleAnalytics gaId="G-CLXWVE955N" />
+          {/* Baner + okno ustawień cookies */}
+          <CookieBanner />
+
+          {/* GOOGLE ANALYTICS 4 - ładowany WYŁĄCZNIE po zgodzie użytkownika */}
+          <AnalyticsLoader gaId="G-CLXWVE955N" />
+        </CookieConsentProvider>
       </body>
     </html>
   );

@@ -1,5 +1,6 @@
 import Link from "next/link"; // <-- DODAJ TEN IMPORT NA GÓRZE PLIKU
 import { Phone, Mail, MapPin } from "lucide-react";
+import { CookieSettingsLink } from "@/components/cookies/CookieSettingsLink";
 
 function TikTokIcon({ className }: { className?: string }) {
   return (
@@ -186,6 +187,9 @@ export function Footer() {
             >
               Polityka prywatności
             </Link>
+
+            {/* USTAWIENIA COOKIES - pozwala w każdej chwili zmienić zgodę */}
+            <CookieSettingsLink />
 
             {/* NOTA PRAWNA ZAMIAST SKLEPOWEGO REGULAMINU: */}
             <a
