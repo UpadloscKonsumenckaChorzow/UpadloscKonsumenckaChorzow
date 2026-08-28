@@ -59,7 +59,7 @@ const socials = [
   { icon: FacebookIcon, href: "#", label: "Facebook" },
 ];
 
-export function SiteFooter() {
+export function Footer() {
   return (
     <footer className="bg-navy-900 border-t border-white/10 text-white">
       <div className="mx-auto max-w-7xl px-5 py-8 sm:py-10 lg:px-8">

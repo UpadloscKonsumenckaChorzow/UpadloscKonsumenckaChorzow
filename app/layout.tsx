@@ -3,6 +3,8 @@ import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
@@ -18,7 +20,8 @@ const poppins = Poppins({
 });
 
 // Podmień na docelową domenę, gdy strona będzie publikowana
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://twojadomena.pl";
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://upadlosckonsumenckachorzow.pl";
 
 export const viewport: Viewport = {
   themeColor: "#0f172a",
@@ -179,7 +182,9 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased selection:bg-emerald-500 selection:text-white">
+        <Navbar />
         {children}
+        <Footer />
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
     </html>

@@ -35,7 +35,7 @@ function Logo() {
   );
 }
 
-export function SiteHeader() {
+export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (

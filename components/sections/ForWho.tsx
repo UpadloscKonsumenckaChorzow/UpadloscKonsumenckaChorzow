@@ -44,7 +44,7 @@ const situations = [
   },
 ];
 
-export function ForWhom() {
+export function ForWho() {
   return (
     <section id="dla-kogo" className="scroll-mt-24 bg-cream py-8 sm:py-10">
       <div className="mx-auto max-w-5xl px-5 lg:px-8">
