@@ -57,11 +57,6 @@ const pageLinks = [
   { label: "Kontakt", href: "#kontakt" },
 ];
 
-// POPRAWKA: hrefy socialów w oryginale były wpisane na sztywno jako "#"
-// (martwe linki — kliknięcie przewija do góry strony i nic więcej się nie
-// dzieje). Teraz czerpią z site.socials — jeśli pole jest puste, ikona
-// się nie renderuje, więc zamiast martwego linku po prostu nie ma go
-// wcale, dopóki nie uzupełnisz realnego adresu w content/site.ts.
 const socialIcons = {
   instagram: InstagramIcon,
   tiktok: TikTokIcon,
@@ -86,11 +81,6 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-3">
           {/* KOLUMNA 1: LOGO + NAPIS, OPIS, SOCIAL MEDIA, LOGO EXPERT PARTNER */}
           <div>
-            {/* POPRAWKA: było `<a href="#">` — kliknięcie logo w stopce
-                przewijało do góry TEJ SAMEJ strony zamiast prowadzić na
-                stronę główną (myląca niespójność względem Navbar, gdzie
-                logo poprawnie linkuje do "/"). next/link zamiast zwykłego
-                <a> włącza też prefetch nawigacji klienckiej. */}
             <Link href="/" className="flex items-center gap-3">
               <Image
                 src="/logo.svg"
@@ -145,6 +135,7 @@ export function Footer() {
                   width={120}
                   height={40}
                   className="h-10 w-auto object-contain"
+                  style={{ width: "auto", height: "auto" }}
                 />
               </a>
             </div>
@@ -193,10 +184,6 @@ export function Footer() {
                 <MapPin className="size-4 text-gold shrink-0 mt-0.5" />
                 <span>{site.address.full}</span>
               </div>
-              {/* POPRAWKA A11Y: tekst na 50% opacity białego na granatowym
-                  tle (biały/50 na #020617) daje kontrast ok. 2.7:1 —
-                  poniżej progu WCAG AA 4.5:1 dla małego tekstu. Podniesiono
-                  do /70, co realnie mieści próg AA. */}
               <p className="text-xs text-white/70 border-t border-white/10 pt-3">
                 Obsługa stacjonarna oraz zdalna na terenie całego Śląska i
                 Polski.
@@ -219,16 +206,8 @@ export function Footer() {
               Polityka prywatności
             </Link>
 
-            {/* USTAWIENIA COOKIES - pozwala w każdej chwili zmienić zgodę */}
+            {/* USTAWIENIA COOKIES */}
             <CookieSettingsLink />
-
-            {/* NOTA PRAWNA ZAMIAST SKLEPOWEGO REGULAMINU: */}
-            <a
-              href="#dlaczego-my"
-              className="transition-colors hover:text-white"
-            >
-              Nota prawna
-            </a>
 
             <span aria-hidden="true">·</span>
             <span>

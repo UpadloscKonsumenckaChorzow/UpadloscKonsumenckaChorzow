@@ -1,4 +1,3 @@
-// components/landing/WhyUs.tsx
 import Image from "next/image";
 import {
   GraduationCap,
@@ -124,6 +123,7 @@ export function WhyUs() {
                     width={140}
                     height={40}
                     className="h-10 w-auto object-contain"
+                    style={{ width: "auto", height: "auto" }}
                   />
                 </a>
               </div>
