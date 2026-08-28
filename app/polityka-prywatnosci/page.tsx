@@ -123,6 +123,17 @@ export default function PrivacyPolicyPage() {
                   Podstawa prawna: art. 6 ust. 1 lit. f RODO.
                 </p>
               </div>
+
+              <div className="rounded-2xl bg-cream p-4 border border-black/5">
+                <p className="font-semibold text-navy">
+                  d) Wyświetlenie mapy lokalizacji biura (Google Maps)
+                </p>
+                <p className="text-xs sm:text-sm mt-1 text-ink/70">
+                  Podstawa prawna: art. 6 ust. 1 lit. a RODO – mapa ładuje się
+                  wyłącznie po Twoim dobrowolnym kliknięciu przycisku „Załaduj
+                  mapę”, co traktujemy jako świadomą zgodę na jej wyświetlenie.
+                </p>
+              </div>
             </div>
           </section>
 
@@ -166,6 +177,16 @@ export default function PrivacyPolicyPage() {
               <li>
                 Dostawcy usług IT i hostingu (np. dostawca poczty,
                 infrastruktura chmurowa spełniająca normy bezpieczeństwa UE),
+              </li>
+              <li>
+                Google LLC – jako dostawca narzędzi{" "}
+                <strong>Google Analytics 4</strong> (uruchamianego wyłącznie po
+                wyrażeniu przez Ciebie zgody analitycznej w banerze cookies)
+                oraz <strong>Google Maps</strong> (ładowanego dopiero po Twoim
+                kliknięciu w sekcji kontaktowej). Przekazanie danych może wiązać
+                się z ich transferem poza Europejski Obszar Gospodarczy, co
+                odbywa się na podstawie standardowych klauzul umownych (SCC)
+                zatwierdzonych przez Komisję Europejską,
               </li>
               <li>
                 Organy publiczne i sądy (wyłącznie na mocy przepisów prawa).
@@ -215,13 +236,40 @@ export default function PrivacyPolicyPage() {
               7. Pliki Cookies i Narzędzia Analityczne
             </h2>
             <p className="mt-4">
-              Serwis korzysta z plików cookies (ciasteczek) w celu prawidłowego
-              działania strony oraz celów statystycznych (m.in. Google Analytics
-              4, uruchamiany wyłącznie po wyrażeniu przez Ciebie zgody w banerze
-              cookies) oraz do wyświetlenia mapy lokalizacji biura (Google
-              Maps). Możesz w każdej chwili zmienić ustawienia dotyczące cookies
-              bezpośrednio w stopce strony („Ustawienia cookies”) lub w swojej
-              przeglądarce internetowej.
+              Serwis korzysta z plików cookies (ciasteczek) niezbędnych do
+              prawidłowego działania strony (np. zapamiętanie Twojego wyboru
+              dot. cookies) oraz – wyłącznie za Twoją zgodą – z narzędzi
+              dostarczanych przez Google LLC:
+            </p>
+            <ul className="mt-3 space-y-1 list-disc pl-5">
+              <li>
+                <strong>Google Analytics 4</strong> – narzędzie statystyczne,
+                którego skrypt ładuje się dopiero po zaznaczeniu zgody na
+                cookies analityczne w banerze cookies,
+              </li>
+              <li>
+                <strong>Google Maps</strong> – mapa lokalizacji biura w sekcji
+                kontaktowej, która domyślnie NIE jest ładowana; pojawia się
+                dopiero po kliknięciu przycisku „Załaduj mapę”, ponieważ jej
+                wczytanie wiąże się z ustawieniem przez Google własnych plików
+                cookie i identyfikatorów.
+              </li>
+            </ul>
+            <p className="mt-3">
+              Możesz w każdej chwili zmienić lub wycofać zgodę dotyczącą cookies
+              analitycznych bezpośrednio w stopce strony („Ustawienia cookies”)
+              lub w ustawieniach swojej przeglądarki internetowej. Więcej
+              informacji o zakresie danych przetwarzanych przez Google
+              znajdziesz w{" "}
+              <a
+                href="https://policies.google.com/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-navy underline hover:text-gold"
+              >
+                polityce prywatności Google
+              </a>
+              .
             </p>
           </section>
         </div>

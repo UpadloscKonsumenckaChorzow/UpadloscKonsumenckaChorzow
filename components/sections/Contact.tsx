@@ -19,6 +19,10 @@ export function Contact() {
   const router = useRouter();
   const [agree, setAgree] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  // Google Maps NIE ładuje się automatycznie - ustawia własne pliki cookie
+  // i identyfikatory Google, więc zgodnie z RODO/ePrivacy wymaga świadomej
+  // akcji użytkownika (kliknięcia), zanim iframe w ogóle trafi do DOM.
+  const [mapLoaded, setMapLoaded] = useState(false);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -149,23 +153,45 @@ export function Contact() {
               </div>
             </div>
 
-            {/* Mapa Google wbudowana w ramkę */}
+            {/* Mapa Google wbudowana w ramkę - ładowana DOPIERO po kliknięciu.
+                Dzięki temu iframe (a wraz z nim cookies/identyfikatory Google)
+                nie trafia do przeglądarki bez świadomej akcji użytkownika. */}
             <div className="overflow-hidden rounded-3xl border border-white/10 shadow-xl">
               <p className="bg-white/5 px-6 py-3 text-xs font-semibold uppercase tracking-wider text-gold border-b border-white/10 flex items-center gap-2">
                 <MapPin className="size-4" />
                 Lokalizacja biura (Google Maps)
               </p>
-              <iframe
-                title="Lokalizacja biura Chorzów Google Maps"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d40810.19830588523!2d18.9181146!3d50.3005852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4716ce399995be0d%3A0x1c8b3297a7a58231!2sChorz%C3%B3w!5e0!3m2!1spl!2spl!4v1700000000000!5m2!1spl!2spl"
-                width="100%"
-                height="220"
-                style={{ border: 0 }}
-                allowFullScreen={false}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="w-full grayscale contrast-125 opacity-90 transition-all hover:grayscale-0 hover:opacity-100"
-              />
+
+              {mapLoaded ? (
+                <iframe
+                  title="Lokalizacja biura Chorzów Google Maps"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d40810.19830588523!2d18.9181146!3d50.3005852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4716ce399995be0d%3A0x1c8b3297a7a58231!2sChorz%C3%B3w!5e0!3m2!1spl!2spl!4v1700000000000!5m2!1spl!2spl"
+                  width="100%"
+                  height="220"
+                  style={{ border: 0 }}
+                  allowFullScreen={false}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="w-full grayscale contrast-125 opacity-90 transition-all hover:grayscale-0 hover:opacity-100"
+                />
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setMapLoaded(true)}
+                  className="flex min-h-55 w-full cursor-pointer flex-col items-center justify-center gap-3 bg-navy-900/40 px-6 py-10 text-center transition-colors hover:bg-navy-900/60"
+                >
+                  <span className="flex size-12 items-center justify-center rounded-xl bg-white/10 text-gold">
+                    <MapPin className="size-6" />
+                  </span>
+                  <span className="max-w-xs text-xs leading-relaxed text-white/70">
+                    Mapa jest dostarczana przez Google i po załadowaniu może
+                    ustawiać własne pliki cookie. Kliknij, aby ją wyświetlić.
+                  </span>
+                  <span className="rounded-lg bg-gold px-4 py-2 text-xs font-semibold text-navy-900 shadow-md transition-all hover:bg-gold-light">
+                    Załaduj mapę Google Maps
+                  </span>
+                </button>
+              )}
             </div>
           </div>
 
