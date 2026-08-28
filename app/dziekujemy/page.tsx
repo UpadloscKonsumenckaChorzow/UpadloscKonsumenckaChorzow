@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   title: "Dziękujemy za kontakt · Zgłoszenie przyjęte",
   description:
     "Dziękujemy za przesłanie formularza. Skontaktujemy się z Tobą najszybciej jak to możliwe.",
+  alternates: {
+    canonical: "/dziekujemy",
+  },
   robots: {
     index: false,
     follow: false,
@@ -106,7 +109,7 @@ export default function ThankYouPage() {
               </div>
 
               <a
-                href="tel:515515314"
+                href="tel:+48515515314"
                 className="inline-flex items-center gap-2 rounded-xl bg-gold px-5 py-3 text-sm font-semibold text-navy-900 shadow-md transition-all hover:bg-gold-light hover:scale-105 shrink-0"
               >
                 <Phone className="size-4" />

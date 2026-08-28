@@ -148,7 +148,7 @@ export function Footer() {
             </h3>
             <div className="mt-5 space-y-4 text-sm text-white/70">
               <a
-                href="tel:515515314"
+                href="tel:+48515515314"
                 className="flex items-center gap-2.5 font-semibold text-white transition-colors hover:text-gold"
               >
                 <Phone className="size-4 text-gold shrink-0" />

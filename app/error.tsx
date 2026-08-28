@@ -63,7 +63,7 @@ export default function Error({
             Pilna sprawa? Skontaktuj się z nami bezpośrednio telefonicznie:
           </p>
           <a
-            href="tel:515515314"
+            href="tel:+48515515314"
             className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-navy hover:text-gold transition-colors"
           >
             <Phone className="size-4 text-gold" />

@@ -56,7 +56,7 @@ export function Navbar() {
               <span>kontakt@kancelaria.pl</span>
             </a>
             <a
-              href="tel:515515314"
+              href="tel:+48515515314"
               className="flex items-center gap-2 text-white/90 transition-colors hover:text-gold"
             >
               <Phone className="size-4 text-gold" />
@@ -123,7 +123,7 @@ export function Navbar() {
               kontakt@kancelaria.pl
             </a>
             <a
-              href="tel:515515314"
+              href="tel:+48515515314"
               className="flex items-center gap-2 text-sm font-semibold text-navy"
             >
               <Phone className="size-4 text-gold" />

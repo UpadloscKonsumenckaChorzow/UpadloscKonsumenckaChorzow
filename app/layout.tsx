@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: `${siteUrl}/rodzinka.png`,
+        url: `${siteUrl}/rodzinka.jpg`,
         width: 1200,
         height: 630,
         alt: "Upadłość Konsumencka Chorzów - Życie bez długów",
@@ -93,7 +93,7 @@ export const metadata: Metadata = {
     title: "Upadłość Konsumencka Chorzów & Śląsk · Życie bez długów",
     description:
       "Zatrzymaj komornika i zacznij od nowa. Bezpłatna i poufna analiza sytuacji prawnej.",
-    images: [`${siteUrl}/rodzinka.png`],
+    images: [`${siteUrl}/rodzinka.jpg`],
   },
   robots: {
     index: true,

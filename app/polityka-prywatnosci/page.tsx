@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   title: "Polityka Prywatności i RODO",
   description:
     "Zasady przetwarzania danych osobowych oraz wykorzystania plików cookies w serwisie upadłości konsumenckiej.",
+  alternates: {
+    canonical: "/polityka-prywatnosci",
+  },
   robots: {
     index: true,
     follow: true,
@@ -213,9 +216,12 @@ export default function PrivacyPolicyPage() {
             </h2>
             <p className="mt-4">
               Serwis korzysta z plików cookies (ciasteczek) w celu prawidłowego
-              działania strony oraz celów statystycznych (m.in. Vercel
-              Analytics). Możesz w każdej chwili zmienić ustawienia dotyczące
-              cookies bezpośrednio w swojej przeglądarce internetowej.
+              działania strony oraz celów statystycznych (m.in. Google Analytics
+              4, uruchamiany wyłącznie po wyrażeniu przez Ciebie zgody w banerze
+              cookies) oraz do wyświetlenia mapy lokalizacji biura (Google
+              Maps). Możesz w każdej chwili zmienić ustawienia dotyczące cookies
+              bezpośrednio w stopce strony („Ustawienia cookies”) lub w swojej
+              przeglądarce internetowej.
             </p>
           </section>
         </div>

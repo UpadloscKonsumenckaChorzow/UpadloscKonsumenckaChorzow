@@ -65,7 +65,7 @@ export function Contact() {
 
               <div className="space-y-4">
                 <a
-                  href="tel:515515314"
+                  href="tel:+48515515314"
                   className="flex items-center gap-4 group"
                 >
                   <span className="flex size-11 items-center justify-center rounded-xl bg-white/10 text-gold transition-colors group-hover:bg-gold group-hover:text-navy">

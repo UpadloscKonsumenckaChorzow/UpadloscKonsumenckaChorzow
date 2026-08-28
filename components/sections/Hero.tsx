@@ -117,7 +117,7 @@ export function Hero() {
               <ArrowRight className="size-4" />
             </a>
             <a
-              href="tel:515515314"
+              href="tel:+48515515314"
               className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border border-white/25 px-7 py-4 text-sm font-semibold text-white transition-colors hover:bg-white/10"
             >
               <Phone className="size-4 text-gold" />
@@ -224,7 +224,7 @@ export function Hero() {
             </a>
 
             <a
-              href="tel:515515314"
+              href="tel:+48515515314"
               className="inline-flex items-center justify-center gap-3 rounded-xl border border-white/20 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-xl backdrop-blur transition-all hover:border-gold hover:bg-white/15 hover:scale-105"
             >
               <Phone className="size-5 text-gold" />

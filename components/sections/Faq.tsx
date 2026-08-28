@@ -39,11 +39,31 @@ const faqs = [
   },
 ];
 
+// Dane strukturalne Schema.org FAQPage - budowane z tej samej listy `faqs`,
+// żeby treść widoczna na stronie i treść dla wyszukiwarek nigdy się nie rozjechały.
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.a,
+    },
+  })),
+};
+
 export function Faq() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
     <section id="faq" className="scroll-mt-24 bg-cream py-8 sm:py-10">
+      {/* JSON-LD dla Google Rich Snippets / AI Overviews */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <div className="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-2 lg:gap-16 lg:px-8">
         {/* LEWA STRONA - NAGŁÓWEK SEKCJI */}
         <div className="lg:sticky lg:top-28 lg:self-start">
