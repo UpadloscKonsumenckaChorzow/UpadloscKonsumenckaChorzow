@@ -1,8 +1,7 @@
 // components/sections/Contact.tsx
 "use client";
 
-import type { FormEvent } from "react";
-import { useState } from "react";
+import { useState, useTransition, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import {
   PhoneCall,
@@ -13,33 +12,38 @@ import {
   Clock,
   Send,
   Loader2,
+  AlertCircle,
 } from "lucide-react";
 import { site } from "@/content/site";
+import { sendContactForm } from "@/app/actions/contact";
 
 export function Contact() {
   const router = useRouter();
   const [agree, setAgree] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  // Google Maps NIE ładuje się automatycznie - ustawia własne pliki cookie
-  // i identyfikatory Google, więc zgodnie z RODO/ePrivacy wymaga świadomej
-  // akcji użytkownika (kliknięcia), zanim iframe w ogóle trafi do DOM.
+  const [isPending, startTransition] = useTransition();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setIsSubmitting(true);
+    setErrorMessage(null);
 
-    // UWAGA (celowo NIETKNIĘTE w tym audycie — backend formularza poza
-    // zakresem obecnych zmian): to nadal symulacja wysyłki, nie realne
-    // przesłanie danych. `router.push` następuje niezależnie od tego, czy
-    // cokolwiek zostało zapisane/wysłane. Przy podpinaniu prawdziwego API
-    // trzeba będzie: (1) zastąpić setTimeout wywołaniem fetch/Server Action,
-    // (2) obsłużyć błąd (obecnie przycisk zostałby "wysyłanie..." bez
-    // żadnej informacji zwrotnej, gdyby fetch się nie powiódł),
-    // (3) rozważyć wyłączenie przekierowania do czasu potwierdzenia 200 OK.
-    setTimeout(() => {
-      router.push("/dziekujemy");
-    }, 400);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    startTransition(async () => {
+      const response = await sendContactForm({}, formData);
+
+      if (response.error) {
+        setErrorMessage(response.error);
+        return;
+      }
+
+      if (response.success) {
+        form.reset();
+        router.push("/dziekujemy");
+      }
+    });
   }
 
   return (
@@ -69,7 +73,6 @@ export function Contact() {
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           {/* LEWA KOLUMNA: DANE, GODZINY I MAPA GOOGLE */}
           <div className="space-y-6">
-            {/* Kartka z danymi kontaktowymi */}
             <div className="space-y-5 rounded-3xl bg-white/5 p-6 sm:p-8 backdrop-blur border border-white/10">
               <h3 className="font-display text-xl font-bold text-gold">
                 Dane kontaktowe
@@ -126,7 +129,7 @@ export function Contact() {
               </div>
             </div>
 
-            {/* Obsługa online + Godziny otwarcia biura */}
+            {/* Obsługa online + Godziny */}
             <div className="grid gap-5 sm:grid-cols-2">
               <div className="rounded-2xl bg-white/5 p-6 border border-white/10">
                 <p className="flex items-center gap-2 font-semibold text-gold text-sm">
@@ -147,11 +150,15 @@ export function Contact() {
                 <dl className="mt-3 space-y-1.5 text-xs text-white/85">
                   <div className="flex justify-between">
                     <dt>Poniedziałek – Piątek:</dt>
-                    <dd className="font-semibold text-gold">9:00 – 18:00</dd>
+                    <dd className="font-semibold text-gold">
+                      {site.hours.weekday}
+                    </dd>
                   </div>
                   <div className="flex justify-between">
                     <dt>Sobota:</dt>
-                    <dd className="font-semibold text-gold">9:00 – 14:00</dd>
+                    <dd className="font-semibold text-gold">
+                      {site.hours.saturday}
+                    </dd>
                   </div>
                   <div className="flex justify-between">
                     <dt>Niedziela:</dt>
@@ -161,9 +168,7 @@ export function Contact() {
               </div>
             </div>
 
-            {/* Mapa Google wbudowana w ramkę - ładowana DOPIERO po kliknięciu.
-                Dzięki temu iframe (a wraz z nim cookies/identyfikatory Google)
-                nie trafia do przeglądarki bez świadomej akcji użytkownika. */}
+            {/* Mapa Google */}
             <div className="overflow-hidden rounded-3xl border border-white/10 shadow-xl">
               <p className="bg-white/5 px-6 py-3 text-xs font-semibold uppercase tracking-wider text-gold border-b border-white/10 flex items-center gap-2">
                 <MapPin className="size-4" />
@@ -213,10 +218,28 @@ export function Contact() {
             </p>
 
             <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
+              {/* HONEYPOT (ukryte pole przeciwko botom) */}
+              <input
+                type="text"
+                name="website_url"
+                tabIndex={-1}
+                autoComplete="off"
+                className="hidden"
+                aria-hidden="true"
+              />
+
+              {/* Komunikat o błędzie */}
+              {errorMessage && (
+                <div className="flex items-center gap-2.5 rounded-xl border border-red-200 bg-red-50 p-3.5 text-xs font-medium text-red-700">
+                  <AlertCircle className="size-4 shrink-0" />
+                  <span>{errorMessage}</span>
+                </div>
+              )}
+
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="block">
                   <span className="mb-1.5 block text-xs font-semibold text-ink">
-                    Imię i nazwisko
+                    Imię i nazwisko <span className="text-red-500">*</span>
                   </span>
                   <input
                     type="text"
@@ -229,7 +252,7 @@ export function Contact() {
                 </label>
                 <label className="block">
                   <span className="mb-1.5 block text-xs font-semibold text-ink">
-                    Numer telefonu
+                    Numer telefonu <span className="text-red-500">*</span>
                   </span>
                   <input
                     type="tel"
@@ -244,7 +267,7 @@ export function Contact() {
 
               <label className="block">
                 <span className="mb-1.5 block text-xs font-semibold text-ink">
-                  Adres e-mail
+                  Adres e-mail <span className="text-red-500">*</span>
                 </span>
                 <input
                   type="email"
@@ -272,6 +295,7 @@ export function Contact() {
                 <input
                   type="checkbox"
                   required
+                  name="agree"
                   checked={agree}
                   onChange={(e) => setAgree(e.target.checked)}
                   className="mt-0.5 size-4 rounded border-black/20 accent-navy"
@@ -286,16 +310,16 @@ export function Contact() {
                   >
                     Polityką Prywatności
                   </a>
-                  .
+                  . <span className="text-red-500">*</span>
                 </span>
               </label>
 
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isPending}
                 className="flex w-full items-center justify-center gap-2 rounded-xl bg-navy px-6 py-4 text-sm font-semibold text-white transition-all hover:bg-navy-700 hover:scale-[1.01] shadow-md disabled:opacity-50 cursor-pointer"
               >
-                {isSubmitting ? (
+                {isPending ? (
                   <>
                     <Loader2 className="size-4 animate-spin text-gold" />
                     Wysyłanie formularza...
