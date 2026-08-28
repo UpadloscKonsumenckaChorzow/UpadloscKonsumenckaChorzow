@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Cookie, ShieldCheck, BarChart3, X, Settings2 } from "lucide-react";
 import { useCookieConsent } from "@/context/CookieConsentContext";
 
@@ -16,12 +16,17 @@ export function CookieBanner() {
     closeSettings,
   } = useCookieConsent();
 
-  // Lokalny "roboczy" stan przełącznika w oknie ustawień.
-  // Domyślnie wyłączony (brak zgody), dopóki user go nie zaznaczy - zgodnie
-  // z zasadą "opt-in", a nie "opt-out".
+  // Lokalny stan przełącznika w oknie ustawień
   const [analyticsDraft, setAnalyticsDraft] = useState(
     consent?.analytics ?? false,
   );
+
+  // KLUCZOWA POPRAWKA:
+  // Synchronizujemy stan suwaka zawsze, gdy zmienia się zapisana zgoda
+  // lub gdy użytkownik otwiera okno ustawień.
+  useEffect(() => {
+    setAnalyticsDraft(consent?.analytics ?? false);
+  }, [consent, isSettingsOpen]);
 
   if (!isBannerOpen && !isSettingsOpen) return null;
 
@@ -158,7 +163,7 @@ export function CookieBanner() {
                 </span>
               </div>
 
-              {/* ANALITYCZNE - opcjonalne, domyślnie wyłączone */}
+              {/* ANALITYCZNE - opcjonalne */}
               <div className="flex items-start justify-between gap-4 rounded-2xl border border-black/10 p-4">
                 <div className="flex items-start gap-3">
                   <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-navy/10 text-navy">

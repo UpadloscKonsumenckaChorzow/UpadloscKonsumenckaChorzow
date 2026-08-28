@@ -7,10 +7,10 @@ import { useCookieConsent } from "@/context/CookieConsentContext";
 // NIE może się załadować, dopóki użytkownik nie wyrazi na to zgody.
 // Renderowanie warunkowe (zamiast np. blokowania przez CSS) gwarantuje,
 // że tag <script> w ogóle nie trafia do DOM przed zgodą.
-export function AnalyticsLoader({ gaId }: { gaId: string }) {
+export function AnalyticsLoader({ gaId }: { gaId?: string }) {
   const { consent } = useCookieConsent();
 
-  if (!consent?.analytics) return null;
+  if (!gaId || !consent?.analytics) return null;
 
   return <GoogleAnalytics gaId={gaId} />;
 }
