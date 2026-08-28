@@ -1,4 +1,3 @@
-// app/layout.tsx
 import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
@@ -9,19 +8,12 @@ import { CookieBanner } from "@/components/cookies/CookieBanner";
 import { AnalyticsLoader } from "@/components/cookies/AnalyticsLoader";
 import { site } from "@/content/site";
 
-// Konfiguracja fontów z polskimi znakami (latin-ext)
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
   variable: "--font-inter",
   display: "swap",
 });
 
-// WYDAJNOŚĆ: było `weight: ["500", "600", "700"]`.
-// Przy dwóch subsetach (latin + latin-ext) to 6 plików WOFF2 dla samego
-// Poppinsa. Sprawdziłem cały projekt pod kątem klas `font-display` w parze
-// z `font-medium` (waga 500) — zero wystąpień. Poppins pojawia się
-// wyłącznie jako semibold (600) i bold (700). Usunięcie wagi 500 to
-// 2 mniejsze pliki fontów i realnie mniej danych do pobrania na starcie.
 const poppins = Poppins({
   subsets: ["latin", "latin-ext"],
   weight: ["600", "700"],
@@ -33,9 +25,6 @@ export const viewport: Viewport = {
   themeColor: "#0f172a",
   width: "device-width",
   initialScale: 1,
-  // Świadomie NIE ustawiamy maximumScale ani userScalable: blokowanie
-  // powiększania strony to naruszenie WCAG 1.4.4 (Resize Text) — osoby
-  // słabowidzące muszą mieć możliwość powiększenia widoku.
 };
 
 export const metadata: Metadata = {
@@ -45,13 +34,7 @@ export const metadata: Metadata = {
     template: "%s · Kancelaria Upadłościowa Chorzów",
   },
   description:
-    "Kompleksowa pomoc w upadłości konsumenckiej na Śląsku. Zatrzymanie komornika, zamrożenie odsetek i całkowite umorzenie długów. Bezpłatna, poufna analiza Twojej sytuacji.",
-
-  // USUNIĘTO pole `keywords`.
-  // Google jawnie ignoruje meta keywords od 2009 r., a Bing może traktować
-  // nienaturalnie długą listę fraz jako sygnał spamu. Dziewięć fraz w
-  // nagłówku każdej strony nie dawało żadnej korzyści SEO.
-
+    "Kompleksowa pomoc w upadłości konsumenckiej na Śląsku. Zatrzymanie komornika, zamrożenie odsetek i całkowite umorzenie długów. Bezpłatna, poufna analiza.",
   applicationName: site.name,
   authors: [{ name: site.legalName }],
   creator: site.legalName,
@@ -61,20 +44,9 @@ export const metadata: Metadata = {
     email: true,
     address: true,
   },
-
-  // POPRAWKA: było `canonical: siteUrl` (bezwzględny adres strony głównej).
-  // Metadane z layoutu dziedziczą się w dół do wszystkich podstron, które
-  // same nie deklarują `alternates` — w praktyce dotyczyło to strony 404
-  // (app/not-found.tsx nie ustawia własnego canonical). Efekt: strona
-  // błędu 404 deklarowała Google'owi, że JEST stroną główną — realny błąd
-  // w Search Console. Ścieżka względna "/" w połączeniu z `metadataBase`
-  // daje ten sam efekt na stronie głównej, a strony z własnym
-  // `alternates.canonical` (jak /polityka-prywatnosci, /dziekujemy)
-  // nadpisują to poprawnie.
   alternates: {
     canonical: "/",
   },
-
   manifest: "/site.webmanifest",
   icons: {
     icon: [
@@ -84,32 +56,23 @@ export const metadata: Metadata = {
     ],
     apple: "/apple-icon.png",
   },
-
   openGraph: {
     title: "Upadłość Konsumencka Chorzów & Śląsk · Życie bez długów",
     description:
-      "Zatrzymaj komornika i zacznij od nowa. Sprawdź, jak legalnie umorzyć długi w sądzie. Bezpłatna konsultacja prawna.",
+      "Zatrzymaj komornika i zacznij od nowa. Sprawdź, jak legalnie umorzyć długi. Bezpłatna konsultacja.",
     url: site.url,
     siteName: site.name,
     locale: "pl_PL",
     type: "website",
     images: [
       {
-        // UWAGA DO SPRAWDZENIA PRZED PUBLIKACJĄ: użyto /rodzinka.jpg,
-        // czyli tego samego zdjęcia co w Hero, gdzie renderowane jest w
-        // proporcji pionowej (4:5 / 5:4). Tu deklarujemy 1200x630 (16:9
-        // poziomo). Jeśli plik źródłowy faktycznie nie ma tych wymiarów,
-        // Facebook/LinkedIn/X przytną go w nieprzewidywalnym miejscu przy
-        // udostępnianiu linku. Zalecenie: przygotować dedykowany plik
-        // /og-image.jpg dokładnie 1200×630 px (kadr poziomy, nie pionowy).
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Upadłość konsumencka Chorzów — pomoc w wyjściu z długów",
+        alt: "Upadłość konsumencka Chorzów — pomoc prawna i oddłużanie",
       },
     ],
   },
-
   twitter: {
     card: "summary_large_image",
     title: "Upadłość Konsumencka Chorzów & Śląsk · Życie bez długów",
@@ -117,7 +80,6 @@ export const metadata: Metadata = {
       "Zatrzymaj komornika i zacznij od nowa. Bezpłatna i poufna analiza sytuacji prawnej.",
     images: ["/og-image.jpg"],
   },
-
   robots: {
     index: true,
     follow: true,
@@ -129,7 +91,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-
   other: {
     "geo.region": site.address.regionCode,
     "geo.placename": site.address.city,
@@ -137,18 +98,6 @@ export const metadata: Metadata = {
     ICBM: `${site.geo.lat}, ${site.geo.lng}`,
   },
 };
-
-// ---------------------------------------------------------------------------
-// DANE STRUKTURALNE (Schema.org / JSON-LD)
-//
-// POPRAWKA: `image` wskazywało na `/logo.png`, którego w projekcie w ogóle
-// nie ma — w Navbar i Footer używany jest wszędzie `/logo.svg`. Wskazanie
-// na nieistniejący plik to typowy błąd zgłaszany w Google Search Console
-// i realnie osłabia szansę na rich snippet z logo w wynikach wyszukiwania.
-//
-// DODANO: encję `WebSite` spiętą przez `@id` z `LegalService`, żeby
-// wyszukiwarka jednoznacznie wiązała obie encje z tym samym podmiotem.
-// ---------------------------------------------------------------------------
 
 const legalServiceSchema = {
   "@context": "https://schema.org",
@@ -166,11 +115,11 @@ const legalServiceSchema = {
       "@id": `${site.url}/#legalservice`,
       name: `${site.legalName} · Upadłość Konsumencka Chorzów`,
       url: site.url,
-      logo: `${site.url}/logo.svg`,
+      logo: `${site.url}/android-chrome-512x512.png`,
       image: `${site.url}/og-image.jpg`,
       telephone: site.phone.schema,
       email: site.email.display,
-      priceRange: "od 2900 zł (płatność w ratach)",
+      priceRange: "od 2900 PLN",
       currenciesAccepted: "PLN",
       paymentAccepted: "Gotówka, Przelew, Płatność w ratach",
       address: {
@@ -216,7 +165,6 @@ const legalServiceSchema = {
         "Wstrzymanie egzekucji komorniczej",
         "Krajowy Rejestr Zadłużonych (KRZ)",
         "Plan spłaty wierzycieli",
-        "Zawieszenie odsetek",
       ],
       memberOf: {
         "@type": "Organization",
@@ -237,44 +185,23 @@ export default function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          // Dane w 100% statyczne, budowane z zaufanych stałych z
-          // content/site.ts — brak wektora XSS. JSON.stringify dodatkowo
-          // escapuje treść.
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(legalServiceSchema),
           }}
         />
       </head>
-      <body className="min-h-screen bg-cream font-sans text-ink antialiased selection:bg-gold selection:text-navy-900">
-        {/* DODANO: link pomijający nawigację (WCAG 2.4.1 Bypass Blocks).
-            Bez tego osoba korzystająca z klawiatury musi za każdym razem
-            przeklikać cały header (2 paski + menu), zanim dotrze do
-            treści strony. Link jest niewidoczny wizualnie, ale pojawia
-            się po otrzymaniu fokusu (patrz klasa .skip-link w globals.css). */}
+      <body className="min-h-screen bg-cream font-sans text-ink antialiased selection:bg-gold selection:text-white">
         <a href="#tresc" className="skip-link">
-          Przejdź do treści
+          Przejdź do treści głównej
         </a>
 
-        {/* CookieConsentProvider obejmuje całą aplikację, dzięki czemu
-            baner, ustawienia w stopce i loader GA korzystają z tego
-            samego stanu zgody. */}
         <CookieConsentProvider>
           <Navbar />
-
-          {/* Kotwica dla skip linku. `tabIndex={-1}` sprawia, że fokus
-              faktycznie tu ląduje po aktywacji linku — bez tego
-              przeglądarki przewijają widok, ale fokus zostaje na
-              początku dokumentu, co myli osoby na czytnikach ekranu. */}
-          <div id="tresc" tabIndex={-1}>
+          <div id="tresc" tabIndex={-1} className="outline-none">
             {children}
           </div>
-
           <Footer />
-
-          {/* Baner + okno ustawień cookies */}
           <CookieBanner />
-
-          {/* GOOGLE ANALYTICS 4 — ładowany WYŁĄCZNIE po zgodzie użytkownika */}
           <AnalyticsLoader gaId="G-CLXWVE955N" />
         </CookieConsentProvider>
       </body>

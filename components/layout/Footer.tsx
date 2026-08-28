@@ -4,51 +4,7 @@ import { Phone, Mail, MapPin } from "lucide-react";
 import { CookieSettingsLink } from "@/components/cookies/CookieSettingsLink";
 import { site } from "@/content/site";
 
-function TikTokIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={className}
-      aria-hidden="true"
-    >
-      <path d="M16.5 3a5.5 5.5 0 0 0 4.5 2.35v3.1a8.6 8.6 0 0 1-4.5-1.28v6.53a6.2 6.2 0 1 1-6.2-6.2c.33 0 .66.03.98.08v3.2a3.1 3.1 0 1 0 2.12 2.94V3h3.1Z" />
-    </svg>
-  );
-}
-
-function InstagramIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      className={className}
-      aria-hidden="true"
-    >
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
-
-function FacebookIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={className}
-      aria-hidden="true"
-    >
-      <path d="M14 8.5V6.8c0-.7.2-1.1 1.2-1.1H16.5V3.1C16.1 3 15.2 3 14.3 3c-2 0-3.4 1.2-3.4 3.5v2H8.5V11h2.4v8h2.9v-8h2.2l.4-2.5H14Z" />
-    </svg>
-  );
-}
-
 const pageLinks = [
-  { label: "Upadłość Konsumencka", href: "#upadlosc-konsumencka" },
   { label: "Dla kogo", href: "#dla-kogo" },
   { label: "Jak to działa", href: "#jak-to-dziala" },
   { label: "Cennik", href: "#cennik" },
@@ -57,29 +13,11 @@ const pageLinks = [
   { label: "Kontakt", href: "#kontakt" },
 ];
 
-const socialIcons = {
-  instagram: InstagramIcon,
-  tiktok: TikTokIcon,
-  facebook: FacebookIcon,
-} as const;
-
-const socials = (
-  Object.entries(site.socials) as [keyof typeof socialIcons, string][]
-)
-  .filter(([, href]) => href)
-  .map(([key, href]) => ({
-    key,
-    href,
-    label: key[0].toUpperCase() + key.slice(1),
-    icon: socialIcons[key],
-  }));
-
 export function Footer() {
   return (
     <footer className="bg-navy-900 border-t border-white/10 text-white">
-      <div className="mx-auto max-w-7xl px-5 py-8 sm:py-10 lg:px-8">
+      <div className="mx-auto max-w-7xl px-5 py-10 sm:py-12 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-3">
-          {/* KOLUMNA 1: LOGO + NAPIS, OPIS, SOCIAL MEDIA, LOGO EXPERT PARTNER */}
           <div>
             <Link href="/" className="flex items-center gap-3">
               <Image
@@ -104,24 +42,6 @@ export function Footer() {
               Spokojnie, dyskretnie, od A do Z na terenie Śląska i całej Polski.
             </p>
 
-            {socials.length > 0 && (
-              <div className="mt-6 flex gap-3">
-                {socials.map((s) => (
-                  <a
-                    key={s.key}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={s.label}
-                    className="flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-gold hover:text-navy-900"
-                  >
-                    <s.icon className="size-4" />
-                  </a>
-                ))}
-              </div>
-            )}
-
-            {/* LINK DO PARTNERA */}
             <div className="mt-6">
               <a
                 href={site.partner.url}
@@ -132,7 +52,7 @@ export function Footer() {
                 <Image
                   src="/expert-partner.webp"
                   alt="Grupa Expert Partner - wiedza i doświadczenie"
-                  width={120}
+                  width={140}
                   height={40}
                   className="h-10 w-auto object-contain"
                   style={{ width: "auto", height: "auto" }}
@@ -141,7 +61,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* KOLUMNA 2: MENU NAWIGACJI */}
           <div>
             <h3 className="font-display text-base font-semibold text-gold">
               Nawigacja
@@ -160,7 +79,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* KOLUMNA 3: DANE KONTAKTOWE */}
           <div>
             <h3 className="font-display text-base font-semibold text-gold">
               Kontakt
@@ -192,7 +110,6 @@ export function Footer() {
           </div>
         </div>
 
-        {/* DOLNY PASEK COPYRIGHT */}
         <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © 2026 Upadłość Konsumencka Chorzów / Śląsk. Wszelkie prawa
@@ -206,12 +123,11 @@ export function Footer() {
               Polityka prywatności
             </Link>
 
-            {/* USTAWIENIA COOKIES */}
             <CookieSettingsLink />
 
             <span aria-hidden="true">·</span>
             <span>
-              Stworzone przez{" "}
+              Realizacja:{" "}
               <a
                 href={site.developer.url}
                 target="_blank"

@@ -1,4 +1,3 @@
-// components/sections/Contact.tsx
 "use client";
 
 import { useState, useTransition, type FormEvent } from "react";
@@ -49,10 +48,9 @@ export function Contact() {
   return (
     <section
       id="kontakt"
-      className="scroll-mt-24 bg-navy py-8 text-white sm:py-10"
+      className="scroll-mt-24 bg-navy py-12 text-white sm:py-16"
     >
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        {/* NAGŁÓWEK SEKCJI */}
         <div className="mx-auto max-w-3xl text-center mb-12">
           <p className="flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-gold">
             <PhoneCall className="size-4" />
@@ -71,7 +69,7 @@ export function Contact() {
         </div>
 
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* LEWA KOLUMNA: DANE, GODZINY I MAPA GOOGLE */}
+          {/* Kolumna lewa: Dane i mapa */}
           <div className="space-y-6">
             <div className="space-y-5 rounded-3xl bg-white/5 p-6 sm:p-8 backdrop-blur border border-white/10">
               <h3 className="font-display text-xl font-bold text-gold">
@@ -83,7 +81,7 @@ export function Contact() {
                   href={site.phone.href}
                   className="flex items-center gap-4 group"
                 >
-                  <span className="flex size-11 items-center justify-center rounded-xl bg-white/10 text-gold transition-colors group-hover:bg-gold group-hover:text-navy">
+                  <span className="flex size-11 items-center justify-center rounded-xl bg-white/10 text-gold transition-colors group-hover:bg-gold group-hover:text-white">
                     <Phone className="size-5" />
                   </span>
                   <span>
@@ -100,7 +98,7 @@ export function Contact() {
                   href={site.email.href}
                   className="flex items-center gap-4 group"
                 >
-                  <span className="flex size-11 items-center justify-center rounded-xl bg-white/10 text-gold transition-colors group-hover:bg-gold group-hover:text-navy">
+                  <span className="flex size-11 items-center justify-center rounded-xl bg-white/10 text-gold transition-colors group-hover:bg-gold group-hover:text-white">
                     <Mail className="size-5" />
                   </span>
                   <span>
@@ -129,23 +127,22 @@ export function Contact() {
               </div>
             </div>
 
-            {/* Obsługa online + Godziny */}
             <div className="grid gap-5 sm:grid-cols-2">
               <div className="rounded-2xl bg-white/5 p-6 border border-white/10">
                 <p className="flex items-center gap-2 font-semibold text-gold text-sm">
                   <Globe className="size-4" />
-                  Obsługa online
+                  Obsługa zdalna
                 </p>
                 <p className="mt-2 text-xs leading-relaxed text-white/75">
-                  Sprawę poprowadzimy w pełni zdalnie dla mieszkańców całego
-                  Śląska i Polski.
+                  Sprawę prowadzimy stacjonarnie lub w 100% online dla
+                  mieszkańców całego Śląska.
                 </p>
               </div>
 
               <div className="rounded-2xl bg-white/5 p-6 border border-white/10">
                 <p className="flex items-center gap-2 font-semibold text-gold text-sm">
                   <Clock className="size-4" />
-                  Godziny otwarcia biura
+                  Godziny otwarcia
                 </p>
                 <dl className="mt-3 space-y-1.5 text-xs text-white/85">
                   <div className="flex justify-between">
@@ -160,15 +157,11 @@ export function Contact() {
                       {site.hours.saturday}
                     </dd>
                   </div>
-                  <div className="flex justify-between">
-                    <dt>Niedziela:</dt>
-                    <dd className="text-white/50">Zamknięte</dd>
-                  </div>
                 </dl>
               </div>
             </div>
 
-            {/* Mapa Google */}
+            {/* Google Maps embed */}
             <div className="overflow-hidden rounded-3xl border border-white/10 shadow-xl">
               <p className="bg-white/5 px-6 py-3 text-xs font-semibold uppercase tracking-wider text-gold border-b border-white/10 flex items-center gap-2">
                 <MapPin className="size-4" />
@@ -177,7 +170,7 @@ export function Contact() {
 
               {mapLoaded ? (
                 <iframe
-                  title="Lokalizacja biura Chorzów Google Maps"
+                  title="Lokalizacja Kancelarii Chorzów Google Maps"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d40810.19830588523!2d18.9181146!3d50.3005852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4716ce399995be0d%3A0x1c8b3297a7a58231!2sChorz%C3%B3w!5e0!3m2!1spl!2spl!4v1700000000000!5m2!1spl!2spl"
                   width="100%"
                   height="220"
@@ -191,16 +184,15 @@ export function Contact() {
                 <button
                   type="button"
                   onClick={() => setMapLoaded(true)}
-                  className="flex min-h-55 w-full cursor-pointer flex-col items-center justify-center gap-3 bg-navy-900/40 px-6 py-10 text-center transition-colors hover:bg-navy-900/60"
+                  className="flex min-h-48 w-full cursor-pointer flex-col items-center justify-center gap-3 bg-navy-900/40 px-6 py-8 text-center transition-colors hover:bg-navy-900/60"
                 >
                   <span className="flex size-12 items-center justify-center rounded-xl bg-white/10 text-gold">
                     <MapPin className="size-6" />
                   </span>
                   <span className="max-w-xs text-xs leading-relaxed text-white/70">
-                    Mapa jest dostarczana przez Google i po załadowaniu może
-                    ustawiać własne pliki cookie. Kliknij, aby ją wyświetlić.
+                    Kliknij, aby załadować interaktywną mapę Google.
                   </span>
-                  <span className="rounded-lg bg-gold px-4 py-2 text-xs font-semibold text-navy-900 shadow-md transition-all hover:bg-gold-light">
+                  <span className="rounded-lg bg-gold px-4 py-2 text-xs font-semibold text-white shadow-md transition-all hover:bg-gold-light">
                     Załaduj mapę Google Maps
                   </span>
                 </button>
@@ -208,17 +200,17 @@ export function Contact() {
             </div>
           </div>
 
-          {/* PRAWA KOLUMNA: FORMULARZ KONTAKTOWY */}
+          {/* Kolumna prawa: Formularz kontaktowy */}
           <div className="rounded-3xl bg-white p-8 text-ink shadow-2xl lg:p-10">
             <h3 className="font-display text-2xl font-bold text-ink">
-              Umów konsultację
+              Umów bezpłatną konsultację
             </h3>
             <p className="mt-2 text-sm text-ink/60">
               Przedstaw swoją sytuację. Odpowiadamy tego samego dnia roboczego.
             </p>
 
-            <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
-              {/* HONEYPOT (ukryte pole przeciwko botom) */}
+            <form className="mt-6 space-y-4" onSubmit={handleSubmit} noValidate>
+              {/* Honeypot */}
               <input
                 type="text"
                 name="website_url"
@@ -228,70 +220,90 @@ export function Contact() {
                 aria-hidden="true"
               />
 
-              {/* Komunikat o błędzie */}
+              {/* Komunikat o błędzie z rolą alert pod czytniki ekranu */}
               {errorMessage && (
-                <div className="flex items-center gap-2.5 rounded-xl border border-red-200 bg-red-50 p-3.5 text-xs font-medium text-red-700">
+                <div
+                  role="alert"
+                  aria-live="assertive"
+                  className="flex items-center gap-2.5 rounded-xl border border-red-200 bg-red-50 p-3.5 text-xs font-medium text-red-700"
+                >
                   <AlertCircle className="size-4 shrink-0" />
                   <span>{errorMessage}</span>
                 </div>
               )}
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <label className="block">
-                  <span className="mb-1.5 block text-xs font-semibold text-ink">
+                <div>
+                  <label
+                    htmlFor="contact-name"
+                    className="mb-1.5 block text-xs font-semibold text-ink"
+                  >
                     Imię i nazwisko <span className="text-red-500">*</span>
-                  </span>
+                  </label>
                   <input
+                    id="contact-name"
                     type="text"
                     required
                     name="name"
                     autoComplete="name"
                     placeholder="Jan Kowalski"
-                    className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-navy"
+                    className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-navy focus:ring-2 focus:ring-navy/10"
                   />
-                </label>
-                <label className="block">
-                  <span className="mb-1.5 block text-xs font-semibold text-ink">
+                </div>
+                <div>
+                  <label
+                    htmlFor="contact-phone"
+                    className="mb-1.5 block text-xs font-semibold text-ink"
+                  >
                     Numer telefonu <span className="text-red-500">*</span>
-                  </span>
+                  </label>
                   <input
+                    id="contact-phone"
                     type="tel"
                     required
                     name="phone"
                     autoComplete="tel"
                     placeholder="515 515 314"
-                    className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-navy"
+                    className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-navy focus:ring-2 focus:ring-navy/10"
                   />
-                </label>
+                </div>
               </div>
 
-              <label className="block">
-                <span className="mb-1.5 block text-xs font-semibold text-ink">
+              <div>
+                <label
+                  htmlFor="contact-email"
+                  className="mb-1.5 block text-xs font-semibold text-ink"
+                >
                   Adres e-mail <span className="text-red-500">*</span>
-                </span>
+                </label>
                 <input
+                  id="contact-email"
                   type="email"
                   required
                   name="email"
                   autoComplete="email"
                   placeholder="jan@przyklad.pl"
-                  className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-navy"
+                  className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-navy focus:ring-2 focus:ring-navy/10"
                 />
-              </label>
+              </div>
 
-              <label className="block">
-                <span className="mb-1.5 block text-xs font-semibold text-ink">
+              <div>
+                <label
+                  htmlFor="contact-message"
+                  className="mb-1.5 block text-xs font-semibold text-ink"
+                >
                   Przedstaw swoją sytuację
-                </span>
+                </label>
                 <textarea
+                  id="contact-message"
                   rows={4}
                   name="message"
-                  placeholder="Np. wysokość i rodzaj zobowiązań, e-mail, czy jest komornik..."
-                  className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-navy"
+                  placeholder="Np. orientacyjna kwota długu, liczba wierzycieli, czy jest komornik..."
+                  className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-navy focus:ring-2 focus:ring-navy/10"
                 />
-              </label>
+              </div>
 
-              <label className="flex items-start gap-3 text-xs leading-relaxed text-ink/60 cursor-pointer">
+              <label className="flex items-start gap-3 text-xs leading-relaxed text-ink/70 cursor-pointer">
                 <input
                   type="checkbox"
                   required
@@ -301,8 +313,8 @@ export function Contact() {
                   className="mt-0.5 size-4 rounded border-black/20 accent-navy"
                 />
                 <span>
-                  Wyrażam zgodę na przetwarzanie moich danych osobowych w celu
-                  kontaktu ws. upadłości konsumenckiej zgodnie z{" "}
+                  Wyrażam zgodę na kontakt w sprawie upadłości konsumenckiej
+                  zgodnie z{" "}
                   <a
                     href="/polityka-prywatnosci"
                     target="_blank"
@@ -327,13 +339,13 @@ export function Contact() {
                 ) : (
                   <>
                     <Send className="size-4 text-gold" />
-                    Wyślij i umów bezpłatną konsultację
+                    Wyślij i umów bezpłatną analizę
                   </>
                 )}
               </button>
 
               <p className="text-center text-[11px] leading-relaxed text-ink/50">
-                Rozmowa jest całkowicie bezpłatna i niezobowiązująca.
+                Rozmowa jest całkowicie bezpłatna i poufna.
               </p>
             </form>
           </div>

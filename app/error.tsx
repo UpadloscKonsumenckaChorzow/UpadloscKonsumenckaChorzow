@@ -1,4 +1,3 @@
-// app/error.tsx
 "use client";
 
 import { useEffect } from "react";
@@ -14,15 +13,13 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Możesz tutaj zalogować błąd do zewnętrznej usługi analitycznej
     console.error("Błąd aplikacji:", error);
   }, [error]);
 
   return (
     <main className="flex min-h-[80vh] items-center justify-center bg-cream px-5 py-16">
       <div className="mx-auto max-w-xl text-center">
-        {/* Ikona błędu */}
-        <div className="mx-auto mb-6 flex size-20 items-center justify-center rounded-3xl bg-navy/5 text-destructive border border-destructive/20 shadow-sm">
+        <div className="mx-auto mb-6 flex size-20 items-center justify-center rounded-3xl bg-navy/5 text-red-600 border border-red-200 shadow-sm">
           <AlertTriangle className="size-10" />
         </div>
 
@@ -36,12 +33,12 @@ export default function Error({
 
         <p className="mt-4 text-base leading-relaxed text-ink/70">
           Przepraszamy za utrudnienia. Wystąpił błąd podczas ładowania strony.
-          Możesz spróbować załadować ją ponownie lub przejść na stronę główną.
+          Spróbuj załadować ją ponownie lub wróć na stronę główną.
         </p>
 
-        {/* Przyciski akcji */}
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <button
+            type="button"
             onClick={() => reset()}
             className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-navy px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-navy-700 hover:scale-105 shadow-md cursor-pointer"
           >
@@ -58,7 +55,6 @@ export default function Error({
           </Link>
         </div>
 
-        {/* Alternatywny kontakt */}
         <div className="mt-10 border-t border-black/10 pt-6">
           <p className="text-xs text-ink/60">
             Pilna sprawa? Skontaktuj się z nami bezpośrednio telefonicznie:

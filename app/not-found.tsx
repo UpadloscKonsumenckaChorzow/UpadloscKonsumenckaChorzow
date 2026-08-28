@@ -1,6 +1,5 @@
-// app/not-found.tsx
 import Link from "next/link";
-import { ArrowLeft, Home, Phone, HelpCircle } from "lucide-react";
+import { Home, Phone, HelpCircle } from "lucide-react";
 import type { Metadata } from "next";
 import { site } from "@/content/site";
 
@@ -17,7 +16,6 @@ export default function NotFound() {
   return (
     <main className="flex min-h-[80vh] items-center justify-center bg-cream px-5 py-16">
       <div className="mx-auto max-w-xl text-center">
-        {/* Oznaczenie 404 */}
         <div className="mx-auto mb-6 inline-flex items-center justify-center rounded-2xl bg-navy px-6 py-2 shadow-md">
           <span className="font-display text-2xl font-bold tracking-widest text-gold">
             BŁĄD 404
@@ -33,11 +31,10 @@ export default function NotFound() {
           jego nazwa uległa zmianie.
         </p>
 
-        {/* Przyciski powrotu */}
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link
             href="/"
-            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-gold px-7 py-3.5 text-sm font-semibold text-navy-900 shadow-md transition-all hover:bg-gold-light hover:scale-105"
+            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-gold px-7 py-3.5 text-sm font-semibold text-white shadow-md transition-all hover:bg-gold-light hover:scale-105"
           >
             <Home className="size-4" />
             Wróć na stronę główną
@@ -52,10 +49,9 @@ export default function NotFound() {
           </a>
         </div>
 
-        {/* Bezpośredni telefon */}
         <div className="mt-10 border-t border-black/10 pt-6">
           <p className="text-xs text-ink/60">
-            Potrzebujesz natychmiastowej bezpłatnej konsultacji prawnej?
+            Potrzebujesz bezpłatnej konsultacji prawnej?
           </p>
           <a
             href={site.phone.href}

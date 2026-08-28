@@ -1,4 +1,3 @@
-// components/landing/for-whom.tsx
 import {
   Users,
   ArrowRight,
@@ -13,7 +12,6 @@ import {
 } from "lucide-react";
 import { site } from "@/content/site";
 
-// Lista 7 sytuacji podana w wytycznych
 const situations = [
   {
     text: "Spłacasz jedną pożyczkę kolejną",
@@ -36,20 +34,19 @@ const situations = [
     icon: CreditCard,
   },
   {
-    text: "Boisz się o swoje mieszkanie, wynagrodzenie, przyszłość swoją i swoich bliskich",
+    text: "Boisz się o swoje mieszkanie, wynagrodzenie i przyszłość bliskich",
     icon: Home,
   },
   {
-    text: "Nie wiesz, od czego zacząć",
+    text: "Nie wiesz, od czego zacząć formalności",
     icon: HelpCircle,
   },
 ];
 
 export function ForWho() {
   return (
-    <section id="dla-kogo" className="scroll-mt-24 bg-cream py-8 sm:py-10">
+    <section id="dla-kogo" className="scroll-mt-24 bg-cream py-12 sm:py-16">
       <div className="mx-auto max-w-5xl px-5 lg:px-8">
-        {/* NAGŁÓWEK SEKCJI */}
         <div className="text-center">
           <p className="flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-navy">
             <Users className="size-4 text-gold" />
@@ -60,7 +57,6 @@ export function ForWho() {
           </h2>
         </div>
 
-        {/* SIATKA SYTUACJI (KAFELKI) */}
         <div className="mt-10 grid gap-4 sm:grid-cols-2">
           {situations.map((item, index) => {
             const Icon = item.icon;
@@ -85,20 +81,18 @@ export function ForWho() {
           })}
         </div>
 
-        {/* BANER Z ODNOŚNIKIEM DO FORMULARZA KONTAKTOWEGO */}
-        <div className="mt-10 rounded-3xl bg-navy p-8 text-center text-white shadow-xl sm:p-12">
+        <div className="mt-12 rounded-3xl bg-navy p-8 text-center text-white shadow-xl sm:p-12">
           <h3 className="font-display text-2xl font-bold leading-snug tracking-tight text-white sm:text-3xl lg:text-4xl">
             Porozmawiajmy o Twojej sytuacji – umów się na bezpłatną konsultację
           </h3>
           <p className="mt-3 text-sm text-white/75 sm:text-base">
-            Przeanalizujemy Twoją sprawę poufnie, bez opłat i bez żadnych
-            zobowiązań.
+            Przeanalizujemy Twoją sprawę poufnie, bez opłat i bez zobowiązań.
           </p>
 
           <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <a
               href="#kontakt"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gold px-8 py-4 text-base font-semibold text-navy-900 shadow-lg transition-all hover:bg-gold-light hover:scale-105"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gold px-8 py-4 text-base font-semibold text-white shadow-lg transition-all hover:bg-gold-light hover:scale-105"
             >
               Umów bezpłatną konsultację
               <ArrowRight className="size-5" />

@@ -3,44 +3,37 @@
 import { useState } from "react";
 import { HelpCircle, Plus, Minus } from "lucide-react";
 
-// Miejsce na pytania i odpowiedzi (tutaj wkleisz docelowe pytania od klienta)
 const faqs = [
   {
     q: "Czy stracę cały majątek?",
-    a: "Nie. Celem postępowania nie jest pozbawienie Cię wszystkiego. Przedmioty codziennego użytku oraz środki niezbędne do utrzymania zwykle pozostają. Zakres ustalamy indywidualnie na podstawie Twojej sytuacji.",
+    a: "Nie. Celem postępowania nie jest pozbawienie Cię wszystkiego. Przedmioty codziennego użytku oraz środki niezbędne do podstawowego utrzymania rodziny pozostają do Twojej dyspozycji.",
   },
   {
-    q: "Czy muszę stawiać się w sądzie?",
-    a: "W większości spraw nie ma takiej konieczności. Postępowanie prowadzone jest w dużej mierze pisemnie i elektronicznie, a formalności biorę na siebie.",
+    q: "Czy muszę stawiać się osobiście w sądzie?",
+    a: "W przeważającej większości spraw nie ma takiej konieczności. Postępowanie prowadzone jest pisemnie i elektronicznie za pośrednictwem systemu KRZ.",
   },
   {
-    q: "Ile trwa całe postępowanie?",
-    a: "Ogłoszenie upadłości następuje zwykle w ciągu kilku miesięcy. Plan spłaty ustalany jest najczęściej na okres od 12 do 36 miesięcy.",
+    q: "Ile trwa całe postępowanie upadłościowe?",
+    a: "Ogłoszenie upadłości następuje zazwyczaj w ciągu 2–4 miesięcy od złożenia kompletnego wniosku.",
   },
   {
-    q: "Nie mam żadnego majątku, czy to przeszkoda?",
-    a: "Nie. Brak majątku nie wyklucza upadłości konsumenckiej, a często wręcz przyspiesza umorzenie zobowiązań.",
+    q: "Nie mam żadnego majątku, czy mogę ogłosić upadłość?",
+    a: "Tak. Brak majątku nie stanowi żadnej przeszkody, a w wielu przypadkach wręcz przyspiesza całkowite umorzenie zobowiązań bez planu spłat.",
   },
   {
     q: "Czy upadłość obejmie wszystkie moje zobowiązania?",
-    a: "Umorzeniu podlega większość zobowiązań, m.in. kredyty, pożyczki i zaległości. Wyjątkiem są m.in. alimenty, grzywny czy obowiązki naprawienia szkody.",
+    a: "Umorzeniu podlega większość długów: pożyczki, kredyty, chwilówki, zaległości czynszowe czy rachunki. Wyjątkiem są m.in. alimenty oraz kary orzeczone przez sąd.",
   },
   {
-    q: "Co z wierzycielami i komornikiem?",
-    a: "Z dniem ogłoszenia upadłości postępowania egzekucyjne zostają wstrzymane, a kontakt z wierzycielami przejmuje syndyk.",
+    q: "Co dzieje się z komornikiem po ogłoszeniu upadłości?",
+    a: "Z dniem ogłoszenia upadłości wszystkie egzekucje komornicze zostają zawieszone z mocy prawa, a po uprawomocnieniu całkowicie umorzone.",
   },
   {
     q: "Ile kosztuje pomoc i czy można płacić w ratach?",
-    a: "Pierwsza rozmowa i analiza dokumentów są bezpłatne. Koszt prowadzenia sprawy ustalam indywidualnie, z możliwością rozłożenia płatności na raty.",
-  },
-  {
-    q: "Czy moje dane są bezpieczne?",
-    a: "Tak. Sprawę prowadzę w pełnej poufności, a Twoje dane przetwarzam wyłącznie w celu udzielenia pomocy.",
+    a: "Wstępna analiza jest w 100% bezpłatna. Wynagrodzenie ustalamy indywidualnie z możliwością rozłożenia na dogodne raty.",
   },
 ];
 
-// Dane strukturalne Schema.org FAQPage - budowane z tej samej listy `faqs`,
-// żeby treść widoczna na stronie i treść dla wyszukiwarek nigdy się nie rozjechały.
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -58,14 +51,12 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="scroll-mt-24 bg-cream py-8 sm:py-10">
-      {/* JSON-LD dla Google Rich Snippets / AI Overviews */}
+    <section id="faq" className="scroll-mt-24 bg-cream py-12 sm:py-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <div className="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-2 lg:gap-16 lg:px-8">
-        {/* LEWA STRONA - NAGŁÓWEK SEKCJI */}
         <div className="lg:sticky lg:top-28 lg:self-start">
           <p className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-navy">
             <HelpCircle className="size-4 text-gold" />
@@ -75,22 +66,20 @@ export function Faq() {
             Odpowiedzi na najczęstsze pytania
           </h2>
           <p className="mt-4 max-w-md text-base leading-relaxed text-ink/70">
-            Najczęstsze wątpliwości, które pojawiają się u osób rozważających
-            upadłość konsumencką.
+            Najczęstsze wątpliwości osób rozważających upadłość konsumencką.
           </p>
           <p className="mt-6 text-sm text-ink/70">
-            Nie znalazłeś odpowiedzi na swoje pytanie?{" "}
+            Masz inne pytanie?{" "}
             <a
               href="#kontakt"
               className="font-semibold text-navy underline underline-offset-4 transition-colors hover:text-gold"
             >
               Napisz do nas
             </a>
-            , z chęcią wszystko wyjaśnimy.
+            , chętnie wszystko wyjaśnimy.
           </p>
         </div>
 
-        {/* PRAWA STRONA - AKORDEON Z PLUSIKAMI */}
         <div className="divide-y divide-black/10 border-y border-black/10">
           {faqs.map((faq, i) => {
             const isOpen = open === i;
@@ -98,16 +87,16 @@ export function Faq() {
               <div key={faq.q} className="py-3">
                 <button
                   type="button"
+                  id={`faq-btn-${i}`}
                   onClick={() => setOpen(isOpen ? null : i)}
-                  className="group flex w-full items-center justify-between gap-4 py-3 text-left"
+                  className="group flex w-full items-center justify-between gap-4 py-3 text-left cursor-pointer"
                   aria-expanded={isOpen}
+                  aria-controls={`faq-panel-${i}`}
                 >
-                  {/* Treść pytania */}
                   <span className="font-display text-base font-semibold text-ink transition-colors group-hover:text-navy sm:text-lg">
                     {faq.q}
                   </span>
 
-                  {/* Ikona plusa/minusa z boku */}
                   <span
                     className={`flex size-9 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
                       isOpen
@@ -123,11 +112,15 @@ export function Faq() {
                   </span>
                 </button>
 
-                {/* Rozwijana odpowiedź */}
                 {isOpen && (
-                  <p className="pb-3 pt-2 text-sm leading-relaxed text-ink/75 sm:text-base">
+                  <div
+                    id={`faq-panel-${i}`}
+                    role="region"
+                    aria-labelledby={`faq-btn-${i}`}
+                    className="pb-4 pt-2 text-sm leading-relaxed text-ink/75 sm:text-base"
+                  >
                     {faq.a}
-                  </p>
+                  </div>
                 )}
               </div>
             );

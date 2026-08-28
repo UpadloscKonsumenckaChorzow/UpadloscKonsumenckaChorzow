@@ -9,13 +9,9 @@ import {
   type ReactNode,
 } from "react";
 
-// ===========================================================================
-// TYPY
-// ===========================================================================
-
 export type ConsentCategories = {
-  necessary: true; // zawsze true - cookies niezbędne nie wymagają zgody
-  analytics: boolean; // Google Analytics
+  necessary: true;
+  analytics: boolean;
 };
 
 type StoredConsent = ConsentCategories & {
@@ -23,8 +19,6 @@ type StoredConsent = ConsentCategories & {
   timestamp: string;
 };
 
-// Podbij tę wartość, jeśli kiedyś zmienisz kategorie cookies
-// (np. dodasz marketing) - spowoduje to ponowne zapytanie wszystkich userów.
 const CONSENT_VERSION = 1;
 const CONSENT_STORAGE_KEY = "cookie_consent";
 
@@ -44,18 +38,12 @@ const CookieConsentContext = createContext<CookieConsentContextValue | null>(
   null,
 );
 
-// ===========================================================================
-// POMOCNICZE FUNKCJE STORAGE
-// ===========================================================================
-
 function readStoredConsent(): StoredConsent | null {
   if (typeof window === "undefined") return null;
   try {
     const raw = window.localStorage.getItem(CONSENT_STORAGE_KEY);
     if (!raw) return null;
     const parsed = JSON.parse(raw) as StoredConsent;
-    // Jeśli wersja się nie zgadza (np. dodaliśmy nową kategorię cookies),
-    // traktujemy to jako brak zgody i pytamy ponownie.
     if (parsed.version !== CONSENT_VERSION) return null;
     return parsed;
   } catch {
@@ -72,18 +60,12 @@ function writeStoredConsent(consent: ConsentCategories) {
   window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(payload));
 }
 
-// ===========================================================================
-// PROVIDER
-// ===========================================================================
-
 export function CookieConsentProvider({ children }: { children: ReactNode }) {
   const [consent, setConsent] = useState<ConsentCategories | null>(null);
   const [hasChosen, setHasChosen] = useState(false);
   const [isBannerOpen, setIsBannerOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
-  // Odczyt zgody z localStorage TYLKO po zamontowaniu na kliencie
-  // (unikamy niezgodności SSR/CSR - hydration mismatch).
   useEffect(() => {
     const stored = readStoredConsent();
     if (stored) {
@@ -119,12 +101,7 @@ export function CookieConsentProvider({ children }: { children: ReactNode }) {
   );
 
   const openSettings = useCallback(() => setIsSettingsOpen(true), []);
-  const closeSettings = useCallback(() => {
-    // Zamknięcie "X" bez zapisania wyboru NIE zapisuje zgody -
-    // banner (lub okno ustawień) pojawi się ponownie przy odświeżeniu,
-    // dopóki użytkownik nie dokona świadomego wyboru.
-    setIsSettingsOpen(false);
-  }, []);
+  const closeSettings = useCallback(() => setIsSettingsOpen(false), []);
 
   return (
     <CookieConsentContext.Provider

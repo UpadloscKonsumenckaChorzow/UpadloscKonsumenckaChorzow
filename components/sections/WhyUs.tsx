@@ -15,22 +15,22 @@ const reasons = [
   {
     icon: GraduationCap,
     title: "Wiedza i doświadczenie",
-    text: "Jesteśmy częścią ogólnopolskiej sieci ekspertów działającej pod marką Expert Partner. Gwarantuje Tobie korzystanie ze sprawdzonych procedur, wypracowanych wysokich standardów prowadzenia spraw, realną wiedzę i doświadczenie wsparte naszym wieloletnim doświadczeniem w branży finansowej.",
+    text: "Jesteśmy częścią ogólnopolskiej sieci ekspertów Expert Partner. Gwarantujemy sprawdzone procedury i wysokie standardy prowadzenia spraw.",
   },
   {
     icon: Heart,
     title: "Indywidualne podejście",
-    text: "Każda sprawa jest inna, dlatego każdy klient od pierwszego kontaktu otaczany jest troską i zrozumieniem. Nasza pomoc jest oparta na zaufaniu, dyskrecji i rzetelności. Wspólnie wypracowujemy najlepszą ścieżkę wyjścia Klienta z jego trudnej sytuacji i dążymy do odzyskania przez niego ponownie pełnej swobody finansowej.",
+    text: "Każdy klient otaczany jest troską i dyskrecją. Wspólnie wypracowujemy najlepszą ścieżkę do odzyskania swobody finansowej.",
   },
   {
     icon: ShieldCheck,
-    title: "Proste i przejrzyste zasady",
-    text: "Pomagamy w najtrudniejszych sprawach dbając o komfort i zadowolenie naszych klientów. Wspieramy, dzielimy się doświadczeniem i prowadzimy sprawy z największą dbałością o każdy szczegół od bezpłatnej konsultacji poprzez zbieranie i analizowanie dokumentacji, aż do zakończenia postępowania upadłościowego.",
+    title: "Przejrzyste zasady",
+    text: "Dbamy o komfort i poczucie bezpieczeństwa od bezpłatnej konsultacji aż do prawomocnego zakończenia postępowania.",
   },
   {
     icon: Zap,
     title: "Szybkość i skuteczność",
-    text: "Nasze działania rozpoczynamy już od pierwszego dnia zawarcia umowy, jesteśmy w stałym kontakcie z naszymi klientami i wspieramy ich na każdym etapie postępowania. Dajemy pisemną gwarancję ogłoszenia upadłości, jeżeli to się nie stanie Klient odzyskuje wszystkie poniesione koszty związane z umową.",
+    text: "Działamy od pierwszego dnia zawarcia umowy. Dajemy pisemną gwarancję rzetelności popartą doświadczeniem.",
   },
 ];
 
@@ -38,25 +38,24 @@ const partnerFeatures = [
   {
     icon: Network,
     title: "Ogólnopolska sieć",
-    text: "Działam w ramach rozpoznawalnej grupy ekspertów z całej Polski.",
+    text: "Działamy w ramach rozpoznawalnej grupy ekspertów z całej Polski.",
   },
   {
     icon: BadgeCheck,
     title: "Sprawdzone procedury",
-    text: "Korzystam z wypracowanych standardów prowadzenia spraw.",
+    text: "Korzystamy z wypracowanych standardów prowadzenia postępowań.",
   },
   {
     icon: GraduationCap,
-    title: "Wiedza i doświadczenie",
-    text: "Stały dostęp do szkoleń i bieżącej praktyki upadłościowej.",
+    title: "Wiedza i szkolenia",
+    text: "Stały dostęp do bieżącej praktyki orzeczniczej sądów upadłościowych.",
   },
 ];
 
 export function WhyUs() {
   return (
-    <section id="dlaczego-my" className="scroll-mt-24 bg-cream py-8 sm:py-10">
+    <section id="dlaczego-my" className="scroll-mt-24 bg-cream py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        {/* NAGŁÓWEK SEKCJI */}
         <div className="text-center">
           <p className="flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-navy">
             <Award className="size-4 text-gold" />
@@ -67,7 +66,6 @@ export function WhyUs() {
           </h2>
         </div>
 
-        {/* 1. KAFELKI Z POWODAMI */}
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {reasons.map((item) => {
             const Icon = item.icon;
@@ -90,7 +88,6 @@ export function WhyUs() {
           })}
         </div>
 
-        {/* 2. DYNAMICZNY BLOK "CZĘŚĆ GRUPY EXPERT PARTNER" */}
         <div className="mt-16 rounded-3xl border border-black/10 bg-cream-dark p-8 shadow-sm lg:p-12">
           <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
             <div className="lg:col-span-5">
@@ -104,12 +101,10 @@ export function WhyUs() {
               </h3>
 
               <p className="mt-3 text-sm leading-relaxed text-ink/70">
-                Jestem częścią ogólnopolskiej sieci ekspertów działającej pod
-                marką Expert Partner. Oznacza to dla Ciebie sprawdzone procedury
-                oraz realną wiedzę i doświadczenie.
+                Przynależność do ogólnopolskiej sieci Expert Partner oznacza dla
+                Ciebie pewność, wiedzę i sprawdzone wzorce procesowe.
               </p>
 
-              {/* LOGO PARTNERA */}
               <div className="mt-6">
                 <a
                   href={site.partner.url}
@@ -119,7 +114,7 @@ export function WhyUs() {
                 >
                   <Image
                     src="/expert-partner.webp"
-                    alt="Grupa Expert Partner - wiedza i doświadczenie"
+                    alt="Grupa Expert Partner"
                     width={140}
                     height={40}
                     className="h-10 w-auto object-contain"

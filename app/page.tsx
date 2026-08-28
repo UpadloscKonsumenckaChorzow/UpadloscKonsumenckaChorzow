@@ -1,4 +1,3 @@
-// app/page.tsx
 import { Hero } from "@/components/sections/Hero";
 import { Process } from "@/components/sections/Process";
 import { Pricing } from "@/components/sections/Pricing";

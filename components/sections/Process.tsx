@@ -1,4 +1,3 @@
-// components/landing/process.tsx
 import {
   Workflow,
   PhoneCall,
@@ -9,45 +8,46 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-// 5 dokładnych kroków wyznaczonych przez klienta
 const steps = [
   {
     number: "01",
     title: "Kontakt i bezpłatna analiza sytuacji",
-    text: "Dzwonisz lub wypełniasz formularz. Bezpłatnie i bez zobowiązań sprawdzam wysokość Twoich zobowiązań oraz oceniam szanse na sukces.",
+    text: "Dzwonisz lub wypełniasz formularz. Bezpłatnie i bez zobowiązań oceniamy szanse na ogłoszenie upadłości.",
     icon: PhoneCall,
   },
   {
     number: "02",
-    title: "Zebranie dokumentów i przygotowanie wniosku o ogłoszenie upadłości",
-    text: "Pomagam w skompletowaniu wszystkich niezbędnych pism i sporządzam profesjonalny, kompletny wniosek do sądu.",
+    title: "Skompletowanie dokumentów i wniosek",
+    text: "Pomagamy w zebraniu dokumentacji i sporządzamy profesjonalny wniosek do sądu.",
     icon: FileText,
   },
   {
     number: "03",
-    title: "Ogłoszenie upadłości",
-    text: "Sąd ogłasza upadłość. Od tego momentu egzekucje komornicze zostają wstrzymane, a Ty zyskujesz pełną ochronę prawną.",
+    title: "Ogłoszenie upadłości przez sąd",
+    text: "Sąd wydaje postanowienie. Wstrzymane zostają egzekucje komornicze, a odsetki przestają narastać.",
     icon: Gavel,
   },
   {
     number: "04",
-    title: "Umorzenie zobowiązań po realizacji planu spłaty",
-    text: "Realizujesz ustalony plan spłaty dopasowany do Twoich możliwości, po czym pozostała część długów zostaje całkowicie umorzona.",
+    title: "Umorzenie zobowiązań",
+    text: "Po realizacji ustalonego planu spłaty pozostała część długów zostaje prawomocnie umorzona.",
     icon: CheckCircle2,
   },
   {
     number: "05",
     title: "Nowy start finansowy",
-    text: "Odzyskujesz wolność finansową, spokój ducha oraz czystą kartę do budowania bezpiecznej przyszłości.",
+    text: "Odzyskujesz wolność finansową, spokój ducha i czystą kartę w bazach gospodarczych.",
     icon: Sparkles,
   },
 ];
 
 export function Process() {
   return (
-    <section id="jak-to-dziala" className="scroll-mt-24 bg-cream py-8 sm:py-10">
+    <section
+      id="jak-to-dziala"
+      className="scroll-mt-24 bg-cream py-12 sm:py-16"
+    >
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        {/* NAGŁÓWEK SEKCJI */}
         <div className="mx-auto max-w-3xl text-center">
           <p className="flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-navy">
             <Workflow className="size-4 text-gold" />
@@ -61,10 +61,8 @@ export function Process() {
           </p>
         </div>
 
-        {/* WIZUALIZACJA KROKÓW (LINIA CZASU Z KARTAMI) */}
-        <div className="relative mt-10 max-w-4xl mx-auto">
-          {/* Pionowa linia łącząca kroki (dla urządzeń od sm w górę) */}
-          <div className="absolute left-8.75 top-8 bottom-8 w-0.5 bg-navy/15 hidden sm:block" />
+        <div className="relative mt-12 max-w-4xl mx-auto">
+          <div className="absolute left-7 top-8 bottom-8 w-0.5 bg-navy/15 hidden sm:block" />
 
           <div className="space-y-6 relative">
             {steps.map((step) => {
@@ -74,14 +72,12 @@ export function Process() {
                   key={step.number}
                   className="relative flex flex-col sm:flex-row items-start gap-5 rounded-3xl border border-black/5 bg-white p-6 shadow-sm transition-all hover:border-gold/50 hover:shadow-md sm:p-8"
                 >
-                  {/* Duży numer kroku */}
                   <div className="flex shrink-0 items-center justify-center">
                     <span className="flex size-14 items-center justify-center rounded-2xl bg-navy text-gold shadow-md font-display text-lg font-bold">
                       {step.number}
                     </span>
                   </div>
 
-                  {/* Zawartość kroku */}
                   <div className="flex-1 pt-1">
                     <div className="flex items-center gap-3">
                       <span className="flex size-8 items-center justify-center rounded-lg bg-gold/15 text-navy">
@@ -101,13 +97,12 @@ export function Process() {
           </div>
         </div>
 
-        {/* PRZYCISK ZACHĘCAJĄCY DO KONTAKTU */}
-        <div className="mt-10 text-center">
+        <div className="mt-12 text-center">
           <a
             href="#kontakt"
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-navy px-8 py-4 text-base font-semibold text-white shadow-lg transition-all hover:bg-navy-700 hover:scale-105"
           >
-            Umów bezpłatną konsultację i zacznij pierwszy krok
+            Umów bezpłatną konsultację
             <ArrowRight className="size-5 text-gold" />
           </a>
         </div>
