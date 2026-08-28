@@ -8,8 +8,18 @@ const nextConfig = {
   // typów, napraw je zamiast przywracać tę flagę. Jeżeli to był świadomy,
   // tymczasowy workaround na czas developmentu, przywróć go z komentarzem
   // wyjaśniającym dlaczego i na jak długo.
+  // POPRAWKA: było `unoptimized: true`, co całkowicie wyłącza optymalizację
+  // next/image (brak responsywnych srcset, brak automatycznej konwersji do
+  // AVIF/WebP, brak lazy loading z priorytetem dla LCP). Tymczasem
+  // wrangler.jsonc ma już skonfigurowany binding `"images": { "binding":
+  // "IMAGES" }` do Cloudflare Image Optimization przez OpenNext — czyli
+  // infrastruktura pod optymalizację była gotowa, ale wyłączona na
+  // poziomie Next.js. W parze z tym w komponentach nie było ani jednego
+  // użycia <Image> z next/image — wyłącznie surowe <img>. Włączenie tego
+  // ma sens dopiero razem z migracją <img> → <Image> (patrz komponenty
+  // Hero, Footer, Navbar, WhyUs) — inaczej binding nadal będzie nieużywany.
   images: {
-    unoptimized: true,
+    formats: ["image/avif", "image/webp"],
   },
 
   // Nagłówki bezpieczeństwa. Cloudflare/OpenNext obsługuje headers() z

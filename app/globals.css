@@ -7,6 +7,20 @@
 
 /* ==========================================================================
    KOLORYSTYKA: V9 (Nowy Start: Świeża Zieleń i Szafir)
+
+   UWAGA AUDYTOWA (nazewnictwo, nie błąd funkcjonalny):
+   Zmienne --gold / --gold-light / --cream mają dziś realnie zielone
+   wartości (#16a34a, #22c55e, #f0fdf4) — to świadomy rebranding "V9"
+   opisany w nazwie sekcji, nie pomyłka. Nazwy zmiennych zostały jednak
+   po staremu, więc każdy, kto czyta w komponentach klasę `text-gold`,
+   naturalnie oczekuje odcienia złota/bursztynu, a dostaje zieleń. To
+   koszt czytelności kodu przy dalszym rozwoju (dziesiątki wystąpień
+   `text-gold` / `bg-gold` w komponentach). Rekomendacja na przyszłość:
+   przy kolejnej większej zmianie zrobić jednorazowy rename zmiennych na
+   semantyczne nazwy (np. --accent / --accent-light / --surface), żeby
+   nazwa znów odpowiadała kolorowi. Nie zmieniam tego teraz automatycznie,
+   bo dotyczyłoby to dziesiątek miejsc w kilkunastu plikach — to decyzja
+   do świadomego podjęcia, a nie coś do cichej podmiany przy audycie.
    ========================================================================== */
 :root {
   --navy: #0f172a;
@@ -116,4 +130,42 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* ==========================================================================
+   DOSTĘPNOŚĆ
+   ========================================================================== */
+
+/* Płynne przewijanie do kotwic (#dla-kogo, #cennik itd.) — ale TYLKO dla
+   osób, które go nie wyłączyły w ustawieniach systemu. Wcześniej
+   `scroll-smooth` był twardo wpisany w klasę <html>, co wymusza animację
+   przewijania również u osób z zaburzeniami przedsionkowymi/vestibular,
+   dla których taki ruch może wywoływać mdłości lub dezorientację —
+   naruszenie WCAG 2.3.3 (Animation from Interactions). */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Link "Przejdź do treści" (WCAG 2.4.1 Bypass Blocks).
+   Domyślnie wizualnie ukryty poza ekranem, ale w pełni dostępny dla
+   czytników ekranu; pojawia się na widoku dopiero po otrzymaniu fokusu
+   klawiaturą (Tab), więc nie przeszkadza użytkownikom myszy/dotyku. */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+  background: var(--navy);
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: top 0.15s ease-out;
+}
+
+.skip-link:focus {
+  top: 1rem;
 }

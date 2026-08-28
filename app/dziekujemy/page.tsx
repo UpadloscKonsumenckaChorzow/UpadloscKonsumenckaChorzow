@@ -10,6 +10,7 @@ import {
   Home,
 } from "lucide-react";
 import type { Metadata } from "next";
+import { site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Dziękujemy za kontakt · Zgłoszenie przyjęte",
@@ -109,11 +110,11 @@ export default function ThankYouPage() {
               </div>
 
               <a
-                href="tel:+48515515314"
+                href={site.phone.href}
                 className="inline-flex items-center gap-2 rounded-xl bg-gold px-5 py-3 text-sm font-semibold text-navy-900 shadow-md transition-all hover:bg-gold-light hover:scale-105 shrink-0"
               >
                 <Phone className="size-4" />
-                515 515 314
+                {site.phone.display}
               </a>
             </div>
 

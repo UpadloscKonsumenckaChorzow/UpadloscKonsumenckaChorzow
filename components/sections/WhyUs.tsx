@@ -1,4 +1,5 @@
 // components/landing/WhyUs.tsx
+import Image from "next/image";
 import {
   GraduationCap,
   Heart,
@@ -9,6 +10,7 @@ import {
   Network,
   BadgeCheck,
 } from "lucide-react";
+import { site } from "@/content/site";
 
 const reasons = [
   {
@@ -111,14 +113,16 @@ export function WhyUs() {
               {/* LOGO PARTNERA */}
               <div className="mt-6">
                 <a
-                  href="https://upadlosci-ekspert.pl/"
+                  href={site.partner.url}
                   target="_blank"
                   rel="nofollow noopener noreferrer"
                   className="inline-block rounded-2xl bg-white p-3 shadow-sm border border-black/5 transition-all hover:scale-105 hover:shadow-md"
                 >
-                  <img
+                  <Image
                     src="/expert-partner.webp"
                     alt="Grupa Expert Partner - wiedza i doświadczenie"
+                    width={140}
+                    height={40}
                     className="h-10 w-auto object-contain"
                   />
                 </a>

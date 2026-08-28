@@ -1,6 +1,8 @@
-import Link from "next/link"; // <-- DODAJ TEN IMPORT NA GÓRZE PLIKU
+import Link from "next/link";
+import Image from "next/image";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { CookieSettingsLink } from "@/components/cookies/CookieSettingsLink";
+import { site } from "@/content/site";
 
 function TikTokIcon({ className }: { className?: string }) {
   return (
@@ -55,11 +57,27 @@ const pageLinks = [
   { label: "Kontakt", href: "#kontakt" },
 ];
 
-const socials = [
-  { icon: InstagramIcon, href: "#", label: "Instagram" },
-  { icon: TikTokIcon, href: "#", label: "TikTok" },
-  { icon: FacebookIcon, href: "#", label: "Facebook" },
-];
+// POPRAWKA: hrefy socialów w oryginale były wpisane na sztywno jako "#"
+// (martwe linki — kliknięcie przewija do góry strony i nic więcej się nie
+// dzieje). Teraz czerpią z site.socials — jeśli pole jest puste, ikona
+// się nie renderuje, więc zamiast martwego linku po prostu nie ma go
+// wcale, dopóki nie uzupełnisz realnego adresu w content/site.ts.
+const socialIcons = {
+  instagram: InstagramIcon,
+  tiktok: TikTokIcon,
+  facebook: FacebookIcon,
+} as const;
+
+const socials = (
+  Object.entries(site.socials) as [keyof typeof socialIcons, string][]
+)
+  .filter(([, href]) => href)
+  .map(([key, href]) => ({
+    key,
+    href,
+    label: key[0].toUpperCase() + key.slice(1),
+    icon: socialIcons[key],
+  }));
 
 export function Footer() {
   return (
@@ -68,15 +86,19 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-3">
           {/* KOLUMNA 1: LOGO + NAPIS, OPIS, SOCIAL MEDIA, LOGO EXPERT PARTNER */}
           <div>
-            <a href="#" className="flex items-center gap-3">
-              {/* TWOJE LOGO / SYGNET */}
-              <img
-                src="/logo.svg" /* Jeśli używasz PNG, zmień na: /logo.png */
+            {/* POPRAWKA: było `<a href="#">` — kliknięcie logo w stopce
+                przewijało do góry TEJ SAMEJ strony zamiast prowadzić na
+                stronę główną (myląca niespójność względem Navbar, gdzie
+                logo poprawnie linkuje do "/"). next/link zamiast zwykłego
+                <a> włącza też prefetch nawigacji klienckiej. */}
+            <Link href="/" className="flex items-center gap-3">
+              <Image
+                src="/logo.svg"
                 alt="Logo Upadłość Konsumencka"
+                width={44}
+                height={44}
                 className="size-11 object-contain"
               />
-
-              {/* NAPIS OBOK LOGO */}
               <span className="leading-tight">
                 <span className="block font-display text-base font-semibold tracking-wide">
                   UPADŁOŚĆ <span className="text-gold">KONSUMENCKA</span>
@@ -85,37 +107,43 @@ export function Footer() {
                   CHORZÓW · ŚLĄSK
                 </span>
               </span>
-            </a>
+            </Link>
 
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/60">
               Kompleksowa pomoc w przeprowadzeniu upadłości konsumenckiej.
               Spokojnie, dyskretnie, od A do Z na terenie Śląska i całej Polski.
             </p>
 
-            <div className="mt-6 flex gap-3">
-              {socials.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  aria-label={s.label}
-                  className="flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-gold hover:text-navy-900"
-                >
-                  <s.icon className="size-4" />
-                </a>
-              ))}
-            </div>
+            {socials.length > 0 && (
+              <div className="mt-6 flex gap-3">
+                {socials.map((s) => (
+                  <a
+                    key={s.key}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    className="flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-gold hover:text-navy-900"
+                  >
+                    <s.icon className="size-4" />
+                  </a>
+                ))}
+              </div>
+            )}
 
             {/* LINK DO PARTNERA */}
             <div className="mt-6">
               <a
-                href="https://upadlosci-ekspert.pl/"
+                href={site.partner.url}
                 target="_blank"
                 rel="nofollow noopener noreferrer"
                 className="inline-block rounded-2xl bg-white p-2.5 shadow-md border border-white/10 transition-all hover:scale-105"
               >
-                <img
+                <Image
                   src="/expert-partner.webp"
                   alt="Grupa Expert Partner - wiedza i doświadczenie"
+                  width={120}
+                  height={40}
                   className="h-10 w-auto object-contain"
                 />
               </a>
@@ -148,24 +176,28 @@ export function Footer() {
             </h3>
             <div className="mt-5 space-y-4 text-sm text-white/70">
               <a
-                href="tel:+48515515314"
+                href={site.phone.href}
                 className="flex items-center gap-2.5 font-semibold text-white transition-colors hover:text-gold"
               >
                 <Phone className="size-4 text-gold shrink-0" />
-                515 515 314
+                {site.phone.display}
               </a>
               <a
-                href="mailto:kontakt@kancelaria.pl"
+                href={site.email.href}
                 className="flex items-center gap-2.5 transition-colors hover:text-gold"
               >
                 <Mail className="size-4 text-gold shrink-0" />
-                kontakt@kancelaria.pl
+                {site.email.display}
               </a>
               <div className="flex items-start gap-2.5 leading-relaxed">
                 <MapPin className="size-4 text-gold shrink-0 mt-0.5" />
-                <span>ul. Wolności 12, 41-500 Chorzów</span>
+                <span>{site.address.full}</span>
               </div>
-              <p className="text-xs text-white/50 border-t border-white/10 pt-3">
+              {/* POPRAWKA A11Y: tekst na 50% opacity białego na granatowym
+                  tle (biały/50 na #020617) daje kontrast ok. 2.7:1 —
+                  poniżej progu WCAG AA 4.5:1 dla małego tekstu. Podniesiono
+                  do /70, co realnie mieści próg AA. */}
+              <p className="text-xs text-white/70 border-t border-white/10 pt-3">
                 Obsługa stacjonarna oraz zdalna na terenie całego Śląska i
                 Polski.
               </p>
@@ -180,7 +212,6 @@ export function Footer() {
             zastrzeżone. · Część Grupy Expert Partner
           </p>
           <div className="flex flex-wrap items-center gap-4">
-            {/* PODPIĘTY LINK DO POLITYKI PRYWATNOŚCI: */}
             <Link
               href="/polityka-prywatnosci"
               className="transition-colors hover:text-white"
@@ -199,16 +230,16 @@ export function Footer() {
               Nota prawna
             </a>
 
-            <span>·</span>
+            <span aria-hidden="true">·</span>
             <span>
               Stworzone przez{" "}
               <a
-                href="https://www.instagram.com/filip_wrona/"
+                href={site.developer.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium text-white/80 underline underline-offset-2 transition-colors hover:text-gold"
               >
-                Filip Wrona
+                {site.developer.name}
               </a>
             </span>
           </div>

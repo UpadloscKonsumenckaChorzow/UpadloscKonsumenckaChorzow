@@ -4,6 +4,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { AlertTriangle, RotateCcw, Home, Phone } from "lucide-react";
+import { site } from "@/content/site";
 
 export default function Error({
   error,
@@ -63,11 +64,11 @@ export default function Error({
             Pilna sprawa? Skontaktuj się z nami bezpośrednio telefonicznie:
           </p>
           <a
-            href="tel:+48515515314"
+            href={site.phone.href}
             className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-navy hover:text-gold transition-colors"
           >
             <Phone className="size-4 text-gold" />
-            515 515 314
+            {site.phone.display}
           </a>
         </div>
       </div>

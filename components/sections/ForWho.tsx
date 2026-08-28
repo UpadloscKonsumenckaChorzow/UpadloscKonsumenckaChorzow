@@ -11,6 +11,7 @@ import {
   HelpCircle,
   Phone,
 } from "lucide-react";
+import { site } from "@/content/site";
 
 // Lista 7 sytuacji podana w wytycznych
 const situations = [
@@ -103,11 +104,11 @@ export function ForWho() {
               <ArrowRight className="size-5" />
             </a>
             <a
-              href="tel:515515314"
+              href={site.phone.href}
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-8 py-4 text-base font-semibold text-white backdrop-blur transition-all hover:border-gold hover:bg-white/15"
             >
               <Phone className="size-5 text-gold" />
-              515 515 314
+              {site.phone.display}
             </a>
           </div>
         </div>

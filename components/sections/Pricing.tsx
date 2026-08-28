@@ -15,6 +15,20 @@ function AnimatedCounter({ target }: { target: number }) {
   const animatedRef = useRef(false);
 
   useEffect(() => {
+    // POPRAWKA (WCAG 2.3.3 Animation from Interactions): osoby, które
+    // ustawiły w systemie "ogranicz ruch", od razu widzą docelową kwotę
+    // zamiast 1.6-sekundowego liczenia od zera — sama animacja nie jest
+    // z natury niebezpieczna, ale jest to prosty i tani sposób, żeby
+    // uszanować świadomy wybór użytkownika.
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (prefersReducedMotion) {
+      setCount(target);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !animatedRef.current) {

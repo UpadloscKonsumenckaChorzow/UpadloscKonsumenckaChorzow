@@ -1,4 +1,5 @@
 // components/landing/hero.tsx
+import Image from "next/image";
 import {
   Gavel,
   Layers,
@@ -16,6 +17,7 @@ import {
   Lock,
   Award,
 } from "lucide-react";
+import { site } from "@/content/site";
 
 // Ikonki przyciągające uwagę
 const problemItems = [
@@ -117,11 +119,11 @@ export function Hero() {
               <ArrowRight className="size-4" />
             </a>
             <a
-              href="tel:+48515515314"
+              href={site.phone.href}
               className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border border-white/25 px-7 py-4 text-sm font-semibold text-white transition-colors hover:bg-white/10"
             >
               <Phone className="size-4 text-gold" />
-              515 515 314
+              {site.phone.display}
             </a>
           </div>
         </div>
@@ -131,11 +133,24 @@ export function Hero() {
           <div className="absolute -inset-2 rounded-[2.5rem] bg-linear-to-tr from-gold/20 via-transparent to-gold/10 opacity-70 blur-xl" />
 
           <div className="relative w-full max-w-lg">
-            <div className="overflow-hidden rounded-3xl border border-white/15 bg-navy-900/50 shadow-2xl">
-              <img
+            <div className="relative aspect-4/3 sm:aspect-5/4 lg:aspect-4/5 overflow-hidden rounded-3xl border border-white/15 bg-navy-900/50 shadow-2xl">
+              {/* POPRAWKA WYDAJNOŚCI: było zwykłe <img>. To zdjęcie jest
+                  praktycznie na pewno elementem LCP (Largest Contentful
+                  Paint) strony głównej — pierwszym dużym elementem w
+                  viewport. next/image + `priority` usuwa je z leniwego
+                  ładowania i dodaje <link rel="preload">, a automatyczna
+                  konwersja do AVIF/WebP (włączona teraz w next.config.mjs)
+                  realnie zmniejsza wagę pliku. `fill` na obrazku wymaga,
+                  by kontener miał `position: relative` i zdefiniowaną
+                  proporcję (aspect-*) — dzięki temu przeglądarka rezerwuje
+                  miejsce od razu i nie ma przesunięcia layoutu (CLS). */}
+              <Image
                 src="/rodzinka.jpg"
                 alt="Szczęśliwa rodzina – życie bez długów po upadłości konsumenckiej"
-                className="aspect-4/3 sm:aspect-5/4 lg:aspect-4/5 h-full w-full object-cover object-center"
+                fill
+                priority
+                sizes="(min-width: 1024px) 512px, (min-width: 640px) 60vw, 100vw"
+                className="object-cover object-center"
               />
             </div>
 
@@ -224,12 +239,13 @@ export function Hero() {
             </a>
 
             <a
-              href="tel:+48515515314"
+              href={site.phone.href}
               className="inline-flex items-center justify-center gap-3 rounded-xl border border-white/20 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-xl backdrop-blur transition-all hover:border-gold hover:bg-white/15 hover:scale-105"
             >
               <Phone className="size-5 text-gold" />
               <span>
-                Telefon: <strong className="text-gold">515 515 314</strong>
+                Telefon:{" "}
+                <strong className="text-gold">{site.phone.display}</strong>
               </span>
             </a>
           </div>

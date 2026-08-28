@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Phone, Menu, X, Mail } from "lucide-react";
+import { site } from "@/content/site";
 
 const navLinks = [
   { label: "Dla kogo", href: "#dla-kogo" },
@@ -16,9 +18,12 @@ function Logo() {
   return (
     <a href="/" className="flex items-center gap-3 shrink-0">
       {/* TWOJE LOGO / SYGNET */}
-      <img
+      <Image
         src="/logo.svg" /* Jeśli używasz PNG, zmień na: /logo.png */
         alt="Logo Upadłość Konsumencka"
+        width={40}
+        height={40}
+        priority
         className="size-10 object-contain"
       />
 
@@ -49,19 +54,19 @@ export function Navbar() {
 
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             <a
-              href="mailto:kontakt@kancelaria.pl"
+              href={site.email.href}
               className="flex items-center gap-2 text-white/90 transition-colors hover:text-gold"
             >
               <Mail className="size-4 text-gold" />
-              <span>kontakt@kancelaria.pl</span>
+              <span>{site.email.display}</span>
             </a>
             <a
-              href="tel:+48515515314"
+              href={site.phone.href}
               className="flex items-center gap-2 text-white/90 transition-colors hover:text-gold"
             >
               <Phone className="size-4 text-gold" />
               <span>
-                515 515 314{" "}
+                {site.phone.display}{" "}
                 <span className="font-medium text-gold">
                   – bezpłatna konsultacja
                 </span>
@@ -76,7 +81,10 @@ export function Navbar() {
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 lg:px-8">
           <Logo />
 
-          <nav className="hidden items-center gap-4 xl:flex xl:gap-6">
+          <nav
+            aria-label="Nawigacja główna"
+            className="hidden items-center gap-4 xl:flex xl:gap-6"
+          >
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -88,11 +96,16 @@ export function Navbar() {
             ))}
           </nav>
 
+          {/* POPRAWKA: dodano aria-expanded + aria-controls. Bez nich
+              osoba na czytniku ekranu słyszy tylko "Menu, przycisk" i nie
+              wie, czy panel jest aktualnie otwarty ani gdzie się znajduje. */}
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
             className="flex size-10 items-center justify-center rounded-lg text-navy xl:hidden"
-            aria-label="Menu"
+            aria-label={open ? "Zamknij menu" : "Otwórz menu"}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
           >
             {open ? <X className="size-6" /> : <Menu className="size-6" />}
           </button>
@@ -101,8 +114,11 @@ export function Navbar() {
 
       {/* MENU MOBILNE */}
       {open && (
-        <div className="border-t border-black/5 bg-cream px-5 pb-6 pt-2 xl:hidden">
-          <nav className="flex flex-col">
+        <div
+          id="mobile-nav"
+          className="border-t border-black/5 bg-cream px-5 pb-6 pt-2 xl:hidden"
+        >
+          <nav aria-label="Nawigacja mobilna" className="flex flex-col">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -116,18 +132,18 @@ export function Navbar() {
           </nav>
           <div className="mt-4 flex flex-col gap-3">
             <a
-              href="mailto:kontakt@kancelaria.pl"
+              href={site.email.href}
               className="flex items-center gap-2 text-sm font-medium text-ink/80"
             >
               <Mail className="size-4 text-gold" />
-              kontakt@kancelaria.pl
+              {site.email.display}
             </a>
             <a
-              href="tel:+48515515314"
+              href={site.phone.href}
               className="flex items-center gap-2 text-sm font-semibold text-navy"
             >
               <Phone className="size-4 text-gold" />
-              515 515 314 (bezpłatna konsultacja)
+              {site.phone.display} (bezpłatna konsultacja)
             </a>
           </div>
         </div>

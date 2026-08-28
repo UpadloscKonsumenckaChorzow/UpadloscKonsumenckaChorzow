@@ -9,6 +9,7 @@ import {
   MapPin,
 } from "lucide-react";
 import type { Metadata } from "next";
+import { site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Polityka Prywatności i RODO",
@@ -63,7 +64,7 @@ export default function PrivacyPolicyPage() {
               Upadłościowego działająca pod marką{" "}
               <strong>Upadłość Konsumencka Chorzów & Śląsk</strong> (część Grupy
               Expert Partner) z siedzibą przy{" "}
-              <strong>ul. Wolności 12, 41-500 Chorzów</strong>.
+              <strong>{site.address.full}</strong>.
             </p>
             <p className="mt-2">
               W sprawach związanych z przetwarzaniem danych osobowych oraz
@@ -72,12 +73,12 @@ export default function PrivacyPolicyPage() {
             </p>
             <ul className="mt-3 space-y-1.5 list-disc pl-5 text-ink/90">
               <li>
-                E-mail: <strong>kontakt@kancelaria.pl</strong>
+                E-mail: <strong>{site.email.display}</strong>
               </li>
               <li>
-                Telefon: <strong>+48 515 515 314</strong>
+                Telefon: <strong>{site.phone.display}</strong>
               </li>
-              <li>Adres korespondencyjny: ul. Wolności 12, 41-500 Chorzów</li>
+              <li>Adres korespondencyjny: {site.address.full}</li>
             </ul>
           </section>
 

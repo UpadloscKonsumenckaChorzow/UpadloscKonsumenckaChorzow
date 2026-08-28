@@ -14,6 +14,7 @@ import {
   Send,
   Loader2,
 } from "lucide-react";
+import { site } from "@/content/site";
 
 export function Contact() {
   const router = useRouter();
@@ -28,7 +29,14 @@ export function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Symulacja szybkiego wysłania i przekierowanie na podstronę /dziekujemy
+    // UWAGA (celowo NIETKNIĘTE w tym audycie — backend formularza poza
+    // zakresem obecnych zmian): to nadal symulacja wysyłki, nie realne
+    // przesłanie danych. `router.push` następuje niezależnie od tego, czy
+    // cokolwiek zostało zapisane/wysłane. Przy podpinaniu prawdziwego API
+    // trzeba będzie: (1) zastąpić setTimeout wywołaniem fetch/Server Action,
+    // (2) obsłużyć błąd (obecnie przycisk zostałby "wysyłanie..." bez
+    // żadnej informacji zwrotnej, gdyby fetch się nie powiódł),
+    // (3) rozważyć wyłączenie przekierowania do czasu potwierdzenia 200 OK.
     setTimeout(() => {
       router.push("/dziekujemy");
     }, 400);
@@ -69,7 +77,7 @@ export function Contact() {
 
               <div className="space-y-4">
                 <a
-                  href="tel:+48515515314"
+                  href={site.phone.href}
                   className="flex items-center gap-4 group"
                 >
                   <span className="flex size-11 items-center justify-center rounded-xl bg-white/10 text-gold transition-colors group-hover:bg-gold group-hover:text-navy">
@@ -80,13 +88,13 @@ export function Contact() {
                       TELEFON
                     </span>
                     <span className="font-semibold text-base sm:text-lg">
-                      515 515 314
+                      {site.phone.display}
                     </span>
                   </span>
                 </a>
 
                 <a
-                  href="mailto:kontakt@kancelaria.pl"
+                  href={site.email.href}
                   className="flex items-center gap-4 group"
                 >
                   <span className="flex size-11 items-center justify-center rounded-xl bg-white/10 text-gold transition-colors group-hover:bg-gold group-hover:text-navy">
@@ -97,7 +105,7 @@ export function Contact() {
                       E-MAIL
                     </span>
                     <span className="font-semibold text-base sm:text-lg">
-                      kontakt@kancelaria.pl
+                      {site.email.display}
                     </span>
                   </span>
                 </a>
@@ -111,7 +119,7 @@ export function Contact() {
                       KANCELARIA / BIURO
                     </span>
                     <span className="font-semibold text-base sm:text-lg">
-                      ul. Wolności 12, 41-500 Chorzów
+                      {site.address.full}
                     </span>
                   </span>
                 </div>
@@ -214,6 +222,7 @@ export function Contact() {
                     type="text"
                     required
                     name="name"
+                    autoComplete="name"
                     placeholder="Jan Kowalski"
                     className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-navy"
                   />
@@ -226,6 +235,7 @@ export function Contact() {
                     type="tel"
                     required
                     name="phone"
+                    autoComplete="tel"
                     placeholder="515 515 314"
                     className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-navy"
                   />
@@ -240,6 +250,7 @@ export function Contact() {
                   type="email"
                   required
                   name="email"
+                  autoComplete="email"
                   placeholder="jan@przyklad.pl"
                   className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-navy"
                 />

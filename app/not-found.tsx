@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { ArrowLeft, Home, Phone, HelpCircle } from "lucide-react";
 import type { Metadata } from "next";
+import { site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "404 – Strona nie została znaleziona",
@@ -57,11 +58,11 @@ export default function NotFound() {
             Potrzebujesz natychmiastowej bezpłatnej konsultacji prawnej?
           </p>
           <a
-            href="tel:+48515515314"
+            href={site.phone.href}
             className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-navy hover:text-gold transition-colors"
           >
             <Phone className="size-4 text-gold" />
-            Zadzwoń: 515 515 314
+            Zadzwoń: {site.phone.display}
           </a>
         </div>
       </div>
