@@ -33,8 +33,8 @@ export const site = {
     // TODO PRZED PUBLIKACJĄ: to jest placeholder — "kancelaria.pl" nie jest
     // domeną tej firmy. Wysyłka trafi w próżnię / do obcego podmiotu.
     // Podmień na realny adres przed wdrożeniem na produkcję.
-    href: "mailto:kontakt@kancelaria.pl",
-    display: "kontakt@kancelaria.pl",
+    href: "mailto:kontakt@upadlosckonsumenckachorzow.pl",
+    display: "kontakt@upadlosckonsumenckachorzow.pl",
   },
 
   address: {
