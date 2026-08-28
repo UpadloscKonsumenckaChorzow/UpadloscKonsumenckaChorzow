@@ -1,7 +1,9 @@
+// components/sections/Contact.tsx
 "use client";
 
 import type { FormEvent } from "react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   PhoneCall,
   Phone,
@@ -10,15 +12,22 @@ import {
   Globe,
   Clock,
   Send,
+  Loader2,
 } from "lucide-react";
 
 export function Contact() {
+  const router = useRouter();
   const [agree, setAgree] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSent(true);
+    setIsSubmitting(true);
+
+    // Symulacja szybkiego wysłania i przekierowanie na podstronę /dziekujemy
+    setTimeout(() => {
+      router.push("/dziekujemy");
+    }, 400);
   }
 
   return (
@@ -27,7 +36,7 @@ export function Contact() {
       className="scroll-mt-24 bg-navy py-8 text-white sm:py-10"
     >
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        {/* NAGŁÓWEK SEKCJI WEDŁUG WYTYCZNYCH */}
+        {/* NAGŁÓWEK SEKCJI */}
         <div className="mx-auto max-w-3xl text-center mb-12">
           <p className="flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-gold">
             <PhoneCall className="size-4" />
@@ -169,88 +178,103 @@ export function Contact() {
               Przedstaw swoją sytuację. Odpowiadamy tego samego dnia roboczego.
             </p>
 
-            {sent ? (
-              <div className="mt-8 rounded-2xl bg-navy/5 p-6 text-center text-sm font-medium text-navy">
-                Dziękujemy! Twoja wiadomość została wysłana. Skontaktujemy się z
-                Tobą najszybciej jak to możliwe.
+            <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <label className="block">
+                  <span className="mb-1.5 block text-xs font-semibold text-ink">
+                    Imię i nazwisko
+                  </span>
+                  <input
+                    type="text"
+                    required
+                    name="name"
+                    placeholder="Jan Kowalski"
+                    className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-navy"
+                  />
+                </label>
+                <label className="block">
+                  <span className="mb-1.5 block text-xs font-semibold text-ink">
+                    Numer telefonu
+                  </span>
+                  <input
+                    type="tel"
+                    required
+                    name="phone"
+                    placeholder="515 515 314"
+                    className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-navy"
+                  />
+                </label>
               </div>
-            ) : (
-              <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <label className="block">
-                    <span className="mb-1.5 block text-xs font-semibold text-ink">
-                      Imię i nazwisko
-                    </span>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Jan Kowalski"
-                      className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-navy"
-                    />
-                  </label>
-                  <label className="block">
-                    <span className="mb-1.5 block text-xs font-semibold text-ink">
-                      Numer telefonu
-                    </span>
-                    <input
-                      type="tel"
-                      required
-                      placeholder="515 515 314"
-                      className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-navy"
-                    />
-                  </label>
-                </div>
 
-                <label className="block">
-                  <span className="mb-1.5 block text-xs font-semibold text-ink">
-                    Adres e-mail
-                  </span>
-                  <input
-                    type="email"
-                    required
-                    placeholder="jan@przyklad.pl"
-                    className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-navy"
-                  />
-                </label>
+              <label className="block">
+                <span className="mb-1.5 block text-xs font-semibold text-ink">
+                  Adres e-mail
+                </span>
+                <input
+                  type="email"
+                  required
+                  name="email"
+                  placeholder="jan@przyklad.pl"
+                  className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-navy"
+                />
+              </label>
 
-                <label className="block">
-                  <span className="mb-1.5 block text-xs font-semibold text-ink">
-                    Przedstaw swoją sytuację
-                  </span>
-                  <textarea
-                    rows={4}
-                    placeholder="Np. wysokość i rodzaj zobowiązań, e-mail, czy jest komornik..."
-                    className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-navy"
-                  />
-                </label>
+              <label className="block">
+                <span className="mb-1.5 block text-xs font-semibold text-ink">
+                  Przedstaw swoją sytuację
+                </span>
+                <textarea
+                  rows={4}
+                  name="message"
+                  placeholder="Np. wysokość i rodzaj zobowiązań, e-mail, czy jest komornik..."
+                  className="w-full rounded-xl border border-black/10 px-4 py-3 text-sm outline-none transition-colors focus:border-navy"
+                />
+              </label>
 
-                <label className="flex items-start gap-3 text-xs leading-relaxed text-ink/60">
-                  <input
-                    type="checkbox"
-                    required
-                    checked={agree}
-                    onChange={(e) => setAgree(e.target.checked)}
-                    className="mt-0.5 size-4 rounded border-black/20"
-                  />
-                  <span>
-                    Wyrażam zgodę na przetwarzanie moich danych osobowych w celu
-                    kontaktu ws. upadłości konsumenckiej.
-                  </span>
-                </label>
+              <label className="flex items-start gap-3 text-xs leading-relaxed text-ink/60 cursor-pointer">
+                <input
+                  type="checkbox"
+                  required
+                  checked={agree}
+                  onChange={(e) => setAgree(e.target.checked)}
+                  className="mt-0.5 size-4 rounded border-black/20 accent-navy"
+                />
+                <span>
+                  Wyrażam zgodę na przetwarzanie moich danych osobowych w celu
+                  kontaktu ws. upadłości konsumenckiej zgodnie z{" "}
+                  <a
+                    href="/polityka-prywatnosci"
+                    target="_blank"
+                    className="underline text-navy font-semibold hover:text-gold"
+                  >
+                    Polityką Prywatności
+                  </a>
+                  .
+                </span>
+              </label>
 
-                <button
-                  type="submit"
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-navy px-6 py-4 text-sm font-semibold text-white transition-all hover:bg-navy-700 hover:scale-[1.01] shadow-md"
-                >
-                  <Send className="size-4 text-gold" />
-                  Wyślij i umów bezpłatną konsultację
-                </button>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-navy px-6 py-4 text-sm font-semibold text-white transition-all hover:bg-navy-700 hover:scale-[1.01] shadow-md disabled:opacity-50 cursor-pointer"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="size-4 animate-spin text-gold" />
+                    Wysyłanie formularza...
+                  </>
+                ) : (
+                  <>
+                    <Send className="size-4 text-gold" />
+                    Wyślij i umów bezpłatną konsultację
+                  </>
+                )}
+              </button>
 
-                <p className="text-center text-[11px] leading-relaxed text-ink/50">
-                  Rozmowa jest całkowicie bezpłatna i niezobowiązująca.
-                </p>
-              </form>
-            )}
+              <p className="text-center text-[11px] leading-relaxed text-ink/50">
+                Rozmowa jest całkowicie bezpłatna i niezobowiązująca.
+              </p>
+            </form>
           </div>
         </div>
       </div>

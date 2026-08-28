@@ -186,6 +186,7 @@ export default function RootLayout({
     <html
       lang="pl"
       className={`${inter.variable} ${poppins.variable} scroll-smooth`}
+      data-scroll-behavior="smooth"
     >
       <head>
         {/* Schema.org JSON-LD wstrzyknięty bezpośrednio w sekcję HEAD */}
