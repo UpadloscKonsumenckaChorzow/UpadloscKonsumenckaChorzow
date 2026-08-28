@@ -1,11 +1,12 @@
 // app/layout.tsx
-import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
+// Konfiguracja fontów z polskimi znakami (latin-ext)
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
   variable: "--font-inter",
@@ -19,7 +20,7 @@ const poppins = Poppins({
   display: "swap",
 });
 
-// Podmień na docelową domenę, gdy strona będzie publikowana
+// Główny adres strony (produkcyjny)
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "https://upadlosckonsumenckachorzow.pl";
 
@@ -46,6 +47,7 @@ export const metadata: Metadata = {
     "oddłużanie osób fizycznych Chorzów",
     "pomoc w wyjściu z długów Śląsk",
     "umorzenie długów",
+    "doradca restrukturyzacyjny Chorzów",
   ],
   authors: [{ name: "Kancelaria Prawa Upadłościowego" }],
   creator: "Kancelaria Prawa Upadłościowego",
@@ -58,11 +60,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteUrl,
   },
+  manifest: "/site.webmanifest",
   icons: {
     icon: [
       { url: "/favicon.ico" },
-      { url: "/icon-light-32x32.png", media: "(prefers-color-scheme: light)" },
-      { url: "/icon-dark-32x32.png", media: "(prefers-color-scheme: dark)" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
     ],
     apple: "/apple-icon.png",
   },
@@ -109,7 +112,7 @@ export const metadata: Metadata = {
   },
 };
 
-// DANE STRUKTURALNE SCHEMA.ORG (JSON-LD) DLA GOOGLE, BING I AI
+// DANE STRUKTURALNE SCHEMA.ORG (JSON-LD) DLA GOOGLE, BING I AI OVERVIEWS
 const legalServiceSchema = {
   "@context": "https://schema.org",
   "@type": "LegalService",
@@ -120,6 +123,8 @@ const legalServiceSchema = {
   telephone: "+48515515314",
   email: "kontakt@kancelaria.pl",
   priceRange: "od 2900 zł (płatność w ratach)",
+  currenciesAccepted: "PLN",
+  paymentAccepted: "Gotówka, Przelew, Płatność w ratach",
   address: {
     "@type": "PostalAddress",
     streetAddress: "ul. Wolności 12",
@@ -137,8 +142,14 @@ const legalServiceSchema = {
     {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      opens: "08:00",
-      closes: "19:00",
+      opens: "09:00",
+      closes: "18:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Saturday"],
+      opens: "09:00",
+      closes: "14:00",
     },
   ],
   areaServed: [
@@ -157,6 +168,7 @@ const legalServiceSchema = {
     "Wstrzymanie egzekucji komorniczej",
     "Krajowy Rejestr Zadłużonych (KRZ)",
     "Plan spłaty wierzycieli",
+    "Zawieszenie odsetek",
   ],
   memberOf: {
     "@type": "Organization",
@@ -171,9 +183,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pl" className={`${inter.variable} ${poppins.variable}`}>
+    <html
+      lang="pl"
+      className={`${inter.variable} ${poppins.variable} scroll-smooth`}
+    >
       <head>
-        {/* Skrypt Schema.org JSON-LD wstrzyknięty bezpośrednio w sekcję HEAD */}
+        {/* Schema.org JSON-LD wstrzyknięty bezpośrednio w sekcję HEAD */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -181,11 +196,13 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-sans antialiased selection:bg-emerald-500 selection:text-white">
+      <body className="min-h-screen bg-cream font-sans text-ink antialiased selection:bg-gold selection:text-navy-900">
         <Navbar />
         {children}
         <Footer />
-        {process.env.NODE_ENV === "production" && <Analytics />}
+
+        {/* GOOGLE ANALYTICS 4 */}
+        <GoogleAnalytics gaId="G-CLXWVE955N" />
       </body>
     </html>
   );
