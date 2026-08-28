@@ -2,7 +2,7 @@
 import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = "https://twojadomena.pl"; // Podmień na docelową domenę
+  const baseUrl = "https://upadlosckonsumenckachorzow.pl"; // Podmień na docelową domenę
 
   return {
     rules: [
