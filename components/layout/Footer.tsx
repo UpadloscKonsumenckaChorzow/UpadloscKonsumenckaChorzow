@@ -1,3 +1,4 @@
+import Link from "next/link"; // <-- DODAJ TEN IMPORT NA GÓRZE PLIKU
 import { Phone, Mail, MapPin } from "lucide-react";
 
 function TikTokIcon({ className }: { className?: string }) {
@@ -178,12 +179,22 @@ export function Footer() {
             zastrzeżone. · Część Grupy Expert Partner
           </p>
           <div className="flex flex-wrap items-center gap-4">
-            <a href="#" className="transition-colors hover:text-white">
+            {/* PODPIĘTY LINK DO POLITYKI PRYWATNOŚCI: */}
+            <Link
+              href="/polityka-prywatnosci"
+              className="transition-colors hover:text-white"
+            >
               Polityka prywatności
+            </Link>
+
+            {/* NOTA PRAWNA ZAMIAST SKLEPOWEGO REGULAMINU: */}
+            <a
+              href="#dlaczego-my"
+              className="transition-colors hover:text-white"
+            >
+              Nota prawna
             </a>
-            <a href="#" className="transition-colors hover:text-white">
-              Regulamin
-            </a>
+
             <span>·</span>
             <span>
               Stworzone przez{" "}
