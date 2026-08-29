@@ -70,7 +70,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Upadłość Konsumencka Chorzów & Śląsk · Życie bez długów",
     description:
-      "Zatrzymaj komornika i zacznij od nowa. Sprawdź, jak legalnie umorzyć długi. Bezpłatna konsultacja.",
+      "Zatrzymaj komornika i zacznij od nowa. Sprawdzimy Twoją sytuację bezpłatnie i pomożemy legalnie umorzyć długi w drodze upadłości konsumenckiej na Śląsku.",
     url: site.url,
     siteName: site.name,
     locale: "pl_PL",
@@ -88,7 +88,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Upadłość Konsumencka Chorzów & Śląsk · Życie bez długów",
     description:
-      "Zatrzymaj komornika i zacznij od nowa. Bezpłatna i poufna analiza sytuacji prawnej.",
+      "Zatrzymaj komornika i zacznij od nowa. Sprawdzimy Twoją sytuację bezpłatnie i pomożemy legalnie umorzyć długi w drodze upadłości konsumenckiej na Śląsku.",
     images: ["/og-image.jpg"],
   },
   robots: {
