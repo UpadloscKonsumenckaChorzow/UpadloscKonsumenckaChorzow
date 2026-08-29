@@ -128,7 +128,7 @@ export function Contact() {
             </div>
 
             <div className="grid gap-5 sm:grid-cols-2">
-              <div className="rounded-2xl bg-white/5 p-6 border border-white/10">
+              <div className="rounded-2xl bg-navy-900/40 p-6 border border-white/10">
                 <p className="flex items-center gap-2 font-semibold text-gold text-sm">
                   <Globe className="size-4" />
                   Obsługa zdalna
@@ -139,7 +139,7 @@ export function Contact() {
                 </p>
               </div>
 
-              <div className="rounded-2xl bg-white/5 p-6 border border-white/10">
+              <div className="rounded-2xl bg-navy-900/40 p-6 border border-white/10">
                 <p className="flex items-center gap-2 font-semibold text-gold text-sm">
                   <Clock className="size-4" />
                   Godziny otwarcia
@@ -205,7 +205,7 @@ export function Contact() {
             <h3 className="font-display text-2xl font-bold text-ink">
               Umów bezpłatną konsultację
             </h3>
-            <p className="mt-2 text-sm text-ink/60">
+            <p className="mt-2 text-sm text-ink/70">
               Przedstaw swoją sytuację. Odpowiadamy tego samego dnia roboczego.
             </p>
 
@@ -344,7 +344,7 @@ export function Contact() {
                 )}
               </button>
 
-              <p className="text-center text-[11px] leading-relaxed text-ink/50">
+              <p className="text-center text-[11px] leading-relaxed text-ink/70">
                 Rozmowa jest całkowicie bezpłatna i poufna.
               </p>
             </form>
