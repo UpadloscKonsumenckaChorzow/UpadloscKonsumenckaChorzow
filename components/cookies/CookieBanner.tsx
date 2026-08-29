@@ -75,7 +75,7 @@ export function CookieBanner() {
                 <button
                   type="button"
                   onClick={openSettings}
-                  className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl px-4 py-3 text-xs font-semibold text-white/70 transition-all hover:bg-white/10 hover:text-white sm:text-sm"
+                  className="inline-flex cursor-pointer items-center justify-center rounded-xl bg-gold px-6 py-3 text-xs font-semibold text-navy-900 shadow-lg transition-all hover:bg-gold-light hover:scale-[1.02] sm:text-sm"
                 >
                   <Settings2 className="size-4" />
                   Ustawienia
@@ -201,7 +201,7 @@ export function CookieBanner() {
               <button
                 type="button"
                 onClick={acceptAll}
-                className="flex-1 cursor-pointer rounded-xl bg-gold px-6 py-3.5 text-sm font-semibold text-white shadow-md transition-all hover:bg-gold-light"
+                className="flex-1 cursor-pointer rounded-xl bg-gold px-6 py-3.5 text-sm font-semibold text-navy-900 shadow-md transition-all hover:bg-gold-light"
               >
                 Akceptuj wszystkie
               </button>

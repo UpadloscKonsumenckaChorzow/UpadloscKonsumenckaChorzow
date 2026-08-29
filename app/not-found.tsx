@@ -34,7 +34,7 @@ export default function NotFound() {
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link
             href="/"
-            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-gold px-7 py-3.5 text-sm font-semibold text-white shadow-md transition-all hover:bg-gold-light hover:scale-105"
+            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-gold px-7 py-3.5 text-sm font-semibold text-navy-900 shadow-md transition-all hover:bg-gold-light hover:scale-105"
           >
             <Home className="size-4" />
             Wróć na stronę główną
@@ -55,7 +55,7 @@ export default function NotFound() {
           </p>
           <a
             href={site.phone.href}
-            className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-navy hover:text-gold transition-colors"
+            className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-navy hover:text-gold-contrast transition-colors"
           >
             <Phone className="size-4 text-gold" />
             Zadzwoń: {site.phone.display}

@@ -31,7 +31,7 @@ function Logo() {
       />
       <span className="leading-tight">
         <span className="block font-display text-base font-semibold tracking-wide text-ink sm:text-lg">
-          UPADŁOŚĆ <span className="text-gold">KONSUMENCKA</span>
+          UPADŁOŚĆ <span className="text-gold-contrast">KONSUMENCKA</span>
         </span>
         <span className="block text-[10px] font-medium tracking-[0.18em] text-ink/60">
           CHORZÓW · ŚLĄSK

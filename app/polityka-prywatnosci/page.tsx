@@ -22,7 +22,7 @@ export default function PrivacyPolicyPage() {
       <div className="mx-auto max-w-4xl px-5 lg:px-8">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-sm font-medium text-navy hover:text-gold transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-sm font-medium text-navy hover:text-gold-contrast transition-colors mb-8"
         >
           <ArrowLeft className="size-4" />
           Wróć do strony głównej

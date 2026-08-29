@@ -104,7 +104,7 @@ export function Hero() {
           <div className="mt-9 flex w-full flex-col items-center justify-center gap-4 sm:flex-row">
             <a
               href="#kontakt"
-              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-gold px-7 py-4 text-sm font-semibold text-white shadow-lg transition-all hover:bg-gold-light hover:scale-105"
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-gold px-7 py-4 text-sm font-semibold text-navy-900 shadow-lg transition-all hover:bg-gold-light hover:scale-105"
             >
               Umów bezpłatną konsultację
               <ArrowRight className="size-4" />

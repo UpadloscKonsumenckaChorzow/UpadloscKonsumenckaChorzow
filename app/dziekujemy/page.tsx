@@ -46,7 +46,7 @@ export default function ThankYouPage() {
 
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 <div className="rounded-2xl bg-cream p-4 border border-black/5">
-                  <span className="font-display text-xs font-bold text-gold">
+                  <span className="font-display text-xs font-bold text-gold-contrast">
                     KROK 1
                   </span>
                   <p className="mt-1 text-sm font-semibold text-ink">
@@ -59,7 +59,7 @@ export default function ThankYouPage() {
                 </div>
 
                 <div className="rounded-2xl bg-cream p-4 border border-black/5">
-                  <span className="font-display text-xs font-bold text-gold">
+                  <span className="font-display text-xs font-bold text-gold-contrast">
                     KROK 2
                   </span>
                   <p className="mt-1 text-sm font-semibold text-ink">
@@ -71,7 +71,7 @@ export default function ThankYouPage() {
                 </div>
 
                 <div className="rounded-2xl bg-cream p-4 border border-black/5">
-                  <span className="font-display text-xs font-bold text-gold">
+                  <span className="font-display text-xs font-bold text-gold-contrast">
                     KROK 3
                   </span>
                   <p className="mt-1 text-sm font-semibold text-ink">
@@ -96,7 +96,7 @@ export default function ThankYouPage() {
 
               <a
                 href={site.phone.href}
-                className="inline-flex items-center gap-2 rounded-xl bg-gold px-5 py-3 text-sm font-semibold text-white shadow-md transition-all hover:bg-gold-light hover:scale-105 shrink-0"
+                className="inline-flex items-center gap-2 rounded-xl bg-gold px-5 py-3 text-sm font-semibold text-navy-900 shadow-md transition-all hover:bg-gold-light hover:scale-105 shrink-0"
               >
                 <Phone className="size-4" />
                 {site.phone.display}

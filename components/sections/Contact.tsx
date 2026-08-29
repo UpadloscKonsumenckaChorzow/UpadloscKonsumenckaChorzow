@@ -192,7 +192,7 @@ export function Contact() {
                   <span className="max-w-xs text-xs leading-relaxed text-white/70">
                     Kliknij, aby załadować interaktywną mapę Google.
                   </span>
-                  <span className="rounded-lg bg-gold px-4 py-2 text-xs font-semibold text-white shadow-md transition-all hover:bg-gold-light">
+                  <span className="rounded-lg bg-gold px-4 py-2 text-xs font-semibold text-navy-900 shadow-md transition-all hover:bg-gold-light">
                     Załaduj mapę Google Maps
                   </span>
                 </button>
@@ -318,7 +318,7 @@ export function Contact() {
                   <a
                     href="/polityka-prywatnosci"
                     target="_blank"
-                    className="underline text-navy font-semibold hover:text-gold"
+                    className="underline text-navy font-semibold hover:text-gold-contrast"
                   >
                     Polityką Prywatności
                   </a>

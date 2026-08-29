@@ -23,7 +23,7 @@ export default function Error({
           <AlertTriangle className="size-10" />
         </div>
 
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-contrast">
           Wystąpił nieoczekiwany problem
         </p>
 
@@ -61,7 +61,7 @@ export default function Error({
           </p>
           <a
             href={site.phone.href}
-            className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-navy hover:text-gold transition-colors"
+            className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-navy hover:text-gold-contrast transition-colors"
           >
             <Phone className="size-4 text-gold" />
             {site.phone.display}
