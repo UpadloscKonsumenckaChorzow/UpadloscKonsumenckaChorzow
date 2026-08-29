@@ -5,6 +5,10 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     formats: ["image/avif", "image/webp"],
+    // Obraz z tym samym zapytaniem (url+w+q) jest identyczny przy każdym
+   // requeście — 1 rok cache jest bezpieczny. Wcześniej brak tego ustawienia
+   // powodował ponowne pobieranie 66 KiB przy każdej wizycie.
+   minimumCacheTTL: 31536000,
   },
   async headers() {
     return [

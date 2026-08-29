@@ -1,12 +1,18 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
+import dynamic from "next/dynamic";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { CookieConsentProvider } from "@/context/CookieConsentContext";
-import { CookieBanner } from "@/components/cookies/CookieBanner";
-import { AnalyticsLoader } from "@/components/cookies/AnalyticsLoader";
 import { site } from "@/content/site";
+
+const CookieBanner = dynamic(() =>
+   import("@/components/cookies/CookieBanner").then((m) => m.CookieBanner),
+ );
+ const AnalyticsLoader = dynamic(() =>
+   import("@/components/cookies/AnalyticsLoader").then((m) => m.AnalyticsLoader),
+ );
 
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
