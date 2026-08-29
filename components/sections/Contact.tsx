@@ -148,13 +148,13 @@ export function Contact() {
                   <div className="flex justify-between">
                     <dt>Poniedziałek – Piątek:</dt>
                     <dd className="font-semibold text-gold">
-                      {site.hours.weekday}
+                      {site.hours.weekday.display}
                     </dd>
                   </div>
                   <div className="flex justify-between">
-                    <dt>Sobota:</dt>
-                    <dd className="font-semibold text-gold">
-                      {site.hours.saturday}
+                    <dt>Sobota – Niedziela:</dt>
+                    <dd className="font-semibold text-white/50">
+                      {site.hours.weekend.display}
                     </dd>
                   </div>
                 </dl>

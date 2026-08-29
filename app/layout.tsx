@@ -8,11 +8,11 @@ import { CookieConsentProvider } from "@/context/CookieConsentContext";
 import { site } from "@/content/site";
 
 const CookieBanner = dynamic(() =>
-   import("@/components/cookies/CookieBanner").then((m) => m.CookieBanner),
- );
- const AnalyticsLoader = dynamic(() =>
-   import("@/components/cookies/AnalyticsLoader").then((m) => m.AnalyticsLoader),
- );
+  import("@/components/cookies/CookieBanner").then((m) => m.CookieBanner),
+);
+const AnalyticsLoader = dynamic(() =>
+  import("@/components/cookies/AnalyticsLoader").then((m) => m.AnalyticsLoader),
+);
 
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
@@ -145,8 +145,8 @@ const legalServiceSchema = {
         {
           "@type": "OpeningHoursSpecification",
           dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-          opens: "09:00",
-          closes: "18:00",
+          opens: site.hours.weekday.opens,
+          closes: site.hours.weekday.closes,
         },
         {
           "@type": "OpeningHoursSpecification",

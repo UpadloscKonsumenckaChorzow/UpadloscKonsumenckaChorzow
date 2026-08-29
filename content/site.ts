@@ -6,9 +6,9 @@ export const site = {
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://upadlosckonsumenckachorzow.pl",
 
   phone: {
-    href: "tel:+48515515314",
-    display: "515 515 314",
-    schema: "+48515515314",
+    href: "tel:+48516516246",
+    display: "516 516 246",
+    schema: "+48516516246",
   },
 
   email: {
@@ -32,8 +32,17 @@ export const site = {
   },
 
   hours: {
-    weekday: "9:00 – 18:00",
-    saturday: "9:00 – 14:00",
+    // Rozbite na wersję "do wyświetlenia" i "do Schema.org" (JSON-LD wymaga
+   // formatu 24h "09:00", bez myślnika), żeby godziny w treści strony i w
+   // danych strukturalnych dla Google nigdy się nie rozjechały.
+   weekday: {
+     display: "9:00 – 16:00",
+     opens: "09:00",
+     closes: "16:00",
+   },
+   weekend: {
+     display: "Zamknięte",
+   },
   },
 
   partner: {
