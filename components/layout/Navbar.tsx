@@ -18,7 +18,7 @@ function Logo() {
   return (
     <a
       href="/"
-      className="flex items-center gap-3 shrink-0 group"
+      className="flex items-center gap-2.5 sm:gap-3 shrink-0 group"
       aria-label="Strona główna"
     >
       <Image
@@ -27,13 +27,13 @@ function Logo() {
         width={40}
         height={40}
         priority
-        className="size-10 object-contain transition-transform duration-300 group-hover:scale-105"
+        className="size-8 sm:size-10 object-contain transition-transform duration-300 group-hover:scale-105"
       />
       <span className="leading-tight">
-        <span className="block font-display text-base font-semibold tracking-wide text-ink sm:text-lg">
+        <span className="block font-display text-sm font-semibold tracking-wide text-ink sm:text-lg">
           UPADŁOŚĆ <span className="text-green-contrast">KONSUMENCKA</span>
         </span>
-        <span className="block text-[10px] font-medium tracking-[0.18em] text-ink/60">
+        <span className="block text-[9px] sm:text-[10px] font-medium tracking-[0.18em] text-ink/60">
           CHORZÓW · ŚLĄSK
         </span>
       </span>
@@ -60,7 +60,7 @@ export function Navbar() {
         return;
       }
 
-      const scrollOffset = 160; // Wysokość paska + margines aktywacji
+      const scrollOffset = 130;
       let currentSection = "";
 
       for (const id of ids) {
@@ -94,26 +94,31 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 bg-mint/95 backdrop-blur border-b border-black/5 transition-all">
-      {/* Górny pasek informacyjny */}
-      <div className="bg-navy text-xs text-white sm:text-sm">
-        <div className="mx-auto flex min-h-12 max-w-7xl flex-col items-center justify-between gap-2 px-5 py-2 sm:h-12 sm:flex-row sm:py-0 lg:px-8">
-          <div className="font-medium tracking-wide text-white/90">
+      {/* Górny pasek informacyjny - E-mail i Telefon widoczne na mobile */}
+      <div className="bg-navy text-[10.5px] text-white sm:text-sm">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-1 px-4 py-1.5 sm:h-12 sm:flex-row sm:px-6 sm:py-0 lg:px-8">
+          <div className="hidden font-medium tracking-wide text-white/90 sm:block">
             Upadłość konsumencka Chorzów / Śląsk
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+          <div className="flex w-full flex-col items-center justify-center gap-1 sm:w-auto sm:flex-row sm:justify-end sm:gap-6">
+            {/* E-mail (klikalny i widoczny na telefonie) */}
             <a
               href={site.email.href}
-              className="flex items-center gap-2 text-white/90 transition-all duration-200 hover:text-green hover:translate-x-0.5"
+              className="flex items-center gap-1.5 text-white/90 transition-all duration-200 hover:text-green hover:translate-x-0.5"
             >
-              <Mail className="size-4 text-green" />
-              <span>{site.email.display}</span>
+              <Mail className="size-3 sm:size-4 text-green shrink-0" />
+              <span className="tracking-tight sm:tracking-normal">
+                {site.email.display}
+              </span>
             </a>
+
+            {/* Telefon */}
             <a
               href={site.phone.href}
-              className="flex items-center gap-2 text-white/90 transition-all duration-200 hover:text-green hover:translate-x-0.5"
+              className="flex items-center gap-1.5 text-white/90 transition-all duration-200 hover:text-green hover:translate-x-0.5"
             >
-              <Phone className="size-4 text-green" />
+              <Phone className="size-3 sm:size-4 text-green shrink-0" />
               <span>
                 {site.phone.display}{" "}
                 <span className="font-medium text-green">
@@ -125,11 +130,11 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Główny pasek nawigacyjny */}
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 lg:px-8">
+      {/* Główny pasek nawigacyjny - h-16 na mobile, h-20 na desktopie */}
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:h-20 sm:px-6 lg:px-8">
         <Logo />
 
-        {/* Nawigacja desktop z animacją i aktywnym stanem */}
+        {/* Nawigacja desktop */}
         <nav
           aria-label="Nawigacja główna"
           className="hidden items-center gap-4 xl:flex xl:gap-7"
@@ -166,20 +171,24 @@ export function Navbar() {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="flex size-10 items-center justify-center rounded-lg text-navy xl:hidden cursor-pointer transition-colors hover:bg-black/5"
+          className="flex size-9 items-center justify-center rounded-lg text-navy xl:hidden cursor-pointer transition-colors hover:bg-black/5 sm:size-10"
           aria-label={open ? "Zamknij menu" : "Otwórz menu"}
           aria-expanded={open}
           aria-controls="mobile-nav"
         >
-          {open ? <X className="size-6" /> : <Menu className="size-6" />}
+          {open ? (
+            <X className="size-5 sm:size-6" />
+          ) : (
+            <Menu className="size-5 sm:size-6" />
+          )}
         </button>
       </div>
 
-      {/* Menu mobilne */}
+      {/* Menu mobilne (Drawer) */}
       {open && (
         <div
           id="mobile-nav"
-          className="border-t border-black/5 bg-mint px-5 pb-6 pt-2 xl:hidden shadow-lg animate-in fade-in slide-in-from-top-2 duration-200"
+          className="border-t border-black/5 bg-mint px-4 pb-5 pt-1.5 xl:hidden shadow-lg animate-in fade-in slide-in-from-top-2 duration-200 sm:px-5 sm:pb-6 sm:pt-2"
         >
           <nav aria-label="Nawigacja mobilna" className="flex flex-col">
             {navLinks.map((link) => {
@@ -190,7 +199,7 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className={`flex items-center justify-between border-b border-black/5 py-3.5 text-sm font-medium transition-all duration-200 ${
+                  className={`flex items-center justify-between border-b border-black/5 py-2.5 text-xs font-medium transition-all duration-200 sm:py-3.5 sm:text-sm ${
                     isActive
                       ? "text-navy font-semibold pl-2 bg-black/2"
                       : "text-ink/80 hover:text-navy hover:pl-2"
@@ -205,19 +214,19 @@ export function Navbar() {
             })}
           </nav>
 
-          <div className="mt-4 flex flex-col gap-3">
+          <div className="mt-3 flex flex-col gap-2 sm:mt-4 sm:gap-3">
             <a
               href={site.email.href}
-              className="flex items-center gap-2 text-sm font-medium text-ink/80 transition-colors hover:text-navy"
+              className="flex items-center gap-2 text-xs sm:text-sm font-medium text-ink/80 transition-colors hover:text-navy"
             >
-              <Mail className="size-4 text-green" />
+              <Mail className="size-3.5 sm:size-4 text-green" />
               {site.email.display}
             </a>
             <a
               href={site.phone.href}
-              className="flex items-center gap-2 text-sm font-semibold text-navy transition-colors hover:text-green-contrast"
+              className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-navy transition-colors hover:text-green-contrast"
             >
-              <Phone className="size-4 text-green" />
+              <Phone className="size-3.5 sm:size-4 text-green" />
               {site.phone.display} (bezpłatna konsultacja)
             </a>
           </div>
