@@ -51,7 +51,7 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="scroll-mt-24 bg-cream py-12 sm:py-16">
+    <section id="faq" className="scroll-mt-24 bg-mint py-12 sm:py-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
@@ -59,7 +59,7 @@ export function Faq() {
       <div className="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-2 lg:gap-16 lg:px-8">
         <div className="lg:sticky lg:top-28 lg:self-start">
           <p className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-navy">
-            <HelpCircle className="size-4 text-gold" />
+            <HelpCircle className="size-4 text-green" />
             FAQ / Pytania
           </p>
           <h2 className="mt-4 font-display text-3xl font-bold leading-tight text-ink sm:text-4xl lg:text-5xl">
@@ -72,7 +72,7 @@ export function Faq() {
             Masz inne pytanie?{" "}
             <a
               href="#kontakt"
-              className="font-semibold text-navy underline underline-offset-4 transition-colors hover:text-gold"
+              className="font-semibold text-navy underline underline-offset-4 transition-colors hover:text-green-contrast"
             >
               Napisz do nas
             </a>
@@ -100,7 +100,7 @@ export function Faq() {
                   <span
                     className={`flex size-9 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
                       isOpen
-                        ? "bg-navy text-gold shadow-md"
+                        ? "bg-navy text-green shadow-md"
                         : "bg-navy/5 text-navy group-hover:bg-navy/10"
                     }`}
                   >

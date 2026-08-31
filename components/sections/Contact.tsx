@@ -65,7 +65,7 @@ export function Contact() {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center mb-10 sm:mb-12">
-          <p className="flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.16em] text-gold">
+          <p className="flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.16em] text-green">
             <PhoneCall className="size-4" />
             Kontakt
           </p>
@@ -76,7 +76,7 @@ export function Contact() {
             Nie musisz dzisiaj rozwiązywać całego problemu, wystarczy, że
             poznasz swoje możliwości.
           </p>
-          <p className="mt-2 text-sm sm:text-base text-gold font-medium">
+          <p className="mt-2 text-sm sm:text-base text-green font-medium">
             Umów konsultację i przedstaw swoją sytuację.
           </p>
         </div>
@@ -84,7 +84,7 @@ export function Contact() {
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-16">
           <div className="space-y-6 min-w-0">
             <div className="space-y-5 rounded-3xl bg-white/5 p-4 sm:p-8 backdrop-blur border border-white/10">
-              <h3 className="font-display text-lg sm:text-xl font-bold text-gold">
+              <h3 className="font-display text-lg sm:text-xl font-bold text-green">
                 Dane kontaktowe
               </h3>
 
@@ -94,14 +94,14 @@ export function Contact() {
                   href={site.phone.href}
                   className="flex items-center gap-3 sm:gap-4 group min-w-0"
                 >
-                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-gold transition-colors group-hover:bg-gold group-hover:text-white sm:size-11">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-green transition-colors group-hover:bg-green group-hover:text-white sm:size-11">
                     <Phone className="size-5" />
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block text-[11px] sm:text-xs font-medium tracking-[0.14em] text-white/50">
                       TELEFON
                     </span>
-                    <span className="font-semibold text-sm sm:text-lg text-white group-hover:text-gold transition-colors block">
+                    <span className="font-semibold text-sm sm:text-lg text-white group-hover:text-green transition-colors block">
                       {site.phone.display}
                     </span>
                   </span>
@@ -113,7 +113,7 @@ export function Contact() {
                     href={site.email.href}
                     className="flex min-w-0 flex-1 items-center gap-3 sm:gap-4"
                   >
-                    <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-gold transition-colors group-hover:bg-gold group-hover:text-white sm:size-11">
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-green transition-colors group-hover:bg-green group-hover:text-white sm:size-11">
                       <Mail className="size-5" />
                     </span>
                     <span className="min-w-0 flex-1">
@@ -121,7 +121,7 @@ export function Contact() {
                         E-MAIL
                       </span>
                       <span
-                        className="block text-[11.5px] min-[390px]:text-xs sm:text-sm md:text-base font-semibold tracking-tight text-white group-hover:text-gold transition-colors"
+                        className="block text-[11.5px] min-[390px]:text-xs sm:text-sm md:text-base font-semibold tracking-tight text-white group-hover:text-green transition-colors"
                         title={site.email.display}
                       >
                         {site.email.display}
@@ -129,7 +129,7 @@ export function Contact() {
                     </span>
                   </a>
 
-                  {/* Przycisk kopiowania przesunięty w prawo z odstępem od adresu */}
+                  {/* Przycisk kopiowania */}
                   <div className="relative shrink-0 ml-2 translate-x-2.5 sm:translate-x-0">
                     <button
                       type="button"
@@ -140,10 +140,10 @@ export function Contact() {
                           : "Kopiuj adres e-mail"
                       }
                       title={emailCopied ? "Skopiowano!" : "Kopiuj e-mail"}
-                      className="flex size-8 sm:size-9 shrink-0 cursor-pointer items-center justify-center rounded-lg text-white/60 transition-colors hover:bg-white/10 hover:text-gold"
+                      className="flex size-8 sm:size-9 shrink-0 cursor-pointer items-center justify-center rounded-lg text-white/60 transition-colors hover:bg-white/10 hover:text-green"
                     >
                       {emailCopied ? (
-                        <Check className="size-4 text-gold" />
+                        <Check className="size-4 text-green" />
                       ) : (
                         <Copy className="size-4" />
                       )}
@@ -154,10 +154,10 @@ export function Contact() {
                       <div
                         role="status"
                         aria-live="polite"
-                        className="pointer-events-none absolute -top-10 right-0 z-30 flex items-center justify-center whitespace-nowrap rounded-lg bg-gold px-2.5 py-1 text-xs font-bold text-white shadow-xl animate-in fade-in zoom-in-95 duration-150"
+                        className="pointer-events-none absolute -top-10 right-0 z-30 flex items-center justify-center whitespace-nowrap rounded-lg bg-green px-2.5 py-1 text-xs font-bold text-white shadow-xl animate-in fade-in zoom-in-95 duration-150"
                       >
                         Skopiowano!
-                        <div className="absolute -bottom-1 right-2.5 size-2 rotate-45 bg-gold" />
+                        <div className="absolute -bottom-1 right-2.5 size-2 rotate-45 bg-green" />
                       </div>
                     )}
                   </div>
@@ -165,7 +165,7 @@ export function Contact() {
 
                 {/* ADRES */}
                 <div className="flex items-center gap-3 sm:gap-4 min-w-0">
-                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-gold sm:size-11">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-green sm:size-11">
                     <MapPin className="size-5" />
                   </span>
                   <span className="min-w-0 flex-1">
@@ -182,7 +182,7 @@ export function Contact() {
 
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="rounded-2xl bg-navy-900/40 p-4 sm:p-6 border border-white/10">
-                <p className="flex items-center gap-2 font-semibold text-gold text-sm">
+                <p className="flex items-center gap-2 font-semibold text-green text-sm">
                   <Globe className="size-4 shrink-0" />
                   Obsługa zdalna
                 </p>
@@ -193,14 +193,14 @@ export function Contact() {
               </div>
 
               <div className="rounded-2xl bg-navy-900/40 p-4 sm:p-6 border border-white/10">
-                <p className="flex items-center gap-2 font-semibold text-gold text-sm">
+                <p className="flex items-center gap-2 font-semibold text-green text-sm">
                   <Clock className="size-4 shrink-0" />
                   Godziny otwarcia
                 </p>
                 <dl className="mt-3 space-y-1.5 text-xs text-white/85">
                   <div className="flex justify-between gap-2">
                     <dt>Poniedziałek – Piątek:</dt>
-                    <dd className="font-semibold text-gold shrink-0">
+                    <dd className="font-semibold text-green shrink-0">
                       {site.hours.weekday.display}
                     </dd>
                   </div>
@@ -215,7 +215,7 @@ export function Contact() {
             </div>
 
             <div className="overflow-hidden rounded-3xl border border-white/10 shadow-xl">
-              <p className="bg-white/5 px-4 sm:px-6 py-3 text-xs font-semibold uppercase tracking-wider text-gold border-b border-white/10 flex items-center gap-2">
+              <p className="bg-white/5 px-4 sm:px-6 py-3 text-xs font-semibold uppercase tracking-wider text-green border-b border-white/10 flex items-center gap-2">
                 <MapPin className="size-4 shrink-0" />
                 Lokalizacja biura (Google Maps)
               </p>
@@ -238,13 +238,13 @@ export function Contact() {
                   onClick={() => setMapLoaded(true)}
                   className="flex min-h-44 w-full cursor-pointer flex-col items-center justify-center gap-3 bg-navy-900/40 px-4 sm:px-6 py-6 sm:py-8 text-center transition-colors hover:bg-navy-900/60"
                 >
-                  <span className="flex size-11 items-center justify-center rounded-xl bg-white/10 text-gold">
+                  <span className="flex size-11 items-center justify-center rounded-xl bg-white/10 text-green">
                     <MapPin className="size-5" />
                   </span>
                   <span className="max-w-xs text-xs leading-relaxed text-white/70">
                     Kliknij, aby załadować interaktywną mapę Google.
                   </span>
-                  <span className="rounded-lg bg-gold px-4 py-2 text-xs font-semibold text-navy-900 shadow-md transition-all hover:bg-gold-light">
+                  <span className="rounded-lg bg-green px-4 py-2 text-xs font-semibold text-navy-900 shadow-md transition-all hover:bg-green-light">
                     Załaduj mapę Google Maps
                   </span>
                 </button>
@@ -367,7 +367,7 @@ export function Contact() {
                   <a
                     href="/polityka-prywatnosci"
                     target="_blank"
-                    className="underline text-navy font-semibold hover:text-gold-contrast"
+                    className="underline text-navy font-semibold hover:text-green-contrast"
                   >
                     Polityką Prywatności
                   </a>
@@ -382,12 +382,12 @@ export function Contact() {
               >
                 {isPending ? (
                   <>
-                    <Loader2 className="size-4 animate-spin text-gold" />
+                    <Loader2 className="size-4 animate-spin text-green" />
                     Wysyłanie formularza...
                   </>
                 ) : (
                   <>
-                    <Send className="size-4 text-gold" />
+                    <Send className="size-4 text-green" />
                     Wyślij i umów bezpłatną analizę
                   </>
                 )}

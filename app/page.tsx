@@ -8,7 +8,7 @@ import { Contact } from "@/components/sections/Contact";
 
 export default function Page() {
   return (
-    <main className="bg-cream min-h-screen text-ink">
+    <main className="bg-mint min-h-screen text-ink">
       <Hero />
       <ForWho />
       <Process />

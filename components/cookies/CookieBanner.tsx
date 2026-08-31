@@ -47,11 +47,11 @@ export function CookieBanner() {
           className="fixed inset-x-0 bottom-0 z-50 px-3 pb-3 sm:px-6 sm:pb-6"
         >
           <div className="mx-auto max-w-5xl overflow-hidden rounded-3xl border border-white/10 bg-navy shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)]">
-            <div className="h-1 w-full bg-linear-to-r from-gold via-gold-light to-gold" />
+            <div className="h-1 w-full bg-linear-to-r from-green via-green-light to-green" />
 
             <div className="flex flex-col gap-5 p-5 sm:p-7 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
               <div className="flex items-start gap-4 lg:items-center">
-                <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-gold/15 text-gold ring-1 ring-gold/20">
+                <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-green/15 text-green ring-1 ring-green/20">
                   <Cookie className="size-6" />
                 </span>
                 <div className="min-w-0">
@@ -63,7 +63,7 @@ export function CookieBanner() {
                     Analytics uruchamiamy wyłącznie po Twojej akceptacji.{" "}
                     <a
                       href="/polityka-prywatnosci"
-                      className="whitespace-nowrap font-medium text-gold underline underline-offset-2 hover:text-gold-light"
+                      className="whitespace-nowrap font-medium text-green underline underline-offset-2 hover:text-green-light"
                     >
                       Polityka Prywatności
                     </a>
@@ -75,9 +75,9 @@ export function CookieBanner() {
                 <button
                   type="button"
                   onClick={openSettings}
-                  className="inline-flex cursor-pointer items-center justify-center rounded-xl bg-gold px-6 py-3 text-xs font-semibold text-navy-900 shadow-lg transition-all hover:bg-gold-light hover:scale-[1.02] sm:text-sm"
+                  className="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-xs font-semibold text-white transition-all hover:border-white/30 hover:bg-white/10 sm:text-sm"
                 >
-                  <Settings2 className="size-4" />
+                  <Settings2 className="size-4 text-green" />
                   Ustawienia
                 </button>
                 <button
@@ -90,7 +90,7 @@ export function CookieBanner() {
                 <button
                   type="button"
                   onClick={acceptAll}
-                  className="inline-flex cursor-pointer items-center justify-center rounded-xl bg-gold px-6 py-3 text-xs font-semibold text-white shadow-lg transition-all hover:bg-gold-light hover:scale-[1.02] sm:text-sm"
+                  className="inline-flex cursor-pointer items-center justify-center rounded-xl bg-green px-6 py-3 text-xs font-semibold text-navy-900 shadow-lg transition-all hover:bg-green-light hover:scale-[1.02] sm:text-sm"
                 >
                   Akceptuj wszystkie
                 </button>
@@ -115,7 +115,7 @@ export function CookieBanner() {
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-navy">
-                  <Cookie className="size-4 text-gold" />
+                  <Cookie className="size-4 text-green" />
                   Ustawienia cookies
                 </p>
                 <h2
@@ -142,7 +142,7 @@ export function CookieBanner() {
 
             <div className="mt-6 space-y-4">
               {/* Cookies niezbędne */}
-              <div className="flex items-start justify-between gap-4 rounded-2xl border border-black/10 bg-cream p-4">
+              <div className="flex items-start justify-between gap-4 rounded-2xl border border-black/10 bg-mint p-4">
                 <div className="flex items-start gap-3">
                   <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-navy/10 text-navy">
                     <ShieldCheck className="size-4" />
@@ -201,7 +201,7 @@ export function CookieBanner() {
               <button
                 type="button"
                 onClick={acceptAll}
-                className="flex-1 cursor-pointer rounded-xl bg-gold px-6 py-3.5 text-sm font-semibold text-navy-900 shadow-md transition-all hover:bg-gold-light"
+                className="flex-1 cursor-pointer rounded-xl bg-green px-6 py-3.5 text-sm font-semibold text-navy-900 shadow-md transition-all hover:bg-green-light"
               >
                 Akceptuj wszystkie
               </button>

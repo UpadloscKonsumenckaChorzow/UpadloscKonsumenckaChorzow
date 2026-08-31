@@ -54,11 +54,11 @@ const partnerFeatures = [
 
 export function WhyUs() {
   return (
-    <section id="dlaczego-my" className="scroll-mt-24 bg-cream py-12 sm:py-16">
+    <section id="dlaczego-my" className="scroll-mt-24 bg-mint py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="text-center">
           <p className="flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-navy">
-            <Award className="size-4 text-gold" />
+            <Award className="size-4 text-green" />
             Dlaczego My
           </p>
           <h2 className="mt-3 font-display text-3xl font-bold uppercase tracking-wider text-ink sm:text-4xl lg:text-5xl">
@@ -72,9 +72,9 @@ export function WhyUs() {
             return (
               <div
                 key={item.title}
-                className="flex flex-col items-center rounded-3xl border border-black/5 bg-white p-6 text-center shadow-sm transition-all hover:border-gold/50 hover:shadow-md"
+                className="flex flex-col items-center rounded-3xl border border-black/5 bg-white p-6 text-center shadow-sm transition-all hover:border-green/50 hover:shadow-md"
               >
-                <span className="flex size-14 items-center justify-center rounded-full bg-navy text-gold shadow-md">
+                <span className="flex size-14 items-center justify-center rounded-full bg-navy text-green shadow-md">
                   <Icon className="size-6" />
                 </span>
                 <h3 className="mt-5 font-display text-base font-bold uppercase tracking-wider text-navy sm:text-lg">
@@ -88,11 +88,11 @@ export function WhyUs() {
           })}
         </div>
 
-        <div className="mt-16 rounded-3xl border border-black/10 bg-cream-dark p-8 shadow-sm lg:p-12">
+        <div className="mt-16 rounded-3xl border border-black/10 bg-mint-dark p-8 shadow-sm lg:p-12">
           <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
             <div className="lg:col-span-5">
               <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-navy">
-                <Handshake className="size-4 text-gold" />
+                <Handshake className="size-4 text-green" />
                 Zaufana współpraca
               </p>
 

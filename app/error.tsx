@@ -17,13 +17,13 @@ export default function Error({
   }, [error]);
 
   return (
-    <main className="flex min-h-[80vh] items-center justify-center bg-cream px-5 py-16">
+    <main className="flex min-h-[80vh] items-center justify-center bg-mint px-5 py-16">
       <div className="mx-auto max-w-xl text-center">
         <div className="mx-auto mb-6 flex size-20 items-center justify-center rounded-3xl bg-navy/5 text-red-600 border border-red-200 shadow-sm">
           <AlertTriangle className="size-10" />
         </div>
 
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-contrast">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-green-contrast">
           Wystąpił nieoczekiwany problem
         </p>
 
@@ -42,7 +42,7 @@ export default function Error({
             onClick={() => reset()}
             className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-navy px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-navy-700 hover:scale-105 shadow-md cursor-pointer"
           >
-            <RotateCcw className="size-4 text-gold" />
+            <RotateCcw className="size-4 text-green" />
             Spróbuj ponownie
           </button>
 
@@ -50,7 +50,7 @@ export default function Error({
             href="/"
             className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-black/10 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition-all hover:bg-black/5"
           >
-            <Home className="size-4 text-gold" />
+            <Home className="size-4 text-green" />
             Strona główna
           </Link>
         </div>
@@ -61,9 +61,9 @@ export default function Error({
           </p>
           <a
             href={site.phone.href}
-            className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-navy hover:text-gold-contrast transition-colors"
+            className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-navy hover:text-green-contrast transition-colors"
           >
-            <Phone className="size-4 text-gold" />
+            <Phone className="size-4 text-green" />
             {site.phone.display}
           </a>
         </div>

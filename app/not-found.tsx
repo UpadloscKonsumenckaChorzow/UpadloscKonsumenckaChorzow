@@ -14,10 +14,10 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main className="flex min-h-[80vh] items-center justify-center bg-cream px-5 py-16">
+    <main className="flex min-h-[80vh] items-center justify-center bg-mint px-5 py-16">
       <div className="mx-auto max-w-xl text-center">
         <div className="mx-auto mb-6 inline-flex items-center justify-center rounded-2xl bg-navy px-6 py-2 shadow-md">
-          <span className="font-display text-2xl font-bold tracking-widest text-gold">
+          <span className="font-display text-2xl font-bold tracking-widest text-green">
             BŁĄD 404
           </span>
         </div>
@@ -34,7 +34,7 @@ export default function NotFound() {
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link
             href="/"
-            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-gold px-7 py-3.5 text-sm font-semibold text-navy-900 shadow-md transition-all hover:bg-gold-light hover:scale-105"
+            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-green px-7 py-3.5 text-sm font-semibold text-navy-900 shadow-md transition-all hover:bg-green-light hover:scale-105"
           >
             <Home className="size-4" />
             Wróć na stronę główną
@@ -44,7 +44,7 @@ export default function NotFound() {
             href="/#kontakt"
             className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-black/10 bg-white px-7 py-3.5 text-sm font-semibold text-ink transition-all hover:bg-black/5"
           >
-            <HelpCircle className="size-4 text-gold" />
+            <HelpCircle className="size-4 text-green" />
             Skontaktuj się z nami
           </a>
         </div>
@@ -55,9 +55,9 @@ export default function NotFound() {
           </p>
           <a
             href={site.phone.href}
-            className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-navy hover:text-gold-contrast transition-colors"
+            className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-navy hover:text-green-contrast transition-colors"
           >
-            <Phone className="size-4 text-gold" />
+            <Phone className="size-4 text-green" />
             Zadzwoń: {site.phone.display}
           </a>
         </div>

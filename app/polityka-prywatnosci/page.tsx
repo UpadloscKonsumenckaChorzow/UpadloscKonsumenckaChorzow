@@ -18,18 +18,18 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <main className="bg-cream min-h-screen py-12 sm:py-16 text-ink">
+    <main className="bg-mint min-h-screen py-12 sm:py-16 text-ink">
       <div className="mx-auto max-w-4xl px-5 lg:px-8">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-sm font-medium text-navy hover:text-gold-contrast transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-sm font-medium text-navy hover:text-green-contrast transition-colors mb-8"
         >
           <ArrowLeft className="size-4" />
           Wróć do strony głównej
         </Link>
 
         <div className="rounded-3xl bg-navy p-8 sm:p-12 text-white shadow-xl mb-12 border border-white/10">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-green">
             <ShieldCheck className="size-4" />
             Ochrona danych osobowych
           </div>
@@ -70,7 +70,7 @@ export default function PrivacyPolicyPage() {
               2. Cele i podstawy prawne przetwarzania
             </h2>
             <div className="mt-4 space-y-4">
-              <div className="rounded-2xl bg-cream p-4 border border-black/5">
+              <div className="rounded-2xl bg-mint p-4 border border-black/5">
                 <p className="font-semibold text-navy">
                   a) Kontakt i bezpłatna analiza sprawy (formularz / telefon)
                 </p>
@@ -79,7 +79,7 @@ export default function PrivacyPolicyPage() {
                   lit. a RODO.
                 </p>
               </div>
-              <div className="rounded-2xl bg-cream p-4 border border-black/5">
+              <div className="rounded-2xl bg-mint p-4 border border-black/5">
                 <p className="font-semibold text-navy">
                   b) Przygotowanie i realizacja umowy o pomoc prawną
                 </p>
@@ -88,7 +88,7 @@ export default function PrivacyPolicyPage() {
                   lit. f RODO.
                 </p>
               </div>
-              <div className="rounded-2xl bg-cream p-4 border border-black/5">
+              <div className="rounded-2xl bg-mint p-4 border border-black/5">
                 <p className="font-semibold text-navy">
                   c) Wyświetlenie mapy dojazdu (Google Maps)
                 </p>
@@ -123,7 +123,7 @@ export default function PrivacyPolicyPage() {
             href="/"
             className="inline-flex items-center gap-2 rounded-xl bg-navy px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-navy-700 hover:scale-105 shadow-md"
           >
-            <ArrowLeft className="size-4 text-gold" />
+            <ArrowLeft className="size-4 text-green" />
             Wróć na stronę główną
           </Link>
         </div>

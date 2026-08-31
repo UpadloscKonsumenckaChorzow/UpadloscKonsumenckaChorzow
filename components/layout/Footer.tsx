@@ -29,7 +29,7 @@ export function Footer() {
               />
               <span className="leading-tight">
                 <span className="block font-display text-base font-semibold tracking-wide">
-                  UPADŁOŚĆ <span className="text-gold">KONSUMENCKA</span>
+                  UPADŁOŚĆ <span className="text-green">KONSUMENCKA</span>
                 </span>
                 <span className="block text-[10px] font-medium tracking-[0.18em] text-white/50">
                   CHORZÓW · ŚLĄSK
@@ -62,7 +62,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-display text-base font-semibold text-gold">
+            <h3 className="font-display text-base font-semibold text-green">
               Nawigacja
             </h3>
             <ul className="mt-5 space-y-2.5">
@@ -70,7 +70,7 @@ export function Footer() {
                 <li key={l.href}>
                   <a
                     href={l.href}
-                    className="text-sm text-white/65 transition-colors hover:text-gold"
+                    className="text-sm text-white/65 transition-colors hover:text-green"
                   >
                     {l.label}
                   </a>
@@ -80,26 +80,26 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-display text-base font-semibold text-gold">
+            <h3 className="font-display text-base font-semibold text-green">
               Kontakt
             </h3>
             <div className="mt-5 space-y-4 text-sm text-white/70">
               <a
                 href={site.phone.href}
-                className="flex items-center gap-2.5 font-semibold text-white transition-colors hover:text-gold"
+                className="flex items-center gap-2.5 font-semibold text-white transition-colors hover:text-green"
               >
-                <Phone className="size-4 text-gold shrink-0" />
+                <Phone className="size-4 text-green shrink-0" />
                 {site.phone.display}
               </a>
               <a
                 href={site.email.href}
-                className="flex items-center gap-2.5 transition-colors hover:text-gold wrap-break-word"
+                className="flex items-center gap-2.5 transition-colors hover:text-green wrap-break-word"
               >
-                <Mail className="size-4 text-gold shrink-0" />
+                <Mail className="size-4 text-green shrink-0" />
                 {site.email.display}
               </a>
               <div className="flex items-start gap-2.5 leading-relaxed">
-                <MapPin className="size-4 text-gold shrink-0 mt-0.5" />
+                <MapPin className="size-4 text-green shrink-0 mt-0.5" />
                 <span>{site.address.full}</span>
               </div>
               <p className="text-xs text-white/70 border-t border-white/10 pt-3">
@@ -132,7 +132,7 @@ export function Footer() {
                 href={site.developer.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-white/80 underline underline-offset-2 transition-colors hover:text-gold"
+                className="font-medium text-white/80 underline underline-offset-2 transition-colors hover:text-green"
               >
                 {site.developer.name}
               </a>

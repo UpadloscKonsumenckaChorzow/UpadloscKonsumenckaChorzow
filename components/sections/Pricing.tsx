@@ -14,7 +14,6 @@ function AnimatedCounter({ target }: { target: number }) {
   const animatedRef = useRef(false);
 
   useEffect(() => {
-
     let animationFrameId: number;
     let startTimestamp: number | null = null;
     const duration = 1600;
@@ -67,10 +66,10 @@ const features = [
 
 export function Pricing() {
   return (
-    <section id="cennik" className="scroll-mt-24 bg-cream py-12 sm:py-16">
+    <section id="cennik" className="scroll-mt-24 bg-mint py-12 sm:py-16">
       <div className="mx-auto max-w-3xl px-5 text-center lg:px-8">
         <p className="flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-navy">
-          <CreditCard className="size-4 text-gold" />
+          <CreditCard className="size-4 text-green" />
           Cennik
         </p>
 
@@ -85,17 +84,17 @@ export function Pricing() {
 
         <div className="mx-auto mt-12 overflow-hidden rounded-3xl border border-black/10 bg-white text-left shadow-xl">
           <div className="bg-navy px-8 py-10 text-center text-white sm:px-12">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-green">
               Prowadzenie sprawy
             </p>
             <div className="mt-3 font-display font-bold text-white">
-              <span className="align-top text-2xl font-normal text-gold">
+              <span className="align-top text-2xl font-normal text-green">
                 od{" "}
               </span>
-              <span className="text-5xl sm:text-6xl text-gold">
+              <span className="text-5xl sm:text-6xl text-green">
                 <AnimatedCounter target={2900} />
               </span>
-              <span className="text-3xl sm:text-4xl text-gold"> zł</span>
+              <span className="text-3xl sm:text-4xl text-green"> zł</span>
             </div>
             <p className="mt-3 text-sm font-medium text-white/80">
               z możliwością rozłożenia na dogodne raty
@@ -109,7 +108,7 @@ export function Pricing() {
                   key={item}
                   className="flex items-start gap-3.5 text-base font-medium text-ink/85"
                 >
-                  <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-gold" />
+                  <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-green" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -128,7 +127,7 @@ export function Pricing() {
               className="mt-8 flex items-center justify-center gap-2 rounded-xl bg-navy px-6 py-4 text-base font-semibold text-white transition-all hover:bg-navy-700 hover:scale-[1.02] shadow-md"
             >
               Umów bezpłatną konsultację
-              <ArrowRight className="size-5 text-gold" />
+              <ArrowRight className="size-5 text-green" />
             </a>
           </div>
         </div>

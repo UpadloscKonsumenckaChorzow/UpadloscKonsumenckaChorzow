@@ -31,7 +31,7 @@ function Logo() {
       />
       <span className="leading-tight">
         <span className="block font-display text-base font-semibold tracking-wide text-ink sm:text-lg">
-          UPADŁOŚĆ <span className="text-gold-contrast">KONSUMENCKA</span>
+          UPADŁOŚĆ <span className="text-green-contrast">KONSUMENCKA</span>
         </span>
         <span className="block text-[10px] font-medium tracking-[0.18em] text-ink/60">
           CHORZÓW · ŚLĄSK
@@ -93,7 +93,7 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 bg-cream/95 backdrop-blur border-b border-black/5 transition-all">
+    <header className="sticky top-0 z-40 bg-mint/95 backdrop-blur border-b border-black/5 transition-all">
       {/* Górny pasek informacyjny */}
       <div className="bg-navy text-xs text-white sm:text-sm">
         <div className="mx-auto flex min-h-12 max-w-7xl flex-col items-center justify-between gap-2 px-5 py-2 sm:h-12 sm:flex-row sm:py-0 lg:px-8">
@@ -104,19 +104,19 @@ export function Navbar() {
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             <a
               href={site.email.href}
-              className="flex items-center gap-2 text-white/90 transition-all duration-200 hover:text-gold hover:translate-x-0.5"
+              className="flex items-center gap-2 text-white/90 transition-all duration-200 hover:text-green hover:translate-x-0.5"
             >
-              <Mail className="size-4 text-gold" />
+              <Mail className="size-4 text-green" />
               <span>{site.email.display}</span>
             </a>
             <a
               href={site.phone.href}
-              className="flex items-center gap-2 text-white/90 transition-all duration-200 hover:text-gold hover:translate-x-0.5"
+              className="flex items-center gap-2 text-white/90 transition-all duration-200 hover:text-green hover:translate-x-0.5"
             >
-              <Phone className="size-4 text-gold" />
+              <Phone className="size-4 text-green" />
               <span>
                 {site.phone.display}{" "}
-                <span className="font-medium text-gold">
+                <span className="font-medium text-green">
                   – bezpłatna konsultacja
                 </span>
               </span>
@@ -149,9 +149,9 @@ export function Navbar() {
               >
                 {link.label}
 
-                {/* Subtelna złota linia aktywacji i hover */}
+                {/* Subtelna zielona linia aktywacji i hover */}
                 <span
-                  className={`absolute bottom-0 left-0 h-0.5 rounded-full bg-gold transition-all duration-300 ease-out ${
+                  className={`absolute bottom-0 left-0 h-0.5 rounded-full bg-green transition-all duration-300 ease-out ${
                     isActive
                       ? "w-full opacity-100"
                       : "w-0 opacity-0 group-hover:w-full group-hover:opacity-100"
@@ -179,7 +179,7 @@ export function Navbar() {
       {open && (
         <div
           id="mobile-nav"
-          className="border-t border-black/5 bg-cream px-5 pb-6 pt-2 xl:hidden shadow-lg animate-in fade-in slide-in-from-top-2 duration-200"
+          className="border-t border-black/5 bg-mint px-5 pb-6 pt-2 xl:hidden shadow-lg animate-in fade-in slide-in-from-top-2 duration-200"
         >
           <nav aria-label="Nawigacja mobilna" className="flex flex-col">
             {navLinks.map((link) => {
@@ -198,7 +198,7 @@ export function Navbar() {
                 >
                   <span>{link.label}</span>
                   {isActive && (
-                    <span className="size-1.5 rounded-full bg-gold" />
+                    <span className="size-1.5 rounded-full bg-green" />
                   )}
                 </a>
               );
@@ -210,14 +210,14 @@ export function Navbar() {
               href={site.email.href}
               className="flex items-center gap-2 text-sm font-medium text-ink/80 transition-colors hover:text-navy"
             >
-              <Mail className="size-4 text-gold" />
+              <Mail className="size-4 text-green" />
               {site.email.display}
             </a>
             <a
               href={site.phone.href}
-              className="flex items-center gap-2 text-sm font-semibold text-navy transition-colors hover:text-gold-contrast"
+              className="flex items-center gap-2 text-sm font-semibold text-navy transition-colors hover:text-green-contrast"
             >
-              <Phone className="size-4 text-gold" />
+              <Phone className="size-4 text-green" />
               {site.phone.display} (bezpłatna konsultacja)
             </a>
           </div>

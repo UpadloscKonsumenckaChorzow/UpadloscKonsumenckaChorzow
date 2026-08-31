@@ -4,55 +4,40 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  /* Ciemne odcienie (Navy / Slate) */
   --navy: #0f172a;
   --navy-700: #1e293b;
   --navy-900: #020617;
-  --gold: #16a34a;
-  --gold-light: #22c55e;
-  --cream: #f0fdf4;
-  --cream-dark: #dcfce7;
   --ink: #0f172a;
 
-  /*
-   * DODANO: --gold-contrast
-   * -----------------------------------------------------------------
-   * --gold (#16a34a) sam w sobie NIE jest błędem — działa dobrze jako:
-   *   - tekst na ciemnym tle (navy)               -> kontrast 5.42:1 (OK)
-   *   - tło pod granatowym tekstem (text-navy-900) -> kontrast 5.42:1 (OK)
-   * Problem pojawia się tylko w JEDNEJ konkretnej roli: jako KOLOR TEKSTU
-   * na jasnym tle (cream/białe karty) - tam daje ledwie 3.15:1, poniżej
-   * progu WCAG AA (4.5:1 dla zwykłego tekstu). To właśnie złapał Lighthouse
-   * na napisie "KONSUMENCKA" w nagłówku (bg-cream/95).
-   *
-   * Jeden kolor fizycznie nie może jednocześnie być "dość ciemny jako
-   * tekst na jasnym tle" i "dość jasny jako tło pod ciemnym tekstem" -
-   * to sprzeczne wymagania. Stąd osobny token wyłącznie do tekstu na
-   * jasnych powierzchniach: 6.8-7.1:1 kontrastu (cream/white).
-   *
-   * ZASADA UŻYCIA (do zastosowania w komponentach):
-   *   - text-gold          -> TYLKO gdy tło jest ciemne (navy/navy-900)
-   *   - text-gold-contrast -> gdy tło jest jasne (cream/white)
-   *   - bg-gold z tekstem text-navy-900 -> zostaje bez zmian, już OK
-   *   - bg-gold z tekstem BIAŁYM -> to też problem (3.3:1) - taki przycisk
-   *     trzeba przełączyć na text-navy-900, a nie dokładać tu kolejny
-   *     kolor tła (patrz wiadomość w czacie).
-   */
-  --gold-contrast: #166534;
+  /* Główny akcent (Zielony / Szmaragdowy) */
+  --green: #16a34a; /* Główny akcent, ikony, tła akcji */
+  --green-light: #22c55e; /* Hover akcentu, jaśniejsze detale */
+  --green-contrast: #166534; /* Ciemna zieleń pod teksty na jasnym tle (WCAG AA) */
+
+  /* Jasne tła (Miętowe / Jasna zieleń) */
+  --mint: #f0fdf4; /* Główne jasne tło strony / kart */
+  --mint-dark: #dcfce7; /* Ciemniejszy odcień tła (border / wyróżnienia) */
 }
 
 @theme inline {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-poppins), var(--font-inter), sans-serif;
 
+  /* Kolory bazowe */
   --color-navy: var(--navy);
   --color-navy-700: var(--navy-700);
   --color-navy-900: var(--navy-900);
-  --color-gold: var(--gold);
-  --color-gold-light: var(--gold-light);
-  --color-gold-contrast: var(--gold-contrast);
-  --color-cream: var(--cream);
-  --color-cream-dark: var(--cream-dark);
   --color-ink: var(--ink);
+
+  /* Kolory akcentowe */
+  --color-green: var(--green);
+  --color-green-light: var(--green-light);
+  --color-green-contrast: var(--green-contrast);
+
+  /* Kolory tła */
+  --color-mint: var(--mint);
+  --color-mint-dark: var(--mint-dark);
 }
 
 @layer base {
@@ -62,7 +47,7 @@
     box-sizing: border-box;
   }
   body {
-    background-color: var(--cream);
+    background-color: var(--mint);
     color: var(--ink);
     font-family: var(--font-sans);
   }
@@ -79,7 +64,7 @@
   color: #ffffff;
   font-weight: 700;
   font-size: 0.875rem;
-  border: 2px solid var(--gold);
+  border: 2px solid var(--green);
   transition: top 0.15s ease-out;
 }
 

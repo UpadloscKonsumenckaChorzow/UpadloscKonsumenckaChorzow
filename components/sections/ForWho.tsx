@@ -45,11 +45,11 @@ const situations = [
 
 export function ForWho() {
   return (
-    <section id="dla-kogo" className="scroll-mt-24 bg-cream py-12 sm:py-16">
+    <section id="dla-kogo" className="scroll-mt-24 bg-mint py-12 sm:py-16">
       <div className="mx-auto max-w-5xl px-5 lg:px-8">
         <div className="text-center">
           <p className="flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-navy">
-            <Users className="size-4 text-gold" />
+            <Users className="size-4 text-green" />
             Dla kogo
           </p>
           <h2 className="mt-4 font-display text-3xl font-bold leading-tight text-ink sm:text-4xl lg:text-5xl">
@@ -64,13 +64,13 @@ export function ForWho() {
             return (
               <div
                 key={item.text}
-                className={`flex items-center gap-4 rounded-2xl border border-black/5 bg-white p-6 shadow-sm transition-all hover:border-gold/50 hover:shadow-md ${
+                className={`flex items-center gap-4 rounded-2xl border border-black/5 bg-white p-6 shadow-sm transition-all hover:border-green/50 hover:shadow-md ${
                   isLast
                     ? "sm:col-span-2 sm:mx-auto sm:w-[calc(50%-0.5rem)]"
                     : "w-full"
                 }`}
               >
-                <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-navy/5 text-gold">
+                <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-navy/5 text-green">
                   <Icon className="size-5" />
                 </span>
                 <p className="text-base font-medium leading-snug text-ink/85">
@@ -92,16 +92,16 @@ export function ForWho() {
           <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <a
               href="#kontakt"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gold px-8 py-4 text-base font-semibold text-navy-900 shadow-lg transition-all hover:bg-gold-light hover:scale-105"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-green px-8 py-4 text-base font-semibold text-navy-900 shadow-lg transition-all hover:bg-green-light hover:scale-105"
             >
               Umów bezpłatną konsultację
               <ArrowRight className="size-5" />
             </a>
             <a
               href={site.phone.href}
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-8 py-4 text-base font-semibold text-white backdrop-blur transition-all hover:border-gold hover:bg-white/15"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-8 py-4 text-base font-semibold text-white backdrop-blur transition-all hover:border-green hover:bg-white/15"
             >
-              <Phone className="size-5 text-gold" />
+              <Phone className="size-5 text-green" />
               {site.phone.display}
             </a>
           </div>
