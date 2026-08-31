@@ -93,7 +93,7 @@ export function Footer() {
               </a>
               <a
                 href={site.email.href}
-                className="flex items-center gap-2.5 transition-colors hover:text-gold"
+                className="flex items-center gap-2.5 transition-colors hover:text-gold wrap-break-word"
               >
                 <Mail className="size-4 text-gold shrink-0" />
                 {site.email.display}
