@@ -14,11 +14,6 @@ function AnimatedCounter({ target }: { target: number }) {
   const animatedRef = useRef(false);
 
   useEffect(() => {
-    // Sprawdzenie preferencji ograniczenia ruchu (WCAG 2.3.3)
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setCount(target);
-      return;
-    }
 
     let animationFrameId: number;
     let startTimestamp: number | null = null;

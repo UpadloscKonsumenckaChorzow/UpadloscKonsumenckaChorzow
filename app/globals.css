@@ -68,14 +68,6 @@
   }
 }
 
-/* Płynne przewijanie do kotwic — tylko dla osób, które go nie wyłączyły
-   w ustawieniach systemu (WCAG 2.3.3 Animation from Interactions). */
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
-
 .skip-link {
   position: absolute;
   top: -100%;

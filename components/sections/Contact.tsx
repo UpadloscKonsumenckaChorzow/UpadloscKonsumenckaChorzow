@@ -129,8 +129,8 @@ export function Contact() {
                     </span>
                   </a>
 
-                  {/* Przycisk kopiowania - przesunięty minimalnie w prawo */}
-                  <div className="relative shrink-0 -mr-1 translate-x-1 sm:translate-x-0 sm:mr-0">
+                  {/* Przycisk kopiowania przesunięty w prawo z odstępem od adresu */}
+                  <div className="relative shrink-0 ml-2 translate-x-2.5 sm:translate-x-0">
                     <button
                       type="button"
                       onClick={handleCopyEmail}
@@ -140,7 +140,7 @@ export function Contact() {
                           : "Kopiuj adres e-mail"
                       }
                       title={emailCopied ? "Skopiowano!" : "Kopiuj e-mail"}
-                      className="flex size-8 sm:size-9 shrink-0 cursor-pointer items-center justify-center rounded-lg text-white/50 transition-colors hover:bg-white/10 hover:text-gold"
+                      className="flex size-8 sm:size-9 shrink-0 cursor-pointer items-center justify-center rounded-lg text-white/60 transition-colors hover:bg-white/10 hover:text-gold"
                     >
                       {emailCopied ? (
                         <Check className="size-4 text-gold" />
@@ -149,15 +149,16 @@ export function Contact() {
                       )}
                     </button>
 
+                    {/* Dymek z komunikatem */}
                     {emailCopied && (
-                      <span
+                      <div
                         role="status"
                         aria-live="polite"
-                        className="animate-in fade-in zoom-in-95 slide-in-from-bottom-1 duration-200 pointer-events-none absolute -top-10 right-0 sm:left-1/2 sm:-translate-x-1/2 whitespace-nowrap rounded-full bg-gold px-3 py-1.5 text-xs font-semibold text-navy-900 shadow-lg z-10"
+                        className="pointer-events-none absolute -top-10 right-0 z-30 flex items-center justify-center whitespace-nowrap rounded-lg bg-gold px-2.5 py-1 text-xs font-bold text-white shadow-xl animate-in fade-in zoom-in-95 duration-150"
                       >
                         Skopiowano!
-                        <span className="absolute right-3 sm:left-1/2 sm:-translate-x-1/2 top-full border-4 border-transparent border-t-gold" />
-                      </span>
+                        <div className="absolute -bottom-1 right-2.5 size-2 rotate-45 bg-gold" />
+                      </div>
                     )}
                   </div>
                 </div>
