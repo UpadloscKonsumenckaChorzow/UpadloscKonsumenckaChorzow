@@ -188,7 +188,7 @@ export function Contact() {
                 </p>
                 <p className="mt-1.5 text-[11px] leading-relaxed text-white/75 sm:mt-2 sm:text-xs">
                   Sprawę prowadzimy stacjonarnie lub w 100% online dla
-                  mieszkańców całego Śląska.
+                  mieszkańców z całej Polski.
                 </p>
               </div>
 
@@ -222,15 +222,12 @@ export function Contact() {
 
               {mapLoaded ? (
                 <iframe
-                  title="Lokalizacja Kancelarii Chorzów Google Maps"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d40810.19830588523!2d18.9181146!3d50.3005852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4716ce399995be0d%3A0x1c8b3297a7a58231!2sChorz%C3%B3w!5e0!3m2!1spl!2spl!4v1700000000000!5m2!1spl!2spl"
-                  width="100%"
-                  height="220"
-                  style={{ border: 0 }}
-                  allowFullScreen={false}
+                  title="Lokalizacja Kancelarii – ul. Hajducka 4, Chorzów"
+                  src={site.maps.embed}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  className="w-full grayscale contrast-125 opacity-90 transition-all hover:grayscale-0 hover:opacity-100"
+                  className="h-56 w-full grayscale contrast-125 opacity-90 transition-all hover:grayscale-0 hover:opacity-100 sm:h-72"
+                  style={{ border: 0 }}
                 />
               ) : (
                 <button

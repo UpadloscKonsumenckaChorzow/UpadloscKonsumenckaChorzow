@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Phone, Menu, X, Mail } from "lucide-react";
 import { site } from "@/content/site";
 
@@ -16,7 +18,7 @@ const navLinks = [
 
 function Logo() {
   return (
-    <a
+    <Link
       href="/"
       className="flex items-center gap-2.5 sm:gap-3 shrink-0 group"
       aria-label="Strona główna"
@@ -37,16 +39,57 @@ function Logo() {
           CHORZÓW · ŚLĄSK
         </span>
       </span>
-    </a>
+    </Link>
+  );
+}
+
+/**
+ * Na stronie głównej kotwice działają natywnie (zwykły <a>).
+ * Na podstronach trzeba najpierw wrócić na "/" – wtedy używamy <Link>,
+ * żeby Next obsłużył nawigację i przewinął do sekcji.
+ */
+function NavAnchor({
+  hash,
+  isHome,
+  className,
+  onClick,
+  children,
+}: {
+  hash: string;
+  isHome: boolean;
+  className?: string;
+  onClick?: () => void;
+  children: React.ReactNode;
+}) {
+  if (isHome) {
+    return (
+      <a href={hash} className={className} onClick={onClick}>
+        {children}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={`/${hash}`} className={className} onClick={onClick}>
+      {children}
+    </Link>
   );
 }
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   // Podświetlanie sekcji w trakcie scrollowania (ScrollSpy)
+  // Sekcje istnieją tylko na stronie głównej, więc na podstronach pomijamy.
   useEffect(() => {
+    if (!isHome) {
+      setActiveSection("");
+      return;
+    }
+
     const ids = navLinks.map((link) => link.href.substring(1));
 
     function handleScroll() {
@@ -79,7 +122,12 @@ export function Navbar() {
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isHome]);
+
+  // Zamknięcie menu mobilnego po zmianie podstrony
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   // Obsługa zamykania menu klawiszem ESC
   useEffect(() => {
@@ -143,9 +191,10 @@ export function Navbar() {
             const isActive = activeSection === link.href;
 
             return (
-              <a
+              <NavAnchor
                 key={link.href}
-                href={link.href}
+                hash={link.href}
+                isHome={isHome}
                 className={`group relative py-2 text-xs xl:text-sm font-medium transition-colors duration-200 ${
                   isActive
                     ? "text-navy font-semibold"
@@ -162,7 +211,7 @@ export function Navbar() {
                       : "w-0 opacity-0 group-hover:w-full group-hover:opacity-100"
                   }`}
                 />
-              </a>
+              </NavAnchor>
             );
           })}
         </nav>
@@ -195,9 +244,10 @@ export function Navbar() {
               const isActive = activeSection === link.href;
 
               return (
-                <a
+                <NavAnchor
                   key={link.href}
-                  href={link.href}
+                  hash={link.href}
+                  isHome={isHome}
                   onClick={() => setOpen(false)}
                   className={`flex items-center justify-between border-b border-black/5 py-2.5 text-xs font-medium transition-all duration-200 sm:py-3.5 sm:text-sm ${
                     isActive
@@ -209,7 +259,7 @@ export function Navbar() {
                   {isActive && (
                     <span className="size-1.5 rounded-full bg-green" />
                   )}
-                </a>
+                </NavAnchor>
               );
             })}
           </nav>
