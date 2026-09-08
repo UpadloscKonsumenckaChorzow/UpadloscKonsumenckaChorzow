@@ -69,33 +69,25 @@ export function Process() {
               return (
                 <div
                   key={step.number}
-                  className="relative flex flex-col gap-3 rounded-2xl border border-black/5 bg-white p-4 shadow-sm transition-all hover:border-green/50 hover:shadow-md sm:flex-row sm:items-start sm:gap-5 sm:rounded-3xl sm:p-8"
+                  className="relative flex items-start gap-3 rounded-2xl border border-black/5 bg-white p-4 shadow-sm transition-all hover:border-green/50 hover:shadow-md sm:gap-5 sm:rounded-3xl sm:p-8"
                 >
-                  {/* Nagłówek kroku na mobile / lewy badge na desktopie */}
-                  <div className="flex items-center gap-3 sm:block sm:shrink-0">
-                    <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-navy font-display text-sm font-bold text-green shadow-md sm:size-14 sm:rounded-2xl sm:text-lg">
-                      {step.number}
-                    </span>
-                    <div className="flex min-w-0 flex-1 items-center gap-2.5 sm:hidden">
-                      <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-green/15 text-navy">
-                        <Icon className="size-4 shrink-0 text-navy" />
-                      </span>
-                      <h3 className="min-w-0 flex-1 font-display text-sm font-bold leading-snug text-ink">
-                        {step.title}
-                      </h3>
-                    </div>
-                  </div>
+                  {/* Numer kroku */}
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-navy font-display text-sm font-bold text-green shadow-md sm:size-14 sm:rounded-2xl sm:text-lg">
+                    {step.number}
+                  </span>
 
-                  <div className="flex-1 sm:pt-1">
-                    <div className="hidden items-center gap-3 sm:flex">
+                  <div className="min-w-0 flex-1 sm:pt-1">
+                    {/* Jeden nagłówek dla wszystkich rozdzielczości */}
+                    <div className="flex items-center gap-2.5 sm:gap-3">
                       <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-green/15 text-navy">
                         <Icon className="size-4 shrink-0 text-navy" />
                       </span>
-                      <h3 className="font-display text-xl font-bold text-ink sm:text-2xl">
+                      <h3 className="min-w-0 flex-1 font-display text-sm font-bold leading-snug text-ink sm:text-xl lg:text-2xl">
                         {step.title}
                       </h3>
                     </div>
-                    <p className="text-xs leading-relaxed text-ink/70 sm:mt-3 sm:text-base">
+
+                    <p className="mt-2 text-xs leading-relaxed text-ink/70 sm:mt-3 sm:text-base">
                       {step.text}
                     </p>
                   </div>

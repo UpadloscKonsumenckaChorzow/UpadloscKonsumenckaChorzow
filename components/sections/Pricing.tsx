@@ -9,11 +9,16 @@ import {
 } from "lucide-react";
 
 function AnimatedCounter({ target }: { target: number }) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(target);
   const elementRef = useRef<HTMLSpanElement>(null);
   const animatedRef = useRef(false);
 
   useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") return;
+
+    // Reset do zera dopiero po stronie klienta – SSR zachowuje pełną kwotę.
+    setCount(0);
+
     let animationFrameId: number;
     let startTimestamp: number | null = null;
     const duration = 1600;
@@ -119,7 +124,7 @@ export function Pricing() {
             <div className="mt-5 flex items-start gap-2.5 rounded-2xl bg-navy/5 p-3 text-xs leading-relaxed text-ink/75 border border-black/5 sm:mt-8 sm:gap-3 sm:p-4 sm:text-sm">
               <ShieldCheck className="size-4 shrink-0 text-navy mt-0.5 sm:size-5" />
               <p>
-                Ostateczną cenę ustalamy indywidualnie i gwarantujemy pisemnie
+                Ostateczną cenę ustalamy indywidualnie i potwierdzamy pisemnie
                 przed rozpoczęciem współpracy – bez ukrytych opłat.
               </p>
             </div>

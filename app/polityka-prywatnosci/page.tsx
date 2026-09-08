@@ -3,12 +3,24 @@ import { ArrowLeft, ShieldCheck } from "lucide-react";
 import type { Metadata } from "next";
 import { site } from "@/content/site";
 
+// Data w jednym miejscu – widoczna w nagłówku i łatwa do aktualizacji.
+const LAST_UPDATED = "wrzesień 2026 r.";
+
 export const metadata: Metadata = {
   title: "Polityka Prywatności i RODO",
   description:
     "Zasady przetwarzania danych osobowych oraz wykorzystania plików cookies w serwisie upadłości konsumenckiej.",
   alternates: {
     canonical: "/polityka-prywatnosci",
+  },
+  openGraph: {
+    title: "Polityka Prywatności i RODO",
+    description:
+      "Zasady przetwarzania danych osobowych i stosowania plików cookies.",
+    url: `${site.url}/polityka-prywatnosci`,
+    siteName: site.name,
+    locale: "pl_PL",
+    type: "website",
   },
   robots: {
     index: true,
@@ -24,7 +36,7 @@ const spisTresci = [
   "Okres przechowywania danych",
   "Przekazywanie danych poza EOG",
   "Prawo kontroli, dostępu do treści swoich danych oraz ich poprawiania",
-  "Pliki cookies",
+  "Pliki cookies i pamięć lokalna przeglądarki",
   "Postanowienia końcowe",
 ];
 
@@ -92,8 +104,8 @@ export default function PrivacyPolicyPage() {
             Polityka Prywatności i RODO
           </h1>
           <p className="mt-4 text-sm text-white/70 sm:text-base">
-            Ostatnia aktualizacja: sierpień 2026 r. · Zgodność z RODO i
-            dyrektywą ePrivacy.
+            Ostatnia aktualizacja: {LAST_UPDATED} · Zgodność z RODO i dyrektywą
+            ePrivacy.
           </p>
         </div>
 
@@ -143,8 +155,11 @@ export default function PrivacyPolicyPage() {
               Dane osobowe przetwarzamy zgodnie z rozporządzeniem Parlamentu
               Europejskiego i Rady (UE) 2016/679 z 27 kwietnia 2016 r. (RODO),
               ustawą o ochronie danych osobowych z 10 maja 2018 r., ustawą o
-              świadczeniu usług drogą elektroniczną z 18 lipca 2002 r. oraz art.
-              173 ustawy Prawo telekomunikacyjne w zakresie plików cookies.
+              świadczeniu usług drogą elektroniczną z 18 lipca 2002 r. oraz
+              ustawą z 12 lipca 2024 r. – Prawo komunikacji elektronicznej, w
+              szczególności jej przepisami dotyczącymi przechowywania informacji
+              i uzyskiwania dostępu do informacji przechowywanej w urządzeniu
+              końcowym użytkownika (pliki cookies i technologie podobne).
             </Punkt>
             <Punkt nr="1.3.">
               Administrator dokłada szczególnej staranności, aby zbierane dane
@@ -182,11 +197,11 @@ export default function PrivacyPolicyPage() {
             </ul>
             <Punkt nr="2.3.">
               Administrator może przetwarzać dane eksploatacyjne, czyli
-              informacje o sposobie korzystania ze strony: adres IP w formie
-              skróconej, typ i wersję przeglądarki, system operacyjny, typ
-              urządzenia, źródło wejścia na stronę, odwiedzone podstrony oraz
-              czas wizyty. Dane te zbieramy w formie zagregowanej i nie służą
-              one identyfikacji konkretnej osoby.
+              informacje o sposobie korzystania ze strony: adres IP, typ i
+              wersję przeglądarki, system operacyjny, typ urządzenia, źródło
+              wejścia na stronę, odwiedzone podstrony oraz czas wizyty. Dane te
+              analizujemy w formie zagregowanej i nie służą one identyfikacji
+              konkretnej osoby.
             </Punkt>
             <Punkt nr="2.4.">
               W ramach prowadzenia sprawy upadłościowej możemy przetwarzać także
@@ -245,8 +260,10 @@ export default function PrivacyPolicyPage() {
                   e) Wyświetlenie mapy dojazdu (Google Maps)
                 </p>
                 <p className="text-xs sm:text-sm mt-1 text-ink/70">
-                  Podstawa prawna: art. 6 ust. 1 lit. a RODO – mapa ładuje się
-                  wyłącznie po kliknięciu przycisku zgody.
+                  Podstawa prawna: art. 6 ust. 1 lit. a RODO. Mapa nie jest
+                  osadzana automatycznie – w jej miejscu wyświetlamy przycisk, a
+                  jego kliknięcie stanowi wyrażenie zgody na połączenie z
+                  serwerami Google.
                 </p>
               </div>
               <div className="rounded-2xl bg-mint p-4 border border-black/5">
@@ -289,9 +306,11 @@ export default function PrivacyPolicyPage() {
                   Google Analytics – statystyka odwiedzin
                 </p>
                 <p className="text-xs sm:text-sm mt-1 text-ink/70">
-                  Usługę świadczy Google Ireland Limited. Statystyki zbieramy z
-                  włączoną anonimizacją adresu IP i wyłączonym udostępnianiem
-                  danych do celów reklamowych. Skrypt nie uruchamia się bez
+                  Usługę świadczy Google Ireland Limited. Korzystamy z Google
+                  Analytics 4, które nie zapisuje pełnych adresów IP
+                  użytkowników. W ustawieniach usługi wyłączyliśmy udostępnianie
+                  danych do celów reklamowych, a okres ich przechowywania
+                  ograniczyliśmy do 14 miesięcy. Skrypt nie uruchamia się bez
                   zgody użytkownika.
                 </p>
               </div>
@@ -395,9 +414,9 @@ export default function PrivacyPolicyPage() {
             <Punkt nr="7.2.">
               Aby skorzystać z powyższych uprawnień, wystarczy wysłać wiadomość
               na adres{" "}
-              <strong className="wrap-break-word">{site.email.display}</strong> lub
-              napisać na adres korespondencyjny Administratora. Odpowiadamy bez
-              zbędnej zwłoki, nie później niż w ciągu miesiąca.
+              <strong className="wrap-break-word">{site.email.display}</strong>{" "}
+              lub napisać na adres korespondencyjny Administratora. Odpowiadamy
+              bez zbędnej zwłoki, nie później niż w ciągu miesiąca.
             </Punkt>
             <Punkt nr="7.3.">
               Dane nie są wykorzystywane do zautomatyzowanego podejmowania
@@ -405,21 +424,35 @@ export default function PrivacyPolicyPage() {
             </Punkt>
           </Section>
 
-          <Section numer={8} tytul="Pliki cookies">
+          <Section
+            numer={8}
+            tytul="Pliki cookies i pamięć lokalna przeglądarki"
+          >
             <Punkt nr="8.1.">
-              Strona używa plików cookies, czyli niewielkich plików tekstowych
-              zapisywanych na urządzeniu użytkownika. Cookies inne niż niezbędne
-              instalowane są wyłącznie po wyrażeniu zgody w banerze; samo dalsze
-              przeglądanie strony nie oznacza zgody.
+              Strona korzysta z plików cookies oraz z pamięci lokalnej
+              przeglądarki (localStorage) – są to niewielkie zestawy danych
+              zapisywane na urządzeniu użytkownika. Rozwiązania inne niż
+              niezbędne uruchamiamy wyłącznie po wyrażeniu zgody w banerze; samo
+              dalsze przeglądanie strony nie oznacza zgody.
             </Punkt>
             <Punkt nr="8.2.">
+              Twój wybór dokonany w banerze zapisujemy w pamięci lokalnej
+              przeglądarki pod kluczem{" "}
+              <code className="rounded bg-mint px-1.5 py-0.5 text-xs">
+                cookie_consent
+              </code>
+              . Wpis ten jest niezbędny do działania mechanizmu zgód –
+              przechowujemy w nim wyłącznie zakres wyrażonej zgody, numer wersji
+              i datę wyboru. Pozostaje na urządzeniu do momentu jego usunięcia
+              przez użytkownika lub wyczyszczenia danych przeglądarki.
+            </Punkt>
+            <Punkt nr="8.3.">
               Stosujemy następujące rodzaje plików cookies:
             </Punkt>
             <ul className="space-y-2 list-disc pl-5 text-ink/90">
               <li>
                 <strong>Niezbędne</strong> – zapewniają podstawowe działanie
-                strony i zapamiętują decyzję podjętą w banerze cookies. Nie
-                wymagają zgody.
+                strony oraz jej bezpieczeństwo. Nie wymagają zgody.
               </li>
               <li>
                 <strong>Sesyjne</strong> – pliki tymczasowe, usuwane
@@ -437,9 +470,9 @@ export default function PrivacyPolicyPage() {
                 do statystyk zbiorczych i nie identyfikują konkretnej osoby.
               </li>
             </ul>
-            <Punkt nr="8.3.">
-              Do plików niezbędnych należą również cookies bezpieczeństwa
-              ustawiane przez Cloudflare, między innymi{" "}
+            <Punkt nr="8.4.">
+              Do plików niezbędnych należą cookies bezpieczeństwa ustawiane
+              przez Cloudflare, między innymi{" "}
               <code className="rounded bg-mint px-1.5 py-0.5 text-xs">
                 __cf_bm
               </code>{" "}
@@ -451,7 +484,7 @@ export default function PrivacyPolicyPage() {
               (zapamiętuje przejście weryfikacji zabezpieczeń). Nie służą one
               analityce ani reklamie i nie wymagają zgody.
             </Punkt>
-            <Punkt nr="8.4.">
+            <Punkt nr="8.5.">
               W ramach Google Analytics 4 wykorzystywane są między innymi pliki{" "}
               <code className="rounded bg-mint px-1.5 py-0.5 text-xs">_ga</code>{" "}
               oraz{" "}
@@ -462,12 +495,12 @@ export default function PrivacyPolicyPage() {
               przechowywania to 24 miesiące, a zebrane dane usuwamy po 14
               miesiącach.
             </Punkt>
-            <Punkt nr="8.5.">
+            <Punkt nr="8.6.">
               Zgodę można w każdej chwili zmienić lub cofnąć w ustawieniach
-              cookies dostępnych na stronie. Ustawieniami plików cookies można
-              też zarządzać w przeglądarce – w tym blokować je w całości lub
-              usuwać już zapisane. Wyłączenie plików niezbędnych może utrudnić
-              korzystanie ze strony.
+              cookies dostępnych w stopce strony. Ustawieniami plików cookies
+              można też zarządzać w przeglądarce – w tym blokować je w całości
+              lub usuwać już zapisane. Wyłączenie mechanizmów niezbędnych może
+              utrudnić korzystanie ze strony.
             </Punkt>
           </Section>
 

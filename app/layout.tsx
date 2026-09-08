@@ -27,6 +27,8 @@ const poppins = Poppins({
   display: "swap",
 });
 
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "G-CLXWVE955N";
+
 export const viewport: Viewport = {
   themeColor: "#0f172a",
   width: "device-width",
@@ -40,23 +42,11 @@ export const metadata: Metadata = {
     template: "%s · Upadłość Konsumencka Chorzów",
   },
   description:
-    "Kancelaria w Chorzowie (ul. Hajducka 4). Skuteczna pomoc w upadłości konsumenckiej na Śląsku. Zatrzymanie komornika, zamrożenie odsetek i 100% oddłużenie. Bezpłatna analiza.",
+    "Upadłość konsumencka Chorzów – kancelaria przy ul. Hajduckiej 4. Prowadzimy sprawę od wniosku po umorzenie długów. Wstrzymanie komornika. Bezpłatna analiza.",
   applicationName: site.name,
   authors: [{ name: site.legalName, url: site.url }],
   creator: site.legalName,
   publisher: site.legalName,
-  keywords: [
-    "upadłość konsumencka Chorzów",
-    "upadłość konsumencka Śląsk",
-    "kancelaria upadłościowa Chorzów",
-    "oddłużanie osób fizycznych Chorzów",
-    "wniosek o upadłość konsumencką Chorzów",
-    "jak ogłosić upadłość Chorzów",
-    "upadłość konsumencka bez majątku Śląsk",
-    "prawnik upadłość Chorzów Hajducka",
-    "pomoc w zadłużeniu Chorzów",
-    "ogłoszenie upadłości konsumenckiej Katowice",
-  ],
   formatDetection: {
     telephone: true,
     email: true,
@@ -82,7 +72,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Upadłość Konsumencka Chorzów & Śląsk · Życie bez długów",
     description:
-      "Kancelaria przy ul. Hajduckiej 4 w Chorzowie. Zatrzymujemy komornika i pomagamy legalnie umorzyć długi w sądzie upadłościowym na Śląsku. Zadzwoń i sprawdź swoje możliwości.",
+      "Kancelaria przy ul. Hajduckiej 4 w Chorzowie. Wstrzymujemy egzekucję komorniczą i prowadzimy postępowanie upadłościowe na Śląsku. Zadzwoń i sprawdź swoje możliwości.",
     url: site.url,
     siteName: site.name,
     locale: "pl_PL",
@@ -92,7 +82,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Kancelaria Upadłość Konsumencka Chorzów — skuteczne oddłużanie",
+        alt: "Kancelaria Upadłość Konsumencka Chorzów — pomoc w oddłużeniu",
       },
     ],
   },
@@ -100,7 +90,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Upadłość Konsumencka Chorzów & Śląsk · Życie bez długów",
     description:
-      "Zatrzymaj komornika i zacznij od nowa. Bezpłatna analiza i profesjonalne przeprowadzenie upadłości konsumenckiej w Chorzowie.",
+      "Wstrzymaj egzekucję komorniczą i zacznij od nowa. Bezpłatna analiza i prowadzenie upadłości konsumenckiej w Chorzowie.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -122,7 +112,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Zoptymalizowane dane strukturalne Schema.org dla Google (E-E-A-T & Local SEO)
 const legalServiceSchema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -143,6 +132,8 @@ const legalServiceSchema = {
         "Kancelaria Oddłużeniowa Chorzów",
         site.name,
       ],
+      description:
+        "Kompleksowa pomoc w przeprowadzeniu upadłości konsumenckiej dla mieszkańców Chorzowa i całego Śląska – od bezpłatnej analizy sytuacji, przez przygotowanie wniosku, po zakończenie postępowania.",
       legalName: site.company.name,
       taxID: site.company.nip,
       url: site.url,
@@ -177,8 +168,8 @@ const legalServiceSchema = {
       ],
       areaServed: [
         { "@type": "City", name: "Chorzów" },
-        { "@type": "City", name: "Katowice" },
         { "@type": "City", name: "Świętochłowice" },
+        { "@type": "City", name: "Katowice" },
         { "@type": "City", name: "Bytom" },
         { "@type": "City", name: "Ruda Śląska" },
         { "@type": "City", name: "Gliwice" },
@@ -195,7 +186,6 @@ const legalServiceSchema = {
         "Upadłość konsumencka bez majątku",
       ],
       sameAs: [
-        site.partner.url,
         ...(site.socials.facebook ? [site.socials.facebook] : []),
         ...(site.socials.instagram ? [site.socials.instagram] : []),
       ],
@@ -235,7 +225,7 @@ export default function RootLayout({
           </div>
           <Footer />
           <CookieBanner />
-          <AnalyticsLoader gaId="G-CLXWVE955N" />
+          <AnalyticsLoader gaId={GA_ID} />
         </CookieConsentProvider>
       </body>
     </html>

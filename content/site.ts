@@ -9,7 +9,8 @@ export const site = {
   legalName: "Katarzyna Szczepańska",
 
   url:
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://upadlosckonsumenckachorzow.pl",
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    "https://www.upadlosckonsumenckachorzow.pl",
 
   // Dane identyfikacyjne przedsiębiorcy – nazwa, NIP i REGON. Wyświetlane
   // w polityce prywatności obok adresu i danych kontaktowych.

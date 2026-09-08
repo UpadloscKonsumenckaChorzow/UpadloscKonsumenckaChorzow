@@ -7,9 +7,20 @@ export const metadata: Metadata = {
   title: "Dziękujemy za kontakt · Zgłoszenie przyjęte",
   description:
     "Dziękujemy za przesłanie formularza. Skontaktujemy się z Tobą najszybciej jak to możliwe.",
+  alternates: {
+    canonical: "/dziekujemy",
+  },
+  openGraph: {
+    title: "Dziękujemy za kontakt",
+    description: "Twoje zgłoszenie zostało przyjęte.",
+    url: `${site.url}/dziekujemy`,
+    siteName: site.name,
+    locale: "pl_PL",
+    type: "website",
+  },
   robots: {
     index: false,
-    follow: false,
+    follow: true,
   },
 };
 
@@ -33,7 +44,7 @@ export default function ThankYouPage() {
 
             <p className="mt-3 text-sm text-white/80 sm:text-base max-w-lg mx-auto leading-relaxed">
               Zrobiłeś pierwszy krok do odzyskania spokoju i życia bez długów.
-              Twoja wiadomość trafiła bezpośrednio do naszego zespołu prawnego.
+              Twoja wiadomość trafiła bezpośrednio do naszego zespołu.
             </p>
           </div>
 
@@ -53,8 +64,7 @@ export default function ThankYouPage() {
                     Analiza dokumentów
                   </p>
                   <p className="mt-1 text-xs text-ink/65 leading-relaxed">
-                    Prawnik bezpłatnie zapozna się ze strukturą Twojego
-                    zadłużenia.
+                    Bezpłatnie zapoznamy się ze strukturą Twojego zadłużenia.
                   </p>
                 </div>
 
@@ -63,7 +73,7 @@ export default function ThankYouPage() {
                     KROK 2
                   </span>
                   <p className="mt-1 text-sm font-semibold text-ink">
-                    Telefon od eksperta
+                    Telefon od doradcy
                   </p>
                   <p className="mt-1 text-xs text-ink/65 leading-relaxed">
                     Oddzwonimy tego samego dnia roboczego (zwykle w 1–2 godz.).
@@ -105,10 +115,7 @@ export default function ThankYouPage() {
 
             <div className="flex items-center gap-3 text-xs text-ink/60 border-t border-black/10 pt-4">
               <ShieldCheck className="size-5 text-green shrink-0" />
-              <span>
-                Wszystkie przekazane informacje objęte są tajemnicą zawodową i
-                pełną dyskrecją.
-              </span>
+              <span>Wszystkie przekazane informacje traktujemy poufnie.</span>
             </div>
 
             <div className="text-center pt-2">
