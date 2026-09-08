@@ -20,8 +20,7 @@ import type { Metadata } from "next";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
-  title:
-    "Upadłość konsumencka – co to jest, ile kosztuje i jak ją ogłosić? · Poradnik",
+  title: "Upadłość konsumencka – co to jest, ile kosztuje i jak ją ogłosić? · Poradnik",
   description:
     "Kompleksowy poradnik o upadłości konsumenckiej w Chorzowie i na Śląsku. Dowiedz się, co to jest, ile kosztuje, jak wygląda upadłość bez majątku i jak przygotować wniosek.",
   alternates: {
@@ -30,10 +29,104 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Upadłość konsumencka – co to jest, ile kosztuje i jak ją ogłosić?",
     description:
-      "Problemy ze spłatą kredytów, pożyczek, rachunków? Wyjaśniamy procedurę upadłości konsumenckiej prostym i zrozumiałym językiem.",
-    type: "article",
+      "Problemy ze spłatą kredytów, pożyczek, rachunków? Wyjaśniamy procedurę upadłości konsumenckiej krok po kroku prostym językiem.",
     url: `${site.url}/publikacje`,
+    siteName: site.name,
+    locale: "pl_PL",
+    type: "article",
+    publishedTime: "2026-08-01T08:00:00+02:00",
+    modifiedTime: "2026-09-08T10:00:00+02:00",
+    authors: [site.legalName],
+    section: "Prawo i Finanse",
+    tags: [
+      "upadłość konsumencka",
+      "oddłużanie",
+      "Chorzów",
+      "Śląsk",
+      "poradnik prawny",
+      "kancelaria upadłościowa",
+    ],
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Upadłość konsumencka – poradnik prawny Chorzów i Śląsk",
+      },
+    ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Upadłość konsumencka – co to jest, ile kosztuje i jak ją ogłosić?",
+    description:
+      "Kompleksowy poradnik o upadłości konsumenckiej. Dowiedz się, jak ogłosić upadłość i legalnie umorzyć długi.",
+    images: ["/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+};
+
+// Pełne dane strukturalne JSON-LD dla Google (Article + Okruszki)
+const publicationJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": `${site.url}/publikacje/#article`,
+      isPartOf: {
+        "@id": `${site.url}/publikacje`,
+      },
+      headline:
+        "Upadłość konsumencka – co to jest, ile kosztuje i jak ją ogłosić?",
+      description:
+        "Kompleksowy poradnik prawny o upadłości konsumenckiej w Polsce. Wyjaśniamy procedurę, koszty, upadłość bez majątku i oddłużenie.",
+      inLanguage: "pl-PL",
+      mainEntityOfPage: `${site.url}/publikacje`,
+      datePublished: "2026-08-01T08:00:00+02:00",
+      dateModified: "2026-09-08T10:00:00+02:00",
+      author: {
+        "@type": "Organization",
+        name: site.name,
+        url: site.url,
+      },
+      publisher: {
+        "@type": "Organization",
+        name: site.name,
+        url: site.url,
+        logo: {
+          "@type": "ImageObject",
+          url: `${site.url}/logo.svg`,
+        },
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${site.url}/publikacje/#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Strona główna",
+          item: site.url,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Publikacje",
+          item: `${site.url}/publikacje`,
+        },
+      ],
+    },
+  ],
 };
 
 const preparationSteps = [
@@ -47,8 +140,16 @@ const preparationSteps = [
 export default function PublicationPage() {
   return (
     <main className="min-h-screen bg-mint text-ink">
+      {/* Skrypt JSON-LD generowany dla robotów Google */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(publicationJsonLd),
+        }}
+      />
+
       {/* =========================================================================
-          HERO SECTION (Wyśrodkowana)
+          HERO SECTION
       ========================================================================== */}
       <section className="relative overflow-hidden bg-navy text-white pt-6 pb-8 sm:pt-14 sm:pb-20">
         <div className="absolute -inset-2 bg-radial from-green/15 via-transparent to-transparent opacity-70 blur-3xl pointer-events-none" />
@@ -66,7 +167,9 @@ export default function PublicationPage() {
                 <ChevronRight className="size-3 text-white/30" />
               </li>
               <li>
-                <span className="font-semibold text-green">Publikacje</span>
+                <span className="font-semibold text-green">
+                  Publikacje
+                </span>
               </li>
             </ol>
           </nav>
@@ -396,7 +499,6 @@ export default function PublicationPage() {
                 odpowiednim przedstawieniu jego sytuacji w toku postępowania.
               </p>
 
-              {/* Boks wizytówki – czysty i naturalny tekst */}
               <div className="rounded-xl sm:rounded-2xl border border-green/40 bg-white/5 p-3.5 sm:p-4 backdrop-blur-md">
                 <p className="flex items-center gap-1.5 font-display text-xs sm:text-sm font-bold text-green">
                   <MapPin className="size-3.5 sm:size-4" />
@@ -446,7 +548,7 @@ export default function PublicationPage() {
       </section>
 
       {/* =========================================================================
-          SEKCJA 6: JAK PRZYGOTOWAĆ SIĘ DO UPADŁOŚCI? (Wyśrodkowane elementy w kafelkach)
+          SEKCJA 6: JAK PRZYGOTOWAĆ SIĘ DO UPADŁOŚCI?
       ========================================================================== */}
       <section className="py-6 sm:py-16 bg-mint">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -468,7 +570,6 @@ export default function PublicationPage() {
             </p>
           </div>
 
-          {/* Poszerzona siatka z wyśrodkowaną zawartością wewnątrz każdego kafelka */}
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-3 max-w-6xl mx-auto items-stretch">
             {preparationSteps.map((step, idx) => {
               const isLast = idx === 4;
@@ -481,7 +582,6 @@ export default function PublicationPage() {
                       : "w-full"
                   }`}
                 >
-                  {/* Górna część: wyśrodkowana */}
                   <div className="w-full flex flex-col items-center">
                     <span className="block text-[10px] sm:text-[11px] font-bold text-green uppercase tracking-wider mb-0.5 text-center">
                       Krok 0{idx + 1}
@@ -491,7 +591,6 @@ export default function PublicationPage() {
                     </h3>
                   </div>
 
-                  {/* Kreska i opis: wyśrodkowane */}
                   <div className="w-full border-t border-black/5 mt-2.5 sm:mt-3 pt-2 sm:pt-2.5 flex flex-col items-center">
                     <p className="text-[10.5px] min-[380px]:text-[11px] sm:text-xs text-ink/70 leading-tight sm:leading-normal tracking-tight min-h-7.5 sm:min-h-0 whitespace-normal sm:whitespace-nowrap flex items-center justify-center text-center w-full">
                       {step.desc}
@@ -537,7 +636,6 @@ export default function PublicationPage() {
               trwać kilka lat.
             </p>
 
-            {/* Czysty, elegancki boks bez surowego adresu www */}
             <div className="mt-4 sm:mt-6 rounded-xl sm:rounded-2xl bg-green/15 border border-green/30 p-3.5 sm:p-5 text-white">
               <p className="text-xs sm:text-sm leading-relaxed">
                 Jeżeli szukasz pomocy, wsparcia i rzetelnych informacji,
