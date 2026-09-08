@@ -71,8 +71,10 @@ export function Hero() {
           </p>
 
           <h1 className="mt-3 text-center font-display text-3xl font-bold leading-tight sm:text-5xl lg:text-6xl">
-            Upadłość konsumencka{" "}
-            <span className="text-green">– życie bez długów</span>
+            Upadłość konsumencka Chorzów{" "}
+            <span className="text-green block sm:inline">
+              – życie bez długów
+            </span>
           </h1>
 
           <p className="mt-3 max-w-xl text-center text-sm leading-relaxed text-white/75 sm:text-base lg:text-lg">

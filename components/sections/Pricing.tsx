@@ -62,11 +62,11 @@ function AnimatedCounter({ target }: { target: number }) {
 }
 
 const features = [
-  "Bezpłatna wstępna analiza dokumentów",
-  "Prowadzenie sprawy od A do Z",
-  "Stała dostępność i opieka doradcy",
-  "Kompleksowa obsługa pism przed sądem i syndykiem",
-  "Możliwość elastycznej płatności w ratach",
+  "Bezpłatna wstępna analiza prawna i finansowa",
+  "Przygotowanie i złożenie kompletnego wniosku w KRZ",
+  "Prowadzenie sprawy od A do Z przed sądem i syndykiem",
+  "Stała dostępność i opieka dedykowanego doradcy",
+  "Możliwość elastycznej płatności w dogodnych ratach",
 ];
 
 export function Pricing() {
@@ -75,7 +75,7 @@ export function Pricing() {
       <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
         <p className="flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.16em] text-navy">
           <CreditCard className="size-4 text-green" />
-          Cennik
+          Cennik · Upadłość konsumencka Chorzów
         </p>
 
         <h2 className="mt-2 font-display text-2xl font-bold leading-tight text-ink sm:mt-4 sm:text-4xl lg:text-5xl">
@@ -83,15 +83,15 @@ export function Pricing() {
         </h2>
 
         <p className="mt-2 text-xs leading-relaxed text-ink/75 sm:mt-4 sm:text-base lg:text-lg">
-          Konsultacja i analiza dokumentów są bezpłatne. Koszt prowadzenia
-          sprawy ustalamy indywidualnie i potwierdzamy na piśmie.
+          Konsultacja i analiza dokumentów są bezpłatne. Koszt kompleksowego
+          prowadzenia sprawy ustalamy indywidualnie i potwierdzamy na piśmie.
         </p>
 
         <div className="mx-auto mt-6 overflow-hidden rounded-3xl border border-black/10 bg-white text-left shadow-xl sm:mt-12">
           {/* Nagłówek karty z ceną */}
           <div className="bg-navy px-5 py-6 text-center text-white sm:px-12 sm:py-10">
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-green sm:text-xs">
-              Prowadzenie sprawy
+              Kompleksowe prowadzenie sprawy w sądzie
             </p>
             <div className="mt-2 font-display font-bold text-white sm:mt-3">
               <span className="align-top text-lg font-normal text-green sm:text-2xl">
@@ -124,8 +124,10 @@ export function Pricing() {
             <div className="mt-5 flex items-start gap-2.5 rounded-2xl bg-navy/5 p-3 text-xs leading-relaxed text-ink/75 border border-black/5 sm:mt-8 sm:gap-3 sm:p-4 sm:text-sm">
               <ShieldCheck className="size-4 shrink-0 text-navy mt-0.5 sm:size-5" />
               <p>
-                Ostateczną cenę ustalamy indywidualnie i potwierdzamy pisemnie
-                przed rozpoczęciem współpracy – bez ukrytych opłat.
+                Ostateczną cenę ustalamy indywidualnie przed rozpoczęciem
+                współpracy. Ustawowa opłata sądowa od wniosku w systemie KRZ
+                wynosi 30 zł i uiszczana jest na konto Sądu Rejonowego
+                Katowice-Wschód.
               </p>
             </div>
 

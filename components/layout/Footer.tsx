@@ -15,7 +15,6 @@ const pageLinks = [
   { label: "Publikacje", href: "/publikacje" },
 ];
 
-// Ikony social media SVG
 function FacebookIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -77,7 +76,7 @@ export function Footer() {
             <Link href="/" className="flex items-center gap-3">
               <Image
                 src="/logo.svg"
-                alt="Logo Upadłość Konsumencka"
+                alt="Logo Upadłość Konsumencka Chorzów"
                 width={40}
                 height={40}
                 className="size-9 sm:size-11 object-contain"
@@ -93,8 +92,9 @@ export function Footer() {
             </Link>
 
             <p className="mt-3 text-xs sm:mt-5 sm:text-sm leading-relaxed text-white/60 max-w-xs">
-              Kompleksowa pomoc w przeprowadzeniu upadłości konsumenckiej.
-              Spokojnie, dyskretnie, od A do Z na terenie Śląska i całej Polski.
+              Profesjonalna pomoc w przeprowadzeniu upadłości konsumenckiej.
+              Dyskretnie i bezpiecznie od wniosku w KRZ po prawomocne umorzenie
+              długów.
             </p>
 
             <div className="mt-4 sm:mt-6">
@@ -138,7 +138,7 @@ export function Footer() {
           {/* Kolumna 3: Kontakt i Dane rejestrowe */}
           <div>
             <h3 className="font-display text-sm sm:text-base font-semibold text-green">
-              Kontakt & Kancelaria
+              Kontakt & Kancelaria Chorzów
             </h3>
             <div className="mt-3 space-y-2.5 text-xs sm:mt-5 sm:space-y-3.5 sm:text-sm text-white/70">
               <a
@@ -157,7 +157,6 @@ export function Footer() {
                 {site.email.display}
               </a>
 
-              {/* Naturalnie wkomponowany adres z NIP-em i REGON-em */}
               <div className="flex items-start gap-2.5 leading-relaxed">
                 <MapPin className="size-3.5 sm:size-4 text-green shrink-0 mt-0.5" />
                 <div>
@@ -171,9 +170,10 @@ export function Footer() {
                 </div>
               </div>
 
-              <p className="text-[11px] sm:text-xs text-white/60 border-t border-white/10 pt-2 sm:pt-3">
-                Obsługa stacjonarna oraz zdalna na terenie całego Śląska i
-                Polski.
+              <p className="text-[11px] sm:text-xs text-white/60 border-t border-white/10 pt-2 sm:pt-3 leading-relaxed">
+                Obsługa mieszkańców miast: Chorzów, Świętochłowice, Katowice,
+                Ruda Śląska, Bytom, Siemianowice Śląskie, Zabrze, Gliwice oraz
+                całej Polski.
               </p>
             </div>
 
@@ -205,12 +205,12 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Pasek dolny: Prawa autorskie, pełna nazwa i dane firmy */}
+        {/* Pasek dolny */}
         <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-5 text-[11px] sm:text-xs text-white/50 sm:mt-10 sm:flex-row sm:items-center sm:justify-between sm:pt-6">
           <div>
             <p>
-              © 2026 Kancelaria Upadłości Konsumenckiej · Część Grupy Expert
-              Partner
+              © 2026 Kancelaria Upadłości Konsumenckiej Chorzów · Część Grupy
+              Expert Partner
             </p>
             <p className="text-[10px] sm:text-[11px] text-white/40 mt-0.5">
               {site.address.full} · NIP: {site.company.nip}{" "}

@@ -6,7 +6,6 @@ import {
   MapPin,
   HelpCircle,
   TrendingDown,
-  Sparkles,
   Layers,
   Scale,
   CreditCard,
@@ -15,22 +14,25 @@ import {
   ChevronRight,
   ArrowUpRight,
   FileCheck2,
+  Gavel,
+  CheckCircle2,
 } from "lucide-react";
 import type { Metadata } from "next";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
   title:
-    "Upadłość konsumencka – co to jest, ile kosztuje i jak ją ogłosić? · Poradnik",
+    "Upadłość konsumencka Chorzów – co to jest, ile kosztuje i jak ogłosić? · Poradnik",
   description:
-    "Kompleksowy poradnik o upadłości konsumenckiej w Chorzowie i na Śląsku. Dowiedz się, co to jest, ile kosztuje, jak wygląda upadłość bez majątku i jak przygotować wniosek.",
+    "Kompleksowy poradnik: upadłość konsumencka Chorzów i Śląsk. Dowiedz się, jak złożyć wniosek w systemie KRZ, ile wynosi opłata sądowa (30 zł), jak działa Sąd Katowice-Wschód i jak umorzyć długi.",
   alternates: {
     canonical: "/publikacje",
   },
   openGraph: {
-    title: "Upadłość konsumencka – co to jest, ile kosztuje i jak ją ogłosić?",
+    title:
+      "Upadłość konsumencka Chorzów – co to jest, ile kosztuje i jak ogłosić?",
     description:
-      "Problemy ze spłatą kredytów, pożyczek, rachunków? Wyjaśniamy procedurę upadłości konsumenckiej krok po kroku prostym językiem.",
+      "Problemy ze spłatą kredytów, chwilówek, rachunków i komornikiem? Wyjaśniamy procedurę upadłości konsumenckiej w Chorzowie i na Śląsku krok po kroku.",
     url: `${site.url}/publikacje`,
     siteName: site.name,
     locale: "pl_PL",
@@ -40,27 +42,28 @@ export const metadata: Metadata = {
     authors: [site.legalName],
     section: "Prawo i Finanse",
     tags: [
-      "upadłość konsumencka",
-      "oddłużanie",
-      "Chorzów",
-      "Śląsk",
-      "poradnik prawny",
-      "kancelaria upadłościowa",
+      "upadłość konsumencka chorzów",
+      "upadłość konsumencka śląsk",
+      "oddłużanie Chorzów",
+      "kancelaria upadłościowa Chorzów",
+      "Krajowy Rejestr Zadłużonych",
+      "Sąd Rejonowy Katowice Wschód",
     ],
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Upadłość konsumencka – poradnik prawny Chorzów i Śląsk",
+        alt: "Upadłość konsumencka Chorzów i Śląsk – poradnik prawny",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Upadłość konsumencka – co to jest, ile kosztuje i jak ją ogłosić?",
+    title:
+      "Upadłość konsumencka Chorzów – co to jest, ile kosztuje i jak ogłosić?",
     description:
-      "Kompleksowy poradnik o upadłości konsumenckiej. Dowiedz się, jak ogłosić upadłość i legalnie umorzyć długi.",
+      "Kompleksowy poradnik o upadłości konsumenckiej w Chorzowie. Dowiedz się, jak legalnie umorzyć długi w sądzie.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -76,7 +79,7 @@ export const metadata: Metadata = {
   },
 };
 
-// Pełne dane strukturalne JSON-LD dla Google (Article + Okruszki)
+// Pełne dane strukturalne JSON-LD (Article + BreadcrumbList + FAQPage)
 const publicationJsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -87,9 +90,9 @@ const publicationJsonLd = {
         "@id": `${site.url}/publikacje`,
       },
       headline:
-        "Upadłość konsumencka – co to jest, ile kosztuje i jak ją ogłosić?",
+        "Upadłość konsumencka Chorzów – co to jest, ile kosztuje i jak ją ogłosić?",
       description:
-        "Kompleksowy poradnik prawny o upadłości konsumenckiej w Polsce. Wyjaśniamy procedurę, koszty, upadłość bez majątku i oddłużenie.",
+        "Kompleksowy poradnik prawny o upadłości konsumenckiej w Chorzowie i województwie śląskim. Procedura KRZ, opłaty sądowe, brak majątku i oddłużenie.",
       inLanguage: "pl-PL",
       mainEntityOfPage: `${site.url}/publikacje`,
       datePublished: "2026-08-01T08:00:00+02:00",
@@ -127,21 +130,58 @@ const publicationJsonLd = {
         },
       ],
     },
+    {
+      "@type": "FAQPage",
+      "@id": `${site.url}/publikacje/#faq`,
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Ile wynosi opłata sądowa za wniosek o upadłość konsumencką w Chorzowie?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Ustawowa opłata sądowa od wniosku wynosi 30 zł. Wniosek składany jest elektronicznie przez Krajowy Rejestr Zadłużonych (KRZ) do Sądu Rejonowego Katowice-Wschód w Katowicach.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Jaki sąd rozpatruje upadłość konsumencką dla mieszkańców Chorzowa?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Właściwym sądem upadłościowym dla Chorzowa, Świętochłowic, Rudy Śląskiej i Katowic jest Sąd Rejonowy Katowice-Wschód w Katowicach, X Wydział Gospodarczy ds. Upadłościowych i Restrukturyzacyjnych.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Czy można ogłosić upadłość konsumencką nie mając żadnego majątku?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Tak, brak nieruchomości, samochodu czy oszczędności nie jest przeszkodą. W wielu przypadkach brak majątku przyspiesza postępowanie i pozwala na całkowite umorzenie długów bez planu spłaty.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Jakich długów nie można umorzyć w toku upadłości konsumenckiej?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Zgodnie z art. 491(21) Prawa upadłościowego umorzeniu nie podlegają: alimenty, renty odszkodowawcze, kary grzywny i nawiązki sądowe oraz długi celowo zatajone przed sądem.",
+          },
+        },
+      ],
+    },
   ],
 };
 
 const preparationSteps = [
-  { label: "Wierzyciel", desc: "Nazwa instytucji / banku" },
-  { label: "Rodzaj zobowiązania", desc: "Kredyt, pożyczka, rachunek" },
-  { label: "Wysokość długu", desc: "Dokładna kwota kapitału i odsetek" },
-  { label: "Termin spłaty", desc: "Data wymagalności roszczenia" },
-  { label: "Aktualny status", desc: "Np. windykacja, komornik" },
+  { label: "Wierzyciel", desc: "Bank, chwilówka, firma windykacyjna" },
+  { label: "Rodzaj zobowiązania", desc: "Kredyt gotówkowy, pożyczka, czynsz" },
+  { label: "Wysokość długu", desc: "Kwota kapitału, odsetek i kosztów" },
+  { label: "Termin spłaty", desc: "Data powstania i wymagalności" },
+  { label: "Aktualny status", desc: "Egzekucja komornicza, windykacja, sąd" },
 ];
 
 export default function PublicationPage() {
   return (
     <main className="min-h-screen bg-mint text-ink">
-      {/* Skrypt JSON-LD generowany dla robotów Google */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -156,36 +196,40 @@ export default function PublicationPage() {
         <div className="absolute -inset-2 bg-radial from-green/15 via-transparent to-transparent opacity-70 blur-3xl pointer-events-none" />
 
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center">
-          {/* Breadcrumbs */}
           <nav aria-label="Nawigacja okruszkowa" className="mb-3.5 sm:mb-6">
             <ol className="flex items-center justify-center gap-1.5 text-[11px] text-white/60 sm:text-sm">
               <li>
                 <Link href="/" className="hover:text-green transition-colors">
-                  Główna
+                  Strona Główna
                 </Link>
               </li>
               <li>
                 <ChevronRight className="size-3 text-white/30" />
               </li>
               <li>
-                <span className="font-semibold text-green">Publikacje</span>
+                <span className="font-semibold text-green">
+                  Publikacje
+                </span>
               </li>
             </ol>
           </nav>
 
-          <h1 className="font-display text-2xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl text-white max-w-3xl">
-            Upadłość konsumencka{" "}
+          <h1 className="font-display text-2xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl text-white max-w-4xl">
+            Upadłość konsumencka Chorzów{" "}
             <span className="text-green block mt-0.5 sm:mt-1">
               – co to jest, ile kosztuje i jak ją ogłosić?
             </span>
           </h1>
 
           <p className="mt-3 text-xs leading-relaxed text-white/80 sm:mt-6 sm:text-lg max-w-2xl mx-auto">
-            Problemy ze spłatą kredytów, pożyczek, rachunków czy innych
-            zobowiązań mogą z czasem doprowadzić do sytuacji, w której
-            zadłużenie staje się niemożliwe do uregulowania. W takim przypadku
-            warto sprawdzić, czym jest upadłość konsumencka i czy może być
-            rozwiązaniem pozwalającym uporządkować sytuację finansową.
+            Problemy ze spłatą kredytów, pożyczek, chwilówek czy rosnące zajęcia
+            komornicze mogą doprowadzić do spirali zadłużenia. Dowiedz się, czym
+            jest{" "}
+            <strong className="text-white font-semibold">
+              upadłość konsumencka w Chorzowie i na Śląsku
+            </strong>
+            , jak złożyć wniosek w systemie KRZ i zacząć życie z czystą kartą
+            finansową.
           </p>
 
           <div className="mt-5 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3.5 w-full sm:w-auto">
@@ -208,21 +252,20 @@ export default function PublicationPage() {
       </section>
 
       {/* =========================================================================
-          SEKCJA 1: WPROWADZENIE + CO TO JEST UPADŁOŚĆ?
+          SEKCJA 1: CO TO JEST UPADŁOŚĆ KONSUMENCKA?
       ========================================================================== */}
       <section className="py-6 sm:py-16 bg-mint">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-2xl sm:rounded-3xl border border-black/5 bg-white p-4 sm:p-8 shadow-sm mb-6 sm:mb-12 text-center max-w-4xl mx-auto">
             <p className="text-xs sm:text-lg font-medium leading-relaxed text-navy">
-              Wokół tego postępowania pojawia się wiele pytań. Co to jest
-              upadłość konsumencka? Jak wygląda ogłoszenie upadłości
-              konsumenckiej? Czy można ogłosić upadłość bez majątku? Ile
-              kosztuje upadłość konsumencka? A także: czy w takiej sytuacji
-              warto skorzystać z czyjejś pomocy?
+              Wokół postępowania upadłościowego narosło wiele mitów. Czy każdy
+              może ogłosić upadłość konsumencką? Czy brak majątku zamyka drogę
+              do oddłużenia? Ile kosztuje sprawa w sądzie i jak wygląda
+              procedura dla mieszkańców Chorzowa oraz aglomeracji śląskiej?
             </p>
             <p className="mt-2 text-xs sm:text-sm text-green-contrast font-bold">
-              Poniżej wyjaśniamy najważniejsze kwestie prostym i zrozumiałym
-              językiem.
+              Poniżej wyjaśniamy najważniejsze kwestie prawne prostym,
+              przystępnym językiem.
             </p>
           </div>
 
@@ -231,15 +274,14 @@ export default function PublicationPage() {
               <div className="lg:sticky lg:top-24 text-center lg:text-left">
                 <p className="flex items-center justify-center lg:justify-start gap-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-navy">
                   <Scale className="size-3.5 sm:size-4 text-green" />
-                  Definicja & Istota
+                  Definicja & Podstawa prawna
                 </p>
                 <h2 className="mt-1 font-display text-lg font-bold leading-tight text-ink sm:mt-2 sm:text-3xl">
                   Upadłość konsumencka – co to jest?
                 </h2>
                 <p className="mt-2 text-xs leading-relaxed text-ink/75 sm:mt-3 sm:text-sm">
-                  Najprościej mówiąc, postępowanie może być rozwiązaniem dla
-                  osoby, która przestała być w stanie regulować swoje wymagalne
-                  zobowiązania.
+                  To procedura sądowa przeznaczona dla osób fizycznych, które
+                  utraciły zdolność do regulowania swoich wymagalnych długów.
                 </p>
               </div>
             </div>
@@ -247,24 +289,29 @@ export default function PublicationPage() {
             <div className="lg:col-span-7 space-y-3 sm:space-y-4">
               <div className="rounded-2xl sm:rounded-3xl border border-black/5 bg-white p-4 sm:p-6 shadow-sm">
                 <p className="text-xs sm:text-base leading-relaxed text-ink/90 font-medium">
-                  Upadłość konsumencka to postępowanie przeznaczone dla osoby
-                  fizycznej, która nie prowadzi działalności gospodarczej, która
-                  nie jest w stanie płacić wszystkich swoich zobowiązań, czyli
-                  jest niewypłacalna. Jego celem jest przede wszystkim
-                  uporządkowanie sytuacji osoby zadłużonej oraz, w określonych
-                  prawem warunkach, umożliwienie jej oddłużenia.
+                  <strong>Upadłość konsumencka</strong> to formalne postępowanie
+                  sądowe przeznaczone dla osób fizycznych nieprowadzących
+                  działalności gospodarczej (oraz byłych przedsiębiorców, którzy
+                  zamknęli firmę), którzy stali się niewypłacalni. Głównym celem
+                  postępowania jest <strong>całkowite oddłużenie</strong> osoby
+                  zadłużonej oraz zaspokojenie wierzycieli w miarę możliwości
+                  dłużnika.
                 </p>
               </div>
 
               <div className="rounded-2xl sm:rounded-3xl border border-green/30 bg-mint-dark p-4 sm:p-6 shadow-sm">
                 <p className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-green-contrast mb-1 sm:mb-1.5">
-                  Ważna zasada indywidualna
+                  Właściwość sądu dla Chorzowa i Śląska
                 </p>
                 <p className="text-xs sm:text-sm leading-relaxed text-ink/80">
-                  W praktyce każda sytuacja jest jednak inna. Znaczenie mają
-                  między innymi wysokość zadłużenia, dochody, majątek, przyczyny
-                  powstania niewypłacalności oraz aktualna sytuacja życiowa
-                  dłużnika.
+                  Dla mieszkańców Chorzowa oraz miast ościennych
+                  (Świętochłowice, Ruda Śląska, Bytom, Katowice, Siemianowice
+                  Śląskie) organem właściwym do rozpoznania wniosku jest{" "}
+                  <strong>
+                    Sąd Rejonowy Katowice-Wschód w Katowicach (X Wydział
+                    Gospodarczy ds. Upadłościowych i Restrukturyzacyjnych)
+                  </strong>
+                  .
                 </p>
               </div>
             </div>
@@ -273,41 +320,40 @@ export default function PublicationPage() {
       </section>
 
       {/* =========================================================================
-          SEKCJA 2: OGŁOSZENIE UPADŁOŚCI – JAK WYGLĄDA?
+          SEKCJA 2: PROCEDURA KRZ I PRZEBIEG POSTĘPOWANIA
       ========================================================================== */}
       <section className="py-6 sm:py-16 bg-navy text-white">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-8">
             <p className="flex items-center justify-center gap-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-green">
               <Layers className="size-3.5 sm:size-4" />
-              Przebieg postępowania
+              Przebieg postępowania krok po kroku
             </p>
             <h2 className="mt-1 font-display text-xl font-bold leading-tight sm:mt-2 sm:text-3xl lg:text-4xl">
-              Ogłoszenie upadłości konsumenckiej – jak wygląda?
+              Ogłoszenie upadłości konsumenckiej – jak wygląda procedura w KRZ?
             </h2>
             <p className="mt-2 text-xs leading-relaxed text-white/80 sm:mt-3 sm:text-base">
-              Samo ogłoszenie upadłości konsumenckiej nie oznacza automatycznego
-              anulowania wszystkich długów. Jest to początek postępowania, które
-              przebiega według określonych zasad.
+              Od grudnia 2021 r. wszystkie wnioski o upadłość konsumencką w
+              Polsce składa się drogą elektroniczną przez{" "}
+              <strong>Krajowy Rejestr Zadłużonych (portal KRZ)</strong>.
             </p>
             <p className="mt-1.5 text-xs leading-relaxed text-white/80 sm:mt-2 sm:text-sm">
-              Osoba rozważająca upadłość powinna przede wszystkim dokładnie
-              przeanalizować swoją sytuację finansową. Warto przygotować
-              informacje dotyczące:
+              Przed sporządzeniem wniosku kluczowe jest rzetelne zebranie
+              dokumentów i informacji obejmujących:
             </p>
           </div>
 
           <div className="rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-3.5 sm:p-8 backdrop-blur-md shadow-lg">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 items-stretch">
               {[
-                "wszystkich posiadanych zobowiązań,",
-                "wierzycieli,",
-                "wysokości zadłużenia,",
-                "osiąganych dochodów,",
-                "posiadanego majątku,",
-                "kosztów utrzymania, kosztów leczenia,",
-                "prowadzonych postępowań egzekucyjnych,",
-                "przyczyn, które doprowadziły do niewypłacalności.",
+                "Pełną listę wierzycieli z aktualnymi adresami,",
+                "Dokładną wysokość zadłużenia (kapitał, odsetki, koszty),",
+                "Wszystkie umowy kredytowe, pożyczkowe i wezwania do zapłaty,",
+                "Informacje o dochodach (umowa o pracę, zlecenie, emerytura/renta),",
+                "Spis posiadanego majątku (ruchomości, nieruchomości) lub jego brak,",
+                "Koszty utrzymania siebie i rodziny oraz wydatki medyczne,",
+                "Prowadzone egzekucje komornicze (sygnatury akt KM),",
+                "Opis przyczyn niewypłacalności (np. choroba, utrata pracy, inflacja).",
               ].map((item, index) => (
                 <div
                   key={item}
@@ -324,8 +370,8 @@ export default function PublicationPage() {
             </div>
 
             <div className="mt-4 sm:mt-6 border-t border-white/10 pt-3 sm:pt-4 text-center text-[11px] sm:text-xs text-white/70">
-              Dokładne przedstawienie sytuacji finansowej ma duże znaczenie dla
-              prawidłowego przeprowadzenia postępowania.
+              Prawidłowe wypełnienie formularzy w portalu KRZ jest kluczem do
+              szybkiego wydania postanowienia przez Sąd Katowice-Wschód.
             </div>
           </div>
         </div>
@@ -345,29 +391,39 @@ export default function PublicationPage() {
                     <TrendingDown className="size-4 sm:size-5" />
                   </span>
                   <h3 className="font-display text-sm sm:text-xl font-bold text-navy leading-snug">
-                    Czy mogę ogłosić upadłość nie mając majątku?
+                    Czy można ogłosić upadłość bez majątku?
                   </h3>
                 </div>
 
                 <p className="text-xs sm:text-sm font-semibold text-green-contrast mb-2">
-                  Jednym z często pojawiających się pytań jest upadłość
-                  konsumencka bez majątku.
+                  Upadłość konsumencka bez majątku to powszechna i w 100%
+                  legalna sytuacja.
                 </p>
 
                 <p className="text-xs sm:text-sm leading-relaxed text-ink/80">
-                  Brak nieruchomości, samochodu czy innych wartościowych
-                  składników majątku tak naprawdę upraszcza postępowanie i może
-                  je skrócić. Sytuację osoby niewypłacalnej ocenia się
-                  indywidualnie, jednak bardzo istotne jest czy był jakiś
-                  majątek, który został sprzedany, podarowany w okresie kilku
-                  ostatnich lat.
+                  Brak mieszkania, samochodu czy oszczędności{" "}
+                  <strong>nie uniemożliwia ogłoszenia upadłości</strong>. W
+                  praktyce brak majątku upraszcza i znacznie skraca
+                  postępowanie, ponieważ wyznaczony przez sąd syndyk nie musi
+                  prowadzić czasochłonnej licytacji składników masy
+                  upadłościowej.
+                </p>
+
+                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-ink/80">
+                  W takiej sytuacji dłużnik może uzyskać{" "}
+                  <strong>
+                    całkowite umorzenie długów bez ustalania planu spłaty
+                  </strong>
+                  , jeżeli jego sytuacja osobista i zarobkowa trwale
+                  uniemożliwia dokonywanie jakichkolwiek wpłat.
                 </p>
               </div>
 
               <div className="mt-4 sm:mt-6 rounded-xl bg-mint p-3 text-[11px] sm:text-xs text-ink/75 border border-black/5 leading-relaxed">
-                Warto pamiętać, że majątek jest tylko jednym z elementów całej
-                sytuacji. Istotne są również zobowiązania, dochody, koszty
-                utrzymania oraz inne okoliczności dotyczące osoby zadłużonej.
+                <strong>Ważne:</strong> Sąd analizuje historię majątkową z
+                ostatnich lat (np. darowizny, sprzedaż majątku po zaniżonej
+                cenie), dlatego sprawa wymaga rzetelnego przedstawienia stanu
+                faktycznego.
               </div>
             </div>
 
@@ -379,36 +435,41 @@ export default function PublicationPage() {
                     <CreditCard className="size-4 sm:size-5" />
                   </span>
                   <h3 className="font-display text-sm sm:text-xl font-bold text-navy leading-snug">
-                    Ile kosztuje upadłość konsumencka?
+                    Ile kosztuje upadłość konsumencka w Chorzowie?
                   </h3>
                 </div>
 
                 <p className="text-xs sm:text-sm leading-relaxed text-ink/80">
-                  Koszty upadłości konsumenckiej zależą od konkretnej sytuacji
-                  oraz zakresu pomocy, z której korzysta osoba zadłużona. Samo
-                  złożenie wniosku o ogłoszenie upadłości to koszt
-                  kilkudziesięciu złotych. Jednak później dochodzą inne koszty,
-                  które są pokrywane w trakcie postępowania.
+                  Koszty postępowania dzielą się na opłaty sądowe oraz
+                  wynagrodzenie profesjonalnego pełnomocnika:
                 </p>
 
-                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-ink/80">
-                  Warto rozróżnić koszty związane z samym postępowaniem sądowym
-                  od wynagrodzenia osoby, która wspiera proces przygotowania
-                  dokumentów, pisze wniosek, pokazuje kolejne kroki postępowania
-                  i wspiera w całym okresie upadłości.
-                </p>
+                <ul className="mt-2 space-y-1.5 text-xs sm:text-sm text-ink/80 list-disc pl-5">
+                  <li>
+                    <strong>Opłata sądowa od wniosku:</strong> wynosi ustawowo
+                    dokładnie <strong>30 zł</strong> (wnoszona na konto Sądu
+                    Rejonowego Katowice-Wschód).
+                  </li>
+                  <li>
+                    <strong>Koszty postępowania upadłościowego:</strong> w
+                    przypadku braku majątku tymczasowo pokrywa je Skarb Państwa.
+                  </li>
+                  <li>
+                    <strong>Wynagrodzenie kancelarii:</strong> za przygotowanie
+                    dokumentacji, wniosek w KRZ i opiekę procesową (w naszej
+                    kancelarii od 2900 zł z opcją elastycznych rat).
+                  </li>
+                </ul>
 
                 <p className="mt-2 text-[11px] sm:text-xs text-ink/70 leading-relaxed">
-                  Na całkowity koszt może wpływać m.in. stopień skomplikowania
-                  sprawy, liczba wierzycieli, sytuacja majątkowa oraz
-                  konieczność dodatkowych czynności w sądzie.
+                  Przejrzyste zasady bez ukrytych kosztów gwarantują pełne
+                  bezpieczeństwo finansowe od pierwszego dnia współpracy.
                 </p>
               </div>
 
               <div className="mt-4 sm:mt-6 rounded-xl bg-navy/5 p-3 text-[11px] sm:text-xs font-medium text-navy border border-black/5 leading-relaxed">
-                Przed rozpoczęciem współpracy z biurem / kancelarią warto
-                zapytać, co dokładnie obejmuje ustalone wynagrodzenie i jakie
-                dodatkowe wydatki mogą pojawić się w sprawie.
+                Wstępna analiza prawno-finansowa Twojej sytuacji w biurze w
+                Chorzowie lub telefonicznie jest w 100% bezpłatna.
               </div>
             </div>
           </div>
@@ -423,26 +484,25 @@ export default function PublicationPage() {
           <div className="mx-auto max-w-3xl text-center mb-4 sm:mb-10">
             <p className="flex items-center justify-center gap-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-navy">
               <AlertTriangle className="size-3.5 sm:size-4 text-green" />
-              Kiedy reagować
+              Sygnały ostrzegawcze
             </p>
             <h2 className="mt-1 font-display text-xl font-bold leading-tight text-ink sm:mt-2 sm:text-3xl lg:text-4xl">
-              Kiedy warto rozważyć upadłość konsumencką?
+              Kiedy warto ogłosić upadłość konsumencką?
             </h2>
             <p className="mt-1.5 text-xs sm:text-sm text-ink/75">
-              Nie ma jednej sytuacji, w której upadłość konsumencka będzie
-              odpowiednia dla każdego. Warto jednak zainteresować się tym
-              rozwiązaniem, jeżeli:
+              Upadłość konsumencka w Chorzowie i na Śląsku to skuteczne
+              narzędzie prawne, gdy:
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3.5 max-w-5xl mx-auto items-stretch">
             {[
-              "Zadłużenie stale rośnie,",
-              "Nie jesteś w stanie regulować wymagalnych zobowiązań,",
-              "Spłacasz jedne zobowiązania kolejnymi pożyczkami,",
-              "Prowadzona jest przeciwko Tobie egzekucja komornicza,",
-              "Wysokość miesięcznych rat przekracza Twoje możliwości finansowe,",
-              "Twoja sytuacja finansowa od dłuższego czasu się pogarsza.",
+              "Zadłużenie stale rośnie mimo dokonywanych wpłat,",
+              "Komornik zajął pensję, konto bankowe lub emeryturę,",
+              "Spłacasz jedne pożyczki kolejnymi chwilówkami,",
+              "Otrzymujesz natarczywe telefony z firm windykacyjnych,",
+              "Raty kredytów przekraczają Twoje miesięczne dochody,",
+              "Utrata zdrowia lub pracy uniemożliwia regulowanie rachunków.",
             ].map((reason) => (
               <div
                 key={reason}
@@ -457,115 +517,113 @@ export default function PublicationPage() {
 
           <div className="mt-4 sm:mt-8 text-center">
             <p className="font-display text-xs sm:text-sm font-semibold text-green-contrast">
-              Im wcześniej przeanalizujesz swoją sytuację, tym łatwiej może być
-              znaleźć właściwe rozwiązanie.
+              Pamiętaj: z dniem ogłoszenia upadłości wszelkie egzekucje
+              komornicze zostają zawieszone z mocy prawa.
             </p>
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-          SEKCJA 5: UPADŁOŚĆ KONSUMENTA A POMOC KANCELARII & UMORZENIE
+          SEKCJA 5: CZY UPADŁOŚĆ UMORZY WSZYSTKIE DŁUGI? (E-E-A-T & PRAWO)
       ========================================================================== */}
       <section className="py-6 sm:py-16 bg-navy text-white relative overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid gap-4 lg:grid-cols-2 lg:gap-10 items-center max-w-6xl mx-auto">
-            {/* Lewa kolumna: Pomoc kancelarii */}
+          <div className="grid gap-4 lg:grid-cols-2 lg:gap-10 items-start max-w-6xl mx-auto">
+            {/* Lewa kolumna: Pomoc kancelarii w Chorzowie */}
             <div className="space-y-3 sm:space-y-4">
               <p className="flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-green">
                 <Building2 className="size-3.5 sm:size-4" />
-                Wsparcie profesjonalistów
+                Lokalna Kancelaria Upadłościowa
               </p>
               <h2 className="font-display text-xl font-bold leading-tight sm:text-3xl">
-                Upadłość konsumenta a pomoc kancelarii
+                Upadłość konsumencka Chorzów – dlaczego warto z
+                ekspertem?
               </h2>
               <p className="text-xs sm:text-sm leading-relaxed text-white/80">
-                Osoby wpisujące w wyszukiwarkę hasło „upadłość konsumenta”
-                często szukają odpowiedzi na pytanie, czy powinny przeprowadzić
-                całe postępowanie samodzielnie, czy skorzystać z pomocy
-                specjalisty.
+                Przepisy prawa upadłościowego wymagają bezbłędnego sporządzenia
+                wniosku w systemie KRZ. Błędy formalne mogą skutkować zwrotem
+                wniosku lub niekorzystnym planem spłaty wierzycieli na okres
+                nawet 7 lat.
               </p>
               <p className="text-xs sm:text-sm leading-relaxed text-white/80">
-                Przepisy dotyczące upadłości konsumenckiej są rozbudowane, a
-                każda sprawa może wyglądać inaczej. Z tego powodu konsultacja z
-                osobą mającą wiedzę i doświadczenie w sprawach upadłości
-                konsumenckiej może pomóc uporządkować informacje i określić
-                możliwe rozwiązania.
-              </p>
-              <p className="text-xs sm:text-sm leading-relaxed text-white/80">
-                Biuro / Kancelaria może również pomóc w przygotowaniu
-                dokumentów, analizie sytuacji dłużnika oraz wspomóc w
-                odpowiednim przedstawieniu jego sytuacji w toku postępowania.
+                Jako część ogólnopolskiej sieci{" "}
+                <strong>Grupy Expert Partner</strong> zapewniamy pełne
+                bezpieczeństwo, reprezentację przed sądem i syndykiem oraz
+                przygotowanie pism procesowych.
               </p>
 
               <div className="rounded-xl sm:rounded-2xl border border-green/40 bg-white/5 p-3.5 sm:p-4 backdrop-blur-md">
                 <p className="flex items-center gap-1.5 font-display text-xs sm:text-sm font-bold text-green">
                   <MapPin className="size-3.5 sm:size-4" />
-                  Kancelaria w Chorzowie
+                  Kancelaria w Chorzowie – ul. Hajducka 4
                 </p>
                 <p className="mt-1 text-[11px] sm:text-xs text-white/90 leading-relaxed">
-                  Kancelaria{" "}
-                  <strong className="text-white font-semibold">
-                    Upadłość Konsumencka Chorzów
+                  Obsługujemy mieszkańców miast:{" "}
+                  <strong className="text-white">
+                    Chorzów, Świętochłowice, Katowice, Ruda Śląska, Bytom,
+                    Siemianowice Śląskie, Zabrze i Gliwice
                   </strong>{" "}
-                  (ul. Hajducka 4) to miejsce, gdzie warto się udać i w
-                  atmosferze zrozumienia i zaufania omówić swoją sytuację.
+                  stacjonarnie oraz zdalnie w całej Polsce.
                 </p>
               </div>
             </div>
 
-            {/* Prawa kolumna: Czy upadłość oznacza umorzenie */}
+            {/* Prawa kolumna: Jakich długów się NIE umarza */}
             <div className="rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-8 backdrop-blur-md space-y-3 sm:space-y-4">
               <div className="flex size-9 sm:size-11 items-center justify-center rounded-xl bg-green/20 text-green">
-                <HelpCircle className="size-4 sm:size-5" />
+                <Gavel className="size-4 sm:size-5" />
               </div>
 
               <h3 className="font-display text-base sm:text-xl font-bold text-white">
-                Czy upadłość konsumencka oznacza umorzenie wszystkich długów?
+                Czy upadłość umorzy wszystkie długi? (Wyjątki ustawowe)
               </h3>
 
-              <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-green">
-                To jedno z najważniejszych pytań, które pojawiają się przed
-                rozpoczęciem postępowania.
-              </p>
-
               <p className="text-xs sm:text-sm leading-relaxed text-white/80">
-                Upadłość konsumencka jest procedurą oddłużeniową, ale nie należy
-                utożsamiać jej automatycznie z natychmiastowym umorzeniem
-                wszystkich zobowiązań. Ostateczne skutki postępowania zależą od
-                konkretnej sprawy i decyzji podejmowanych w jego toku.
+                Upadłość konsumencka pozwala umorzyć kredyty bankowe, pożyczki,
+                chwilówki, zaległości czynszowe czy rachunki. Jednak zgodnie z
+                art. 491²¹ Prawa upadłościowego{" "}
+                <strong>umorzeniu NIE podlegają</strong>:
               </p>
 
-              <p className="text-xs sm:text-sm leading-relaxed text-white/70">
-                Dlatego przed złożeniem wniosku warto dokładnie przeanalizować
-                swoją sytuację i dowiedzieć się, jakie mogą być konsekwencje
-                postępowania w konkretnym przypadku.
-              </p>
+              <ul className="space-y-2 text-xs sm:text-sm text-white/85">
+                {[
+                  "Zobowiązania o charakterze alimentacyjnym,",
+                  "Renty z tytułu odszkodowania za wywołanie choroby lub śmierci,",
+                  "Kary grzywny, mandaty oraz nawiązki orzeczone przez sąd karny,",
+                  "Obowiązek naprawienia szkody wyrządzonej przestępstwem,",
+                  "Długi umyślnie zatajone przez dłużnika we wniosku upadłościowym.",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <CheckCircle2 className="size-4 text-green shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-          SEKCJA 6: JAK PRZYGOTOWAĆ SIĘ DO UPADŁOŚCI?
+          SEKCJA 6: JAK PRZYGOTOWAĆ SIĘ DO WNIOSKU?
       ========================================================================== */}
       <section className="py-6 sm:py-16 bg-mint">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center mb-4 sm:mb-10">
             <p className="flex items-center justify-center gap-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-navy">
               <FileCheck2 className="size-3.5 sm:size-4 text-green" />
-              Pierwsze kroki
+              Praktyczny przewodnik
             </p>
             <h2 className="mt-1 font-display text-xl font-bold leading-tight text-ink sm:mt-2 sm:text-3xl lg:text-4xl">
               Jak przygotować się do upadłości konsumenckiej?
             </h2>
             <p className="mt-1.5 text-xs sm:text-sm text-ink/75 leading-relaxed">
-              Pierwszym krokiem powinno być zebranie wszystkich informacji
-              dotyczących zadłużenia. Nie warto pomijać żadnego wierzyciela ani
-              zobowiązania.
+              Kluczem do sprawnego oddłużenia jest zebranie kompletnych danych.
+              Każdy wierzyciel musi zostać wskazany we wniosku.
             </p>
             <p className="mt-1 text-xs sm:text-sm font-semibold text-navy">
-              Dobrym rozwiązaniem jest przygotowanie listy zawierającej:
+              Przygotuj zestawienie zawierające poniższe punkty:
             </p>
           </div>
 
@@ -602,12 +660,12 @@ export default function PublicationPage() {
 
           <div className="mt-4 sm:mt-8 max-w-3xl mx-auto text-center space-y-1.5 text-xs sm:text-sm text-ink/80">
             <p>
-              Należy również zgromadzić dokumenty dotyczące dochodów, majątku i
-              bieżących kosztów utrzymania.
+              Nie wiesz, jak ustalić dokładne kwoty zadłużenia lub odnaleźć
+              wszystkich komorników?
             </p>
             <p className="font-semibold text-green-contrast">
-              Im bardziej uporządkowane informacje, tym łatwiej przeanalizować
-              sytuację i przygotować się do dalszych działań.
+              Pomożemy Ci skompletować niezbędne dokumenty i sporządzimy
+              kompletny wniosek do sądu.
             </p>
           </div>
         </div>
@@ -620,37 +678,30 @@ export default function PublicationPage() {
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-10 backdrop-blur-md shadow-xl">
             <h2 className="font-display text-xl font-bold leading-tight sm:text-3xl text-green">
-              Podsumowując
+              Podsumowanie: Odzyskaj spokój i wolność finansową
             </h2>
 
             <p className="mt-2.5 text-xs sm:text-base leading-relaxed text-white/85">
-              Upadłość konsumencka jest rozwiązaniem powszechnie stosowanym, a
-              zmienione przepisy pozwoliły na dostęp do niej szerokiej grupie
-              osób. Warto solidnie przygotować się do tego postępowania i oprzeć
-              się na doświadczeniu osób, które uczestniczyły w takim
-              postępowaniu, pomagały zebrać dokumenty, prawidłowo opisać
-              sytuację dłużnika. Kluczem jest szczera rozmowa i zaufanie jakim
-              trzeba się obdarzyć, żeby proces był jak najprostszy i jak
-              najszybszy, jednak trzeba pamiętać, że całe postępowanie może
-              trwać kilka lat.
+              Znowelizowane przepisy prawa upadłościowego otworzyły drogę do
+              oddłużenia dla tysięcy osób w Polsce. Kluczem do sukcesu jest
+              rzetelne przedstawienie swojej sytuacji przed sądem. Pamiętaj, że
+              nie musisz przechodzić przez ten proces w samotności.
             </p>
 
             <div className="mt-4 sm:mt-6 rounded-xl sm:rounded-2xl bg-green/15 border border-green/30 p-3.5 sm:p-5 text-white">
               <p className="text-xs sm:text-sm leading-relaxed">
-                Jeżeli interesuje Cię skuteczna{" "}
+                Skorzystaj z pomocy doświadczonej kancelarii:{" "}
                 <Link href="/" className="font-bold text-green hover:underline">
-                  upadłość konsumencka w Chorzowie
+                  Upadłość konsumencka Chorzów
                 </Link>{" "}
-                oraz profesjonalne oddłużenie, zapraszamy do naszej kancelarii
-                przy ulicy Hajduckiej 4. Możesz też do nas zadzwonić pod numer{" "}
+                przy ul. Hajduckiej 4. Zadzwoń pod numer{" "}
                 <strong className="text-white font-bold">
                   {site.phone.display}
                 </strong>{" "}
-                lub wysłać wiadomość przez formularz kontaktowy.
+                i umów się na bezpłatną, poufną analizę swojej sprawy.
               </p>
             </div>
 
-            {/* Przyciski i gwarancja */}
             <div className="mt-5 sm:mt-8 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-5 border-t border-white/10 pt-4 sm:pt-6">
               <div className="flex items-center gap-2.5 text-center sm:text-left">
                 <ShieldCheck className="size-5 text-green shrink-0" />
@@ -660,7 +711,6 @@ export default function PublicationPage() {
                 </span>
               </div>
 
-              {/* Przyciski w 1 linii */}
               <div className="flex flex-col sm:flex-row items-center gap-2.5 w-full sm:w-auto shrink-0">
                 <a
                   href={site.phone.href}
