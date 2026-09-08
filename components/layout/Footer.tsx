@@ -4,9 +4,7 @@ import { Phone, Mail, MapPin } from "lucide-react";
 import { CookieSettingsLink } from "@/components/cookies/CookieSettingsLink";
 import { site } from "@/content/site";
 
-// Kotwice zapisane jako "/#sekcja", a nie "#sekcja" – dzięki temu działają
-// także ze stopki na podstronach (publikacje, polityka, 404), gdzie tych
-// sekcji nie ma. Na stronie głównej <Link> obsłuży to bez przeładowania.
+// Kotwice nawigacji
 const pageLinks = [
   { label: "Dla kogo", href: "/#dla-kogo" },
   { label: "Jak to działa", href: "/#jak-to-dziala" },
@@ -14,11 +12,10 @@ const pageLinks = [
   { label: "Dlaczego my", href: "/#dlaczego-my" },
   { label: "FAQ / Pytania", href: "/#faq" },
   { label: "Kontakt", href: "/#kontakt" },
-  // Osobna podstrona – celowo tylko w stopce, nie ma jej w Navbarze.
   { label: "Publikacje", href: "/publikacje" },
 ];
 
-// Ikony social media – trzymane inline (lucide nie posiada ikon brandowych)
+// Ikony social media SVG
 function FacebookIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -64,8 +61,6 @@ function TikTokIcon({ className }: { className?: string }) {
   );
 }
 
-// Puste wpisy w site.socials są odfiltrowane, więc sekcja pojawi się
-// automatycznie, gdy w site.ts uzupełnisz linki URL.
 const socialLinks = [
   { label: "Instagram", href: site.socials.instagram, icon: InstagramIcon },
   { label: "Facebook", href: site.socials.facebook, icon: FacebookIcon },
@@ -77,7 +72,7 @@ export function Footer() {
     <footer className="bg-navy-900 border-t border-white/10 text-white">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         <div className="grid gap-6 sm:gap-10 lg:grid-cols-3 lg:gap-12">
-          {/* Kolumna 1: Logo i opis */}
+          {/* Kolumna 1: Logo, opis i Partner */}
           <div>
             <Link href="/" className="flex items-center gap-3">
               <Image
@@ -140,12 +135,12 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Kolumna 3: Kontakt i Social Media */}
+          {/* Kolumna 3: Kontakt i Dane rejestrowe */}
           <div>
             <h3 className="font-display text-sm sm:text-base font-semibold text-green">
-              Kontakt
+              Kontakt & Kancelaria
             </h3>
-            <div className="mt-3 space-y-2.5 text-xs sm:mt-5 sm:space-y-4 sm:text-sm text-white/70">
+            <div className="mt-3 space-y-2.5 text-xs sm:mt-5 sm:space-y-3.5 sm:text-sm text-white/70">
               <a
                 href={site.phone.href}
                 className="flex items-center gap-2.5 font-semibold text-white transition-colors hover:text-green"
@@ -153,6 +148,7 @@ export function Footer() {
                 <Phone className="size-3.5 sm:size-4 text-green shrink-0" />
                 {site.phone.display}
               </a>
+
               <a
                 href={site.email.href}
                 className="flex items-center gap-2.5 transition-colors hover:text-green wrap-break-word"
@@ -160,11 +156,22 @@ export function Footer() {
                 <Mail className="size-3.5 sm:size-4 text-green shrink-0" />
                 {site.email.display}
               </a>
+
+              {/* Naturalnie wkomponowany adres z NIP-em i REGON-em */}
               <div className="flex items-start gap-2.5 leading-relaxed">
                 <MapPin className="size-3.5 sm:size-4 text-green shrink-0 mt-0.5" />
-                <span>{site.address.full}</span>
+                <div>
+                  <span className="block font-medium text-white/90">
+                    {site.address.full}
+                  </span>
+                  <span className="block text-[11px] sm:text-xs text-white/50 mt-0.5">
+                    NIP: {site.company.nip}{" "}
+                    {site.company.regon ? `· REGON: ${site.company.regon}` : ""}
+                  </span>
+                </div>
               </div>
-              <p className="text-[11px] sm:text-xs text-white/70 border-t border-white/10 pt-2 sm:pt-3">
+
+              <p className="text-[11px] sm:text-xs text-white/60 border-t border-white/10 pt-2 sm:pt-3">
                 Obsługa stacjonarna oraz zdalna na terenie całego Śląska i
                 Polski.
               </p>
@@ -198,12 +205,19 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Pasek praw autorskich i polityki */}
+        {/* Pasek dolny: Prawa autorskie, pełna nazwa i dane firmy */}
         <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-5 text-[11px] sm:text-xs text-white/50 sm:mt-10 sm:flex-row sm:items-center sm:justify-between sm:pt-6">
-          <p>
-            © 2026 Upadłość Konsumencka Chorzów / Śląsk. Wszelkie prawa
-            zastrzeżone. · Część Grupy Expert Partner
-          </p>
+          <div>
+            <p>
+              © 2026 Kancelaria Upadłości Konsumenckiej · Część Grupy Expert
+              Partner
+            </p>
+            <p className="text-[10px] sm:text-[11px] text-white/40 mt-0.5">
+              {site.address.full} · NIP: {site.company.nip}{" "}
+              {site.company.regon ? `· REGON: ${site.company.regon}` : ""}
+            </p>
+          </div>
+
           <div className="flex flex-wrap items-center gap-3 sm:gap-4">
             <Link
               href="/polityka-prywatnosci"
