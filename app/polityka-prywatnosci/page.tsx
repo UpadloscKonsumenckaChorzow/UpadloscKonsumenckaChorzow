@@ -38,8 +38,6 @@ function daneIdentyfikacyjne() {
     { label: "Adres wykonywania działalności", value: site.address.full },
     { label: "NIP", value: site.company.nip },
     { label: "REGON", value: site.company.regon },
-    { label: "Rejestr", value: site.company.registry },
-    { label: "Kapitał zakładowy", value: site.company.shareCapital },
     { label: "E-mail", value: site.email.display },
     { label: "Telefon", value: site.phone.display },
     { label: "Adres do doręczeń", value: site.address.full },
@@ -136,7 +134,7 @@ export default function PrivacyPolicyPage() {
                     <dt className="font-semibold text-navy sm:w-52 sm:shrink-0">
                       {label}:
                     </dt>
-                    <dd className="break-words">{value}</dd>
+                    <dd className="wrap-break-word">{value}</dd>
                   </div>
                 ))}
               </dl>
@@ -397,7 +395,7 @@ export default function PrivacyPolicyPage() {
             <Punkt nr="7.2.">
               Aby skorzystać z powyższych uprawnień, wystarczy wysłać wiadomość
               na adres{" "}
-              <strong className="break-words">{site.email.display}</strong> lub
+              <strong className="wrap-break-word">{site.email.display}</strong> lub
               napisać na adres korespondencyjny Administratora. Odpowiadamy bez
               zbędnej zwłoki, nie później niż w ciągu miesiąca.
             </Punkt>

@@ -153,12 +153,6 @@ const legalServiceSchema = {
           opens: site.hours.weekday.opens,
           closes: site.hours.weekday.closes,
         },
-        {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: ["Saturday"],
-          opens: "09:00",
-          closes: "14:00",
-        },
       ],
       areaServed: [
         { "@type": "City", name: "Chorzów" },
@@ -201,7 +195,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-cream font-sans text-ink antialiased selection:bg-gold selection:text-white">
+      <body className="min-h-screen font-sans text-ink antialiased">
         <a href="#tresc" className="skip-link">
           Przejdź do treści głównej
         </a>

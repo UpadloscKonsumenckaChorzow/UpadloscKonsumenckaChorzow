@@ -11,10 +11,8 @@ export const site = {
   url:
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://upadlosckonsumenckachorzow.pl",
 
-  // Dane rejestrowe przedsiębiorcy. Wymagane przez art. 5 ustawy o świadczeniu
-  // usług drogą elektroniczną (nazwa, adres, e-mail, NIP, REGON) i używane
-  // w polityce prywatności, stopce oraz w JSON-LD (taxID / vatID).
-  // Puste pola nie renderują się w polityce – po uzupełnieniu pojawią się same.
+  // Dane identyfikacyjne przedsiębiorcy – nazwa, NIP i REGON. Wyświetlane
+  // w polityce prywatności obok adresu i danych kontaktowych.
   company: {
     // "Firma przedsiębiorcy" w rozumieniu art. 43(2) Kodeksu cywilnego.
     // We wpisie CEIDG nie ma nazwy handlowej, więc firmą jest imię i nazwisko.
@@ -22,10 +20,6 @@ export const site = {
     name: "Katarzyna Szczepańska",
     nip: "6292438840",
     regon: "545540421",
-    registry:
-      "Centralna Ewidencja i Informacja o Działalności Gospodarczej (CEIDG)",
-    // Dotyczy wyłącznie spółek – przy JDG wiersz się nie renderuje.
-    shareCapital: "",
   },
 
   phone: {
@@ -91,7 +85,7 @@ export const site = {
   socials: {
     instagram: "",
     tiktok: "",
-    facebook: "",
+    facebook: "https://www.facebook.com/profile.php?id=61594187752540",
   },
 
   developer: {
