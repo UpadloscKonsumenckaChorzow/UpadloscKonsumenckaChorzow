@@ -20,7 +20,8 @@ import type { Metadata } from "next";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Upadłość konsumencka – co to jest, ile kosztuje i jak ją ogłosić? · Poradnik",
+  title:
+    "Upadłość konsumencka – co to jest, ile kosztuje i jak ją ogłosić? · Poradnik",
   description:
     "Kompleksowy poradnik o upadłości konsumenckiej w Chorzowie i na Śląsku. Dowiedz się, co to jest, ile kosztuje, jak wygląda upadłość bez majątku i jak przygotować wniosek.",
   alternates: {
@@ -167,9 +168,7 @@ export default function PublicationPage() {
                 <ChevronRight className="size-3 text-white/30" />
               </li>
               <li>
-                <span className="font-semibold text-green">
-                  Publikacje
-                </span>
+                <span className="font-semibold text-green">Publikacje</span>
               </li>
             </ol>
           </nav>
@@ -638,13 +637,16 @@ export default function PublicationPage() {
 
             <div className="mt-4 sm:mt-6 rounded-xl sm:rounded-2xl bg-green/15 border border-green/30 p-3.5 sm:p-5 text-white">
               <p className="text-xs sm:text-sm leading-relaxed">
-                Jeżeli szukasz pomocy, wsparcia i rzetelnych informacji,
-                zapraszamy serdecznie do naszej kancelarii w Chorzowie przy
-                ulicy Hajduckiej 4. Możesz też do nas zadzwonić pod numer{" "}
-                <strong className="text-green font-bold">
+                Jeżeli interesuje Cię skuteczna{" "}
+                <Link href="/" className="font-bold text-green hover:underline">
+                  upadłość konsumencka w Chorzowie
+                </Link>{" "}
+                oraz profesjonalne oddłużenie, zapraszamy do naszej kancelarii
+                przy ulicy Hajduckiej 4. Możesz też do nas zadzwonić pod numer{" "}
+                <strong className="text-white font-bold">
                   {site.phone.display}
                 </strong>{" "}
-                lub wysłać wiadomość przez formularz kontaktowy na stronie.
+                lub wysłać wiadomość przez formularz kontaktowy.
               </p>
             </div>
 

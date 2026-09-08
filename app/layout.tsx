@@ -36,15 +36,27 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Upadłość Konsumencka Chorzów & Śląsk · Skuteczne Oddłużanie",
-    template: "%s · Kancelaria Upadłościowa Chorzów",
+    default: "Upadłość Konsumencka Chorzów & Śląsk · Kancelaria Oddłużeniowa",
+    template: "%s · Upadłość Konsumencka Chorzów",
   },
   description:
-    "Kompleksowa pomoc w upadłości konsumenckiej na Śląsku. Zatrzymanie komornika, zamrożenie odsetek i całkowite umorzenie długów. Bezpłatna, poufna analiza.",
+    "Kancelaria w Chorzowie (ul. Hajducka 4). Skuteczna pomoc w upadłości konsumenckiej na Śląsku. Zatrzymanie komornika, zamrożenie odsetek i 100% oddłużenie. Bezpłatna analiza.",
   applicationName: site.name,
-  authors: [{ name: site.legalName }],
+  authors: [{ name: site.legalName, url: site.url }],
   creator: site.legalName,
   publisher: site.legalName,
+  keywords: [
+    "upadłość konsumencka Chorzów",
+    "upadłość konsumencka Śląsk",
+    "kancelaria upadłościowa Chorzów",
+    "oddłużanie osób fizycznych Chorzów",
+    "wniosek o upadłość konsumencką Chorzów",
+    "jak ogłosić upadłość Chorzów",
+    "upadłość konsumencka bez majątku Śląsk",
+    "prawnik upadłość Chorzów Hajducka",
+    "pomoc w zadłużeniu Chorzów",
+    "ogłoszenie upadłości konsumenckiej Katowice",
+  ],
   formatDetection: {
     telephone: true,
     email: true,
@@ -70,7 +82,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Upadłość Konsumencka Chorzów & Śląsk · Życie bez długów",
     description:
-      "Zatrzymaj komornika i zacznij od nowa. Sprawdzimy Twoją sytuację bezpłatnie i pomożemy legalnie umorzyć długi w drodze upadłości konsumenckiej na Śląsku.",
+      "Kancelaria przy ul. Hajduckiej 4 w Chorzowie. Zatrzymujemy komornika i pomagamy legalnie umorzyć długi w sądzie upadłościowym na Śląsku. Zadzwoń i sprawdź swoje możliwości.",
     url: site.url,
     siteName: site.name,
     locale: "pl_PL",
@@ -80,7 +92,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Upadłość konsumencka Chorzów — pomoc prawna i oddłużanie",
+        alt: "Kancelaria Upadłość Konsumencka Chorzów — skuteczne oddłużanie",
       },
     ],
   },
@@ -88,7 +100,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Upadłość Konsumencka Chorzów & Śląsk · Życie bez długów",
     description:
-      "Zatrzymaj komornika i zacznij od nowa. Sprawdzimy Twoją sytuację bezpłatnie i pomożemy legalnie umorzyć długi w drodze upadłości konsumenckiej na Śląsku.",
+      "Zatrzymaj komornika i zacznij od nowa. Bezpłatna analiza i profesjonalne przeprowadzenie upadłości konsumenckiej w Chorzowie.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -110,6 +122,7 @@ export const metadata: Metadata = {
   },
 };
 
+// Zoptymalizowane dane strukturalne Schema.org dla Google (E-E-A-T & Local SEO)
 const legalServiceSchema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -124,7 +137,14 @@ const legalServiceSchema = {
     {
       "@type": "LegalService",
       "@id": `${site.url}/#legalservice`,
-      name: `${site.legalName} · Upadłość Konsumencka Chorzów`,
+      name: "Upadłość Konsumencka Chorzów & Śląsk",
+      alternateName: [
+        "Kancelaria Upadłości Konsumenckiej Chorzów",
+        "Kancelaria Oddłużeniowa Chorzów",
+        site.name,
+      ],
+      legalName: site.company.name,
+      taxID: site.company.nip,
       url: site.url,
       logo: `${site.url}/android-chrome-512x512.png`,
       image: `${site.url}/og-image.jpg`,
@@ -133,6 +153,7 @@ const legalServiceSchema = {
       priceRange: "od 2900 PLN",
       currenciesAccepted: "PLN",
       paymentAccepted: "Gotówka, Przelew, Płatność w ratach",
+      hasMap: site.maps.directions,
       address: {
         "@type": "PostalAddress",
         streetAddress: site.address.street,
@@ -157,19 +178,26 @@ const legalServiceSchema = {
       areaServed: [
         { "@type": "City", name: "Chorzów" },
         { "@type": "City", name: "Katowice" },
-        { "@type": "City", name: "Gliwice" },
-        { "@type": "City", name: "Zabrze" },
+        { "@type": "City", name: "Świętochłowice" },
         { "@type": "City", name: "Bytom" },
         { "@type": "City", name: "Ruda Śląska" },
+        { "@type": "City", name: "Gliwice" },
+        { "@type": "City", name: "Zabrze" },
         { "@type": "City", name: "Sosnowiec" },
         { "@type": "AdministrativeArea", name: "Województwo Śląskie" },
       ],
       knowsAbout: [
-        "Upadłość konsumencka",
+        "Upadłość konsumencka Chorzów",
         "Oddłużanie osób fizycznych",
         "Wstrzymanie egzekucji komorniczej",
         "Krajowy Rejestr Zadłużonych (KRZ)",
         "Plan spłaty wierzycieli",
+        "Upadłość konsumencka bez majątku",
+      ],
+      sameAs: [
+        site.partner.url,
+        ...(site.socials.facebook ? [site.socials.facebook] : []),
+        ...(site.socials.instagram ? [site.socials.instagram] : []),
       ],
       memberOf: {
         "@type": "Organization",
