@@ -54,7 +54,7 @@ export function Contact() {
       setEmailCopied(true);
       setTimeout(() => setEmailCopied(false), 2000);
     } catch {
-      // Fallback
+      // Clipboard API fallback
     }
   }
 
@@ -67,17 +67,17 @@ export function Contact() {
         <div className="mx-auto max-w-3xl text-center mb-6 sm:mb-12">
           <p className="flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.16em] text-green">
             <PhoneCall className="size-4" />
-            Kontakt · Upadłość Konsumencka Chorzów
+            Kontakt
           </p>
           <h2 className="mt-2 font-display text-2xl font-bold leading-tight sm:mt-3 sm:text-4xl lg:text-5xl">
-            Zrób pierwszy krok do wolności od długów
+            Zrób pierwszy krok
           </h2>
           <p className="mt-2 text-xs font-medium text-white/90 sm:mt-3 sm:text-base lg:text-xl">
             Nie musisz dzisiaj rozwiązywać całego problemu, wystarczy, że
-            poznasz swoje możliwości prawne.
+            poznasz swoje możliwości.
           </p>
           <p className="mt-1 text-xs text-green font-medium sm:mt-2 sm:text-base">
-            Umów bezpłatną konsultację w Chorzowie lub telefonicznie.
+            Umów konsultację i przedstaw swoją sytuację.
           </p>
         </div>
 
@@ -85,7 +85,7 @@ export function Contact() {
           <div className="space-y-4 min-w-0 sm:space-y-6">
             <div className="space-y-3.5 rounded-3xl bg-white/5 p-4 sm:space-y-5 sm:p-8 backdrop-blur border border-white/10">
               <h3 className="font-display text-base sm:text-xl font-bold text-green">
-                Kancelaria Chorzów – Dane kontaktowe
+                Dane kontaktowe
               </h3>
 
               <div className="space-y-3 sm:space-y-4">
@@ -99,7 +99,7 @@ export function Contact() {
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block text-[11px] sm:text-xs font-medium tracking-[0.14em] text-white/50">
-                      TELEFON (BEZPŁATNA KONSULTACJA)
+                      TELEFON
                     </span>
                     <span className="font-semibold text-sm sm:text-lg text-white group-hover:text-green transition-colors block">
                       {site.phone.display}
@@ -129,6 +129,7 @@ export function Contact() {
                     </span>
                   </a>
 
+                  {/* Przycisk kopiowania */}
                   <div className="relative shrink-0 ml-2 translate-x-2.5 sm:translate-x-0">
                     <button
                       type="button"
@@ -148,6 +149,7 @@ export function Contact() {
                       )}
                     </button>
 
+                    {/* Dymek z komunikatem */}
                     {emailCopied && (
                       <div
                         role="status"
@@ -168,7 +170,7 @@ export function Contact() {
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block text-[11px] sm:text-xs font-medium tracking-[0.14em] text-white/50">
-                      BIURO OBSŁUGI KLIENTA
+                      KANCELARIA / BIURO
                     </span>
                     <span className="block font-semibold text-xs sm:text-base text-white">
                       {site.address.full}
@@ -182,11 +184,11 @@ export function Contact() {
               <div className="rounded-2xl bg-navy-900/40 p-3.5 sm:p-6 border border-white/10">
                 <p className="flex items-center gap-2 font-semibold text-green text-xs sm:text-sm">
                   <Globe className="size-3.5 sm:size-4 shrink-0" />
-                  Chorzów, Śląsk i Cała Polska
+                  Obsługa zdalna
                 </p>
                 <p className="mt-1.5 text-[11px] leading-relaxed text-white/75 sm:mt-2 sm:text-xs">
-                  Spotkaj się z nami stacjonarnie w Chorzowie lub przeprowadź
-                  całą procedurę w 100% online.
+                  Sprawę prowadzimy stacjonarnie lub w 100% online dla
+                  mieszkańców z całej Polski.
                 </p>
               </div>
 
@@ -215,7 +217,7 @@ export function Contact() {
             <div className="overflow-hidden rounded-3xl border border-white/10 shadow-xl">
               <p className="bg-white/5 px-4 sm:px-6 py-2.5 sm:py-3 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-green border-b border-white/10 flex items-center gap-2">
                 <MapPin className="size-3.5 sm:size-4 shrink-0" />
-                Dojazd do Kancelarii (ul. Hajducka 4, Chorzów)
+                Lokalizacja biura (Google Maps)
               </p>
 
               {mapLoaded ? (
@@ -237,7 +239,7 @@ export function Contact() {
                     <MapPin className="size-4 sm:size-5" />
                   </span>
                   <span className="max-w-xs text-[11px] sm:text-xs leading-relaxed text-white/70">
-                    Kliknij, aby załadować interaktywną mapę dojazdu Google.
+                    Kliknij, aby załadować interaktywną mapę Google.
                   </span>
                   <span className="rounded-lg bg-green px-3.5 py-1.5 sm:px-4 sm:py-2 text-[11px] sm:text-xs font-semibold text-navy-900 shadow-md transition-all hover:bg-green-light">
                     Załaduj mapę Google Maps
@@ -311,7 +313,7 @@ export function Contact() {
                     required
                     name="phone"
                     autoComplete="tel"
-                    placeholder="np. 516 000 000"
+                    placeholder="515 515 314"
                     className="w-full rounded-xl border border-black/10 px-3 py-2.5 text-xs sm:px-4 sm:py-3 sm:text-sm outline-none transition-colors focus:border-navy focus:ring-2 focus:ring-navy/10"
                   />
                 </div>
@@ -393,7 +395,7 @@ export function Contact() {
               </button>
 
               <p className="text-center text-[10px] sm:text-[11px] leading-relaxed text-ink/70">
-                Rozmowa jest całkowicie bezpłatna i w 100% poufna.
+                Rozmowa jest całkowicie bezpłatna i poufna.
               </p>
             </form>
           </div>

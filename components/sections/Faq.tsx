@@ -5,32 +5,32 @@ import { HelpCircle, Plus, Minus } from "lucide-react";
 
 const faqs = [
   {
-    q: "Czy stracę cały majątek podczas upadłości konsumenckiej?",
-    a: "Nie. Celem postępowania nie jest pozbawienie dłużnika środków do życia. Przedmioty codziennego użytku domowego, ubrania oraz środki niezbędne do podstawowego utrzymania rodziny są wyłączone z masy upadłościowej.",
+    q: "Czy stracę cały majątek?",
+    a: "Nie. Celem postępowania nie jest pozbawienie Cię wszystkiego. Przedmioty codziennego użytku oraz środki niezbędne do podstawowego utrzymania rodziny pozostają do Twojej dyspozycji.",
   },
   {
-    q: "Jaki sąd rozpatruje wnioski o upadłość konsumencką w Chorzowie?",
-    a: "Dla mieszkańców Chorzowa oraz miast ościennych (Świętochłowice, Katowice, Ruda Śląska, Bytom, Siemianowice Śląskie) właściwy jest Sąd Rejonowy Katowice-Wschód w Katowicach (X Wydział Gospodarczy ds. Upadłościowych i Restrukturyzacyjnych). Postępowanie prowadzone jest elektronicznie w systemie KRZ.",
+    q: "Czy muszę stawiać się osobiście w sądzie?",
+    a: "W przeważającej większości spraw nie ma takiej konieczności. Postępowanie prowadzone jest pisemnie i elektronicznie za pośrednictwem systemu KRZ.",
   },
   {
-    q: "Ile trwa procedura ogłoszenia upadłości konsumenckiej?",
-    a: "Sądowe postanowienie o ogłoszeniu upadłości (i wstrzymanie działań komornika) wydawane jest zazwyczaj w ciągu 2–4 miesięcy od złożenia kompletnego wniosku w systemie KRZ. Dalszy czas trwania zależy od ewentualnego majątku oraz ustalonego planu spłaty wierzycieli.",
+    q: "Ile trwa całe postępowanie upadłościowe?",
+    a: "Ogłoszenie upadłości następuje zazwyczaj w ciągu 2–4 miesięcy od złożenia kompletnego wniosku.",
   },
   {
-    q: "Nie mam żadnego majątku – czy mogę ogłosić upadłość w Chorzowie?",
-    a: "Tak. Brak majątku (nieruchomości, auta, oszczędności) nie stanowi przeszkody, a wręcz przyspiesza postępowanie i umożliwia całkowite umorzenie długów bez konieczności ustalania planu spłaty.",
+    q: "Nie mam żadnego majątku, czy mogę ogłosić upadłość?",
+    a: "Tak. Brak majątku nie stanowi żadnej przeszkody, a w wielu przypadkach wręcz przyspiesza całkowite umorzenie zobowiązań bez planu spłat.",
   },
   {
-    q: "Czy upadłość konsumencka obejmie wszystkie moje długi?",
-    a: "Umorzeniu podlega zdecydowana większość długów: pożyczki bankowe, chwilówki, zaległości czynszowe czy rachunki. Wyjątkiem są m.in. zaległe alimenty, renty odszkodowawcze oraz kary orzeczone w procesach karnych.",
+    q: "Czy upadłość obejmie wszystkie moje zobowiązania?",
+    a: "Umorzeniu podlega większość długów: pożyczki, kredyty, chwilówki, zaległości czynszowe czy rachunki. Wyjątkiem są m.in. alimenty oraz kary orzeczone przez sąd.",
   },
   {
     q: "Co dzieje się z komornikiem po ogłoszeniu upadłości?",
-    a: "Z dniem ogłoszenia upadłości przez sąd wszelkie postępowania egzekucyjne ulegają zawieszeniu z mocy prawa, a po uprawomocnieniu zostają całkowicie umorzone. Komornik nie może dokonywać nowych zajęć pensji ani konta.",
+    a: "Z dniem ogłoszenia upadłości wszystkie egzekucje komornicze zostają zawieszone z mocy prawa, a po uprawomocnieniu całkowicie umorzone.",
   },
   {
-    q: "Ile wynosi opłata sądowa i ile kosztuje pomoc kancelarii?",
-    a: "Ustawowa opłata sądowa od wniosku w KRZ wynosi zaledwie 30 zł. Wstępna analiza Twojej sytuacji w naszej kancelarii jest w 100% bezpłatna. Koszt prowadzenia sprawy przez kancelarię ustalamy indywidualnie, z możliwością rozłożenia na dogodne raty.",
+    q: "Ile kosztuje pomoc i czy można płacić w ratach?",
+    a: "Wstępna analiza jest w 100% bezpłatna. Wynagrodzenie ustalamy indywidualnie z możliwością rozłożenia na dogodne raty.",
   },
 ];
 
@@ -60,13 +60,13 @@ export function Faq() {
         <div className="lg:sticky lg:top-28 lg:self-start">
           <p className="flex items-center gap-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.16em] text-navy">
             <HelpCircle className="size-4 text-green" />
-            FAQ · Upadłość konsumencka Chorzów
+            FAQ / Pytania
           </p>
           <h2 className="mt-2 font-display text-2xl font-bold leading-tight text-ink sm:mt-4 sm:text-4xl lg:text-5xl">
             Odpowiedzi na najczęstsze pytania
           </h2>
           <p className="mt-2 text-xs leading-relaxed text-ink/70 sm:mt-4 sm:text-base">
-            Poznaj fakty o procedurze upadłości konsumenckiej na Śląsku.
+            Najczęstsze wątpliwości osób rozważających upadłość konsumencką.
           </p>
           <p className="mt-3 text-xs text-ink/70 sm:mt-6 sm:text-sm">
             Masz inne pytanie?{" "}
@@ -74,9 +74,9 @@ export function Faq() {
               href="#kontakt"
               className="font-semibold text-navy underline underline-offset-4 transition-colors hover:text-green-contrast"
             >
-              Skontaktuj się z nami
+              Napisz do nas
             </a>
-            , chętnie przeanalizujemy Twoją sytuację.
+            , chętnie wszystko wyjaśnimy.
           </p>
         </div>
 
