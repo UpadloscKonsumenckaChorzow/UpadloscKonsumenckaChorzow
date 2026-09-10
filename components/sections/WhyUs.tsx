@@ -61,7 +61,7 @@ export function WhyUs() {
             <Award className="size-4 text-green" />
             Dlaczego My
           </p>
-          <h2 className="mt-2 font-display text-2xl font-bold uppercase tracking-wider text-ink sm:mt-3 sm:text-4xl lg:text-5xl">
+          <h2 className="mt-2 font-display text-2xl font-bold leading-tight text-ink sm:mt-4 sm:text-4xl lg:text-5xl">
             Dlaczego My?
           </h2>
         </div>
