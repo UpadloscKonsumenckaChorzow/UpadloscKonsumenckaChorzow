@@ -8,8 +8,8 @@ export function CookieSettingsLink() {
   return (
     <button
       type="button"
-      onClick={openSettings}
-      className="cursor-pointer transition-colors hover:text-white"
+      onClick={() => openSettings()}
+      className="cursor-pointer transition-colors hover:text-white focus-visible:text-white"
     >
       Ustawienia cookies
     </button>
