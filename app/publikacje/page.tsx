@@ -21,9 +21,9 @@ import { site } from "@/content/site";
 
 export const metadata: Metadata = {
   title:
-    "Upadłość konsumencka – co to jest, ile kosztuje i jak ją ogłosić? · Poradnik",
+    "Upadłość konsumencka – co to jest, ile kosztuje i jak ją ogłosić? · Publikacja",
   description:
-    "Kompleksowy poradnik o upadłości konsumenckiej w Chorzowie i na Śląsku. Dowiedz się, co to jest, ile kosztuje, jak wygląda upadłość bez majątku i jak przygotować wniosek.",
+    "Kompleksowa publikacja o upadłości konsumenckiej w Chorzowie i na Śląsku. Dowiedz się, co to jest, ile kosztuje, jak wygląda upadłość bez majątku i jak przygotować wniosek.",
   alternates: {
     canonical: "/publikacje",
   },
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
       "oddłużanie",
       "Chorzów",
       "Śląsk",
-      "poradnik prawny",
+      "publikacja prawna",
       "kancelaria upadłościowa",
     ],
     images: [
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Upadłość konsumencka – poradnik prawny Chorzów i Śląsk",
+        alt: "Upadłość konsumencka – publikacja prawna Chorzów i Śląsk",
       },
     ],
   },
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Upadłość konsumencka – co to jest, ile kosztuje i jak ją ogłosić?",
     description:
-      "Kompleksowy poradnik o upadłości konsumenckiej. Dowiedz się, jak ogłosić upadłość i legalnie umorzyć długi.",
+      "Kompleksowa publikacja o upadłości konsumenckiej. Dowiedz się, jak ogłosić upadłość i legalnie umorzyć długi.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -89,7 +89,7 @@ const publicationJsonLd = {
       headline:
         "Upadłość konsumencka – co to jest, ile kosztuje i jak ją ogłosić?",
       description:
-        "Kompleksowy poradnik prawny o upadłości konsumenckiej w Polsce. Wyjaśniamy procedurę, koszty, upadłość bez majątku i oddłużenie.",
+        "Kompleksowa publikacja prawny o upadłości konsumenckiej w Polsce. Wyjaśniamy procedurę, koszty, upadłość bez majątku i oddłużenie.",
       inLanguage: "pl-PL",
       mainEntityOfPage: `${site.url}/publikacje`,
       datePublished: "2026-08-01T08:00:00+02:00",
