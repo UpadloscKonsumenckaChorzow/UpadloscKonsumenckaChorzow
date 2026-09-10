@@ -1,10 +1,12 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { ArrowLeft, ShieldCheck } from "lucide-react";
 import type { Metadata } from "next";
 import { site } from "@/content/site";
 
-// Data w jednym miejscu – widoczna w nagłówku i łatwa do aktualizacji.
-const LAST_UPDATED = "wrzesień 2026 r.";
+// Data w jednym miejscu – widoczna w nagłówku. Zmieniaj ją przy każdej
+// zmianie treści polityki.
+const LAST_UPDATED = "10 września 2026 r.";
 
 export const metadata: Metadata = {
   title: "Polityka Prywatności i RODO",
@@ -28,6 +30,8 @@ export const metadata: Metadata = {
   },
 };
 
+// Tytuły sekcji w jednym miejscu – używane i w spisie treści, i w nagłówkach
+// sekcji, więc nie mogą się rozjechać.
 const spisTresci = [
   "Postanowienia ogólne",
   "Cel i zakres zbierania danych",
@@ -38,7 +42,7 @@ const spisTresci = [
   "Prawo kontroli, dostępu do treści swoich danych oraz ich poprawiania",
   "Pliki cookies i pamięć lokalna przeglądarki",
   "Postanowienia końcowe",
-];
+] as const;
 
 /**
  * Wiersze bloku identyfikacyjnego. Pola nieuzupełnione w site.company
@@ -56,15 +60,8 @@ function daneIdentyfikacyjne() {
   ].filter((row) => row.value.length > 0);
 }
 
-function Section({
-  numer,
-  tytul,
-  children,
-}: {
-  numer: number;
-  tytul: string;
-  children: React.ReactNode;
-}) {
+function Section({ numer, children }: { numer: number; children: ReactNode }) {
+  const tytul = spisTresci[numer - 1];
   return (
     <section id={`sekcja-${numer}`} className="scroll-mt-24">
       <h2 className="font-display text-xl font-bold text-navy border-b border-black/10 pb-3">
@@ -75,11 +72,17 @@ function Section({
   );
 }
 
-function Punkt({ nr, children }: { nr: string; children: React.ReactNode }) {
+function Punkt({ nr, children }: { nr: string; children: ReactNode }) {
   return (
     <p>
       <span className="font-semibold text-navy">{nr}</span> {children}
     </p>
+  );
+}
+
+function Kod({ children }: { children: ReactNode }) {
+  return (
+    <code className="rounded bg-mint px-1.5 py-0.5 text-xs">{children}</code>
   );
 }
 
@@ -91,21 +94,20 @@ export default function PrivacyPolicyPage() {
           href="/"
           className="inline-flex items-center gap-2 text-sm font-medium text-navy hover:text-green-contrast transition-colors mb-8"
         >
-          <ArrowLeft className="size-4" />
+          <ArrowLeft className="size-4" aria-hidden="true" />
           Wróć do strony głównej
         </Link>
 
         <div className="rounded-3xl bg-navy p-8 sm:p-12 text-white shadow-xl mb-12 border border-white/10">
           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-green">
-            <ShieldCheck className="size-4" />
+            <ShieldCheck className="size-4" aria-hidden="true" />
             Ochrona danych osobowych
           </div>
           <h1 className="mt-4 font-display text-3xl font-bold sm:text-4xl lg:text-5xl">
             Polityka Prywatności i RODO
           </h1>
           <p className="mt-4 text-sm text-white/70 sm:text-base">
-            Ostatnia aktualizacja: {LAST_UPDATED} · Zgodność z RODO i dyrektywą
-            ePrivacy.
+            Ostatnia aktualizacja: {LAST_UPDATED}
           </p>
         </div>
 
@@ -129,7 +131,7 @@ export default function PrivacyPolicyPage() {
             </ol>
           </nav>
 
-          <Section numer={1} tytul="Postanowienia ogólne">
+          <Section numer={1}>
             <Punkt nr="1.1.">
               Administratorem danych osobowych zbieranych za pośrednictwem tej
               strony internetowej jest przedsiębiorca prowadzący działalność pod
@@ -170,15 +172,14 @@ export default function PrivacyPolicyPage() {
             </Punkt>
             <Punkt nr="1.4.">
               Podanie danych jest dobrowolne, ale niezbędne do udzielenia
-              odpowiedzi na zapytanie i przeprowadzenia bezpłatnej analizy
-              sprawy.
+              odpowiedzi na zapytanie i przeprowadzenia wstępnej analizy sprawy.
             </Punkt>
           </Section>
 
-          <Section numer={2} tytul="Cel i zakres zbierania danych">
+          <Section numer={2}>
             <Punkt nr="2.1.">
               Dane zbierane przez Administratora służą do kontaktu z osobą
-              zainteresowaną, przeprowadzenia bezpłatnej analizy sytuacji
+              zainteresowaną, przeprowadzenia wstępnej analizy sytuacji
               zadłużenia, a następnie do przygotowania i realizacji umowy o
               pomoc prawną.
             </Punkt>
@@ -212,7 +213,7 @@ export default function PrivacyPolicyPage() {
             </Punkt>
           </Section>
 
-          <Section numer={3} tytul="Podstawa prawna przetwarzania danych">
+          <Section numer={3}>
             <p>
               Każda operacja na danych ma przypisaną podstawę prawną wynikającą
               z RODO:
@@ -220,12 +221,14 @@ export default function PrivacyPolicyPage() {
             <div className="space-y-4">
               <div className="rounded-2xl bg-mint p-4 border border-black/5">
                 <p className="font-semibold text-navy">
-                  a) Kontakt i bezpłatna analiza sprawy (formularz / telefon)
+                  a) Kontakt i wstępna analiza sprawy (formularz / telefon)
                 </p>
                 <p className="text-xs sm:text-sm mt-1 text-ink/70">
-                  Podstawa prawna: art. 6 ust. 1 lit. b RODO (działania przed
-                  zawarciem umowy na żądanie osoby, której dane dotyczą) oraz
-                  art. 6 ust. 1 lit. a RODO (zgoda).
+                  Podstawa prawna: art. 6 ust. 1 lit. b RODO – podjęcie działań
+                  na żądanie osoby, której dane dotyczą, przed zawarciem umowy.
+                  W przypadku zapytań niezwiązanych z zawarciem umowy – art. 6
+                  ust. 1 lit. f RODO, czyli prawnie uzasadniony interes
+                  Administratora polegający na udzieleniu odpowiedzi.
                 </p>
               </div>
               <div className="rounded-2xl bg-mint p-4 border border-black/5">
@@ -278,7 +281,7 @@ export default function PrivacyPolicyPage() {
             </div>
           </Section>
 
-          <Section numer={4} tytul="Odbiorcy danych i podmioty przetwarzające">
+          <Section numer={4}>
             <Punkt nr="4.1.">
               Administrator nie sprzedaje danych osobowych i nie udostępnia ich
               w celach marketingowych podmiotom trzecim.
@@ -297,8 +300,7 @@ export default function PrivacyPolicyPage() {
                   Wiadomości wysłane przez formularz są dostarczane do naszej
                   skrzynki za pośrednictwem usługi Resend (Resend, Inc., Stany
                   Zjednoczone). Dostawca przetwarza treść wiadomości oraz dane
-                  kontaktowe wyłącznie w celu jej dostarczenia oraz
-                  zabezpieczenia przed spamem.
+                  kontaktowe wyłącznie w celu jej dostarczenia.
                 </p>
               </div>
               <div className="rounded-2xl border border-black/5 bg-mint p-4">
@@ -346,7 +348,7 @@ export default function PrivacyPolicyPage() {
             </Punkt>
           </Section>
 
-          <Section numer={5} tytul="Okres przechowywania danych">
+          <Section numer={5}>
             <ul className="space-y-1.5 list-disc pl-5 text-ink/90">
               <li>
                 dane z zapytań, które nie zakończyły się podpisaniem umowy –
@@ -370,7 +372,7 @@ export default function PrivacyPolicyPage() {
             </ul>
           </Section>
 
-          <Section numer={6} tytul="Przekazywanie danych poza EOG">
+          <Section numer={6}>
             <Punkt nr="6.1.">
               Korzystanie z usług Cloudflare, Resend oraz Google może wiązać się
               z przekazaniem danych do państw spoza Europejskiego Obszaru
@@ -384,10 +386,7 @@ export default function PrivacyPolicyPage() {
             </Punkt>
           </Section>
 
-          <Section
-            numer={7}
-            tytul="Prawo kontroli, dostępu do treści swoich danych oraz ich poprawiania"
-          >
+          <Section numer={7}>
             <Punkt nr="7.1.">
               Każdej osobie, której dane dotyczą, przysługują następujące
               uprawnienia:
@@ -414,7 +413,12 @@ export default function PrivacyPolicyPage() {
             <Punkt nr="7.2.">
               Aby skorzystać z powyższych uprawnień, wystarczy wysłać wiadomość
               na adres{" "}
-              <strong className="wrap-break-word">{site.email.display}</strong>{" "}
+              <a
+                href={site.email.href}
+                className="font-semibold text-navy underline underline-offset-2 wrap-break-word hover:text-green-contrast"
+              >
+                {site.email.display}
+              </a>{" "}
               lub napisać na adres korespondencyjny Administratora. Odpowiadamy
               bez zbędnej zwłoki, nie później niż w ciągu miesiąca.
             </Punkt>
@@ -424,10 +428,7 @@ export default function PrivacyPolicyPage() {
             </Punkt>
           </Section>
 
-          <Section
-            numer={8}
-            tytul="Pliki cookies i pamięć lokalna przeglądarki"
-          >
+          <Section numer={8}>
             <Punkt nr="8.1.">
               Strona korzysta z plików cookies oraz z pamięci lokalnej
               przeglądarki (localStorage) – są to niewielkie zestawy danych
@@ -437,13 +438,11 @@ export default function PrivacyPolicyPage() {
             </Punkt>
             <Punkt nr="8.2.">
               Twój wybór dokonany w banerze zapisujemy w pamięci lokalnej
-              przeglądarki pod kluczem{" "}
-              <code className="rounded bg-mint px-1.5 py-0.5 text-xs">
-                cookie_consent
-              </code>
-              . Wpis ten jest niezbędny do działania mechanizmu zgód –
-              przechowujemy w nim wyłącznie zakres wyrażonej zgody, numer wersji
-              i datę wyboru. Pozostaje na urządzeniu do momentu jego usunięcia
+              przeglądarki pod kluczem <Kod>cookie_consent</Kod>. Wpis ten jest
+              niezbędny do działania mechanizmu zgód – przechowujemy w nim
+              wyłącznie zakres wyrażonej zgody, numer wersji i datę wyboru. Po
+              12 miesiącach od dokonania wyboru ponownie prosimy o decyzję w
+              banerze. Wpis pozostaje na urządzeniu do momentu jego usunięcia
               przez użytkownika lub wyczyszczenia danych przeglądarki.
             </Punkt>
             <Punkt nr="8.3.">
@@ -472,28 +471,18 @@ export default function PrivacyPolicyPage() {
             </ul>
             <Punkt nr="8.4.">
               Do plików niezbędnych należą cookies bezpieczeństwa ustawiane
-              przez Cloudflare, między innymi{" "}
-              <code className="rounded bg-mint px-1.5 py-0.5 text-xs">
-                __cf_bm
-              </code>{" "}
-              (odróżnia ruch ludzki od automatycznego, przechowywany około 30
-              minut) oraz{" "}
-              <code className="rounded bg-mint px-1.5 py-0.5 text-xs">
-                cf_clearance
-              </code>{" "}
-              (zapamiętuje przejście weryfikacji zabezpieczeń). Nie służą one
-              analityce ani reklamie i nie wymagają zgody.
+              przez Cloudflare, między innymi <Kod>__cf_bm</Kod> (odróżnia ruch
+              ludzki od automatycznego, przechowywany około 30 minut) oraz{" "}
+              <Kod>cf_clearance</Kod> (zapamiętuje przejście weryfikacji
+              zabezpieczeń). Nie służą one analityce ani reklamie i nie wymagają
+              zgody.
             </Punkt>
             <Punkt nr="8.5.">
               W ramach Google Analytics 4 wykorzystywane są między innymi pliki{" "}
-              <code className="rounded bg-mint px-1.5 py-0.5 text-xs">_ga</code>{" "}
-              oraz{" "}
-              <code className="rounded bg-mint px-1.5 py-0.5 text-xs">
-                _ga_*
-              </code>
-              , które rozróżniają użytkowników i sesje. Standardowy czas ich
-              przechowywania to 24 miesiące, a zebrane dane usuwamy po 14
-              miesiącach.
+              <Kod>_ga</Kod> oraz <Kod>_ga_*</Kod>, które rozróżniają
+              użytkowników i sesje. Standardowy czas ich przechowywania to 24
+              miesiące, a zebrane dane usuwamy po 14 miesiącach. Po cofnięciu
+              zgody pliki te są automatycznie usuwane z urządzenia.
             </Punkt>
             <Punkt nr="8.6.">
               Zgodę można w każdej chwili zmienić lub cofnąć w ustawieniach
@@ -504,7 +493,7 @@ export default function PrivacyPolicyPage() {
             </Punkt>
           </Section>
 
-          <Section numer={9} tytul="Postanowienia końcowe">
+          <Section numer={9}>
             <Punkt nr="9.1.">
               Administrator stosuje środki techniczne i organizacyjne
               odpowiadające zagrożeniom oraz kategoriom chronionych danych, w
@@ -540,7 +529,7 @@ export default function PrivacyPolicyPage() {
             href="/"
             className="inline-flex items-center gap-2 rounded-xl bg-navy px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-navy-700 hover:scale-105 shadow-md"
           >
-            <ArrowLeft className="size-4 text-green" />
+            <ArrowLeft className="size-4 text-green" aria-hidden="true" />
             Wróć na stronę główną
           </Link>
         </div>
