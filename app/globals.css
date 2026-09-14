@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
 :root {
   /* Ciemne odcienie (Navy / Slate) */
   --navy: #0f172a;
@@ -46,10 +44,41 @@
   ::before {
     box-sizing: border-box;
   }
+
+  html {
+    /* Płynne przewijanie do kotwic (spis treści w polityce prywatności).
+       Wyłączane niżej dla osób z ograniczonymi animacjami. */
+    scroll-behavior: smooth;
+
+    /* Blokuje automatyczne powiększanie tekstu przez iOS przy obrocie
+       telefonu do poziomu – bez tego akapity potrafią urosnąć. */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
   body {
     background-color: var(--mint);
     color: var(--ink);
     font-family: var(--font-sans);
+  }
+
+  /* Widoczne obramowanie przy nawigacji klawiaturą (Tab). Domyślne
+     obramowanie przeglądarki bywa niewidoczne na granatowym tle. */
+  :focus-visible {
+    outline: 3px solid var(--green-light);
+    outline-offset: 2px;
+    border-radius: 0.375rem;
+  }
+
+  /* Pola ukryte wizualnie (np. przełącznik cookies) mają własne
+     oznaczenie focusu na elemencie widocznym obok. */
+  .sr-only:focus-visible {
+    outline: none;
+  }
+
+  ::selection {
+    background-color: var(--mint-dark);
+    color: var(--navy);
   }
 }
 
