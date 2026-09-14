@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Home, Phone, HelpCircle } from "lucide-react";
+import { Home, Phone, HelpCircle, FileText } from "lucide-react";
 import type { Metadata } from "next";
 import { site } from "@/content/site";
 
@@ -36,29 +36,41 @@ export default function NotFound() {
             href="/"
             className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-green px-7 py-3.5 text-sm font-semibold text-navy-900 shadow-md transition-all hover:bg-green-light hover:scale-105"
           >
-            <Home className="size-4" />
+            <Home className="size-4" aria-hidden="true" />
             Wróć na stronę główną
           </Link>
 
-          <a
+          <Link
             href="/#kontakt"
             className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-black/10 bg-white px-7 py-3.5 text-sm font-semibold text-ink transition-all hover:bg-black/5"
           >
-            <HelpCircle className="size-4 text-green" />
+            <HelpCircle className="size-4 text-green" aria-hidden="true" />
             Skontaktuj się z nami
-          </a>
+          </Link>
         </div>
 
+        <p className="mt-6 text-sm text-ink/70">
+          Możesz też przeczytać nasz poradnik:{" "}
+          <Link
+            href="/publikacje"
+            className="inline-flex items-center gap-1.5 font-semibold text-navy underline underline-offset-2 hover:text-green-contrast"
+          >
+            <FileText className="size-4 text-green" aria-hidden="true" />
+            Upadłość konsumencka krok po kroku
+          </Link>
+        </p>
+
         <div className="mt-10 border-t border-black/10 pt-6">
-          <p className="text-xs text-ink/60">
-            Potrzebujesz bezpłatnej konsultacji prawnej?
+          <p className="text-sm text-ink/70">
+            Potrzebujesz bezpłatnej analizy swojej sytuacji? Zadzwoń (pon.–pt.{" "}
+            {site.hours.weekday.display}):
           </p>
           <a
             href={site.phone.href}
-            className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-navy hover:text-green-contrast transition-colors"
+            className="mt-2 inline-flex items-center gap-2 text-base font-bold text-navy hover:text-green-contrast transition-colors"
           >
-            <Phone className="size-4 text-green" />
-            Zadzwoń: {site.phone.display}
+            <Phone className="size-4 text-green" aria-hidden="true" />
+            {site.phone.display}
           </a>
         </div>
       </div>

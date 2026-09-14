@@ -213,7 +213,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pl" className={`${inter.variable} ${poppins.variable}`}>
+    <html
+      lang="pl"
+      data-scroll-behavior="smooth"
+      className={`${inter.variable} ${poppins.variable}`}
+    >
       <head>
         <script
           type="application/ld+json"
