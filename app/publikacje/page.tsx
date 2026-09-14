@@ -213,7 +213,7 @@ export default function PublicationPage() {
               href="/#kontakt"
               className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition-all hover:border-green hover:bg-white/10 whitespace-nowrap"
             >
-              Umów konsultację
+              Umów bezpłatną konsultację
               <ArrowRight className="size-4 text-green" />
             </Link>
           </div>
@@ -675,12 +675,12 @@ export default function PublicationPage() {
               </p>
             </div>
 
-            {/* Przyciski i informacja o poufności */}
+            {/* Przyciski i informacja o bezpłatnej analizie */}
             <div className="mt-5 sm:mt-8 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-5 border-t border-white/10 pt-4 sm:pt-6">
               <div className="flex items-center gap-2.5 text-center sm:text-left">
                 <ShieldCheck className="size-5 text-green shrink-0" />
                 <span className="text-[13px] sm:text-sm text-white/75">
-                  Wszystkie przekazane informacje traktujemy poufnie.
+                  Konsultacja telefoniczna oraz wstępna analiza są bezpłatne.
                 </span>
               </div>
 

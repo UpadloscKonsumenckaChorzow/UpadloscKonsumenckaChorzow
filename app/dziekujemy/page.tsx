@@ -37,7 +37,7 @@ const WORKING_HOURS = `pon.–pt. ${site.hours.weekday.display}`;
 const NEXT_STEPS = [
   {
     title: "Zapoznanie się z wiadomością",
-    desc: "Przeczytamy opis Twojej sytuacji przesłany w formularzu.",
+    desc: "Bezpłatnie zapoznamy się z opisem Twojej sytuacji przesłanym w formularzu.",
   },
   {
     title: "Kontakt z Tobą",
@@ -45,7 +45,7 @@ const NEXT_STEPS = [
   },
   {
     title: "Omówienie możliwości",
-    desc: "Porozmawiamy o Twojej sytuacji i możliwych rozwiązaniach.",
+    desc: "Bezpłatnie omówimy Twoją sytuację i możliwe rozwiązania.",
   },
 ] as const;
 

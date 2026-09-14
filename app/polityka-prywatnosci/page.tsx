@@ -172,14 +172,15 @@ export default function PrivacyPolicyPage() {
             </Punkt>
             <Punkt nr="1.4.">
               Podanie danych jest dobrowolne, ale niezbędne do udzielenia
-              odpowiedzi na zapytanie i przeprowadzenia wstępnej analizy sprawy.
+              odpowiedzi na zapytanie i przeprowadzenia bezpłatnej analizy
+              sprawy.
             </Punkt>
           </Section>
 
           <Section numer={2}>
             <Punkt nr="2.1.">
               Dane zbierane przez Administratora służą do kontaktu z osobą
-              zainteresowaną, przeprowadzenia wstępnej analizy sytuacji
+              zainteresowaną, przeprowadzenia bezpłatnej analizy sytuacji
               zadłużenia, a następnie do przygotowania i realizacji umowy o
               pomoc prawną.
             </Punkt>
@@ -221,7 +222,7 @@ export default function PrivacyPolicyPage() {
             <div className="space-y-4">
               <div className="rounded-2xl bg-mint p-4 border border-black/5">
                 <p className="font-semibold text-navy">
-                  a) Kontakt i wstępna analiza sprawy (formularz / telefon)
+                  a) Kontakt i bezpłatna analiza sprawy (formularz / telefon)
                 </p>
                 <p className="text-xs sm:text-sm mt-1 text-ink/70">
                   Podstawa prawna: art. 6 ust. 1 lit. b RODO – podjęcie działań

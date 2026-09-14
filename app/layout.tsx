@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     template: "%s · Upadłość Konsumencka Chorzów",
   },
   description:
-    "Upadłość konsumencka Chorzów – kancelaria przy ul. Hajduckiej 4. Prowadzimy sprawę od wniosku po umorzenie długów. Wstrzymanie komornika. Bezpłatna analiza.",
+    "Upadłość konsumencka Chorzów – biuro przy ul. Hajduckiej 4. Bezpłatna analiza sytuacji, przygotowanie wniosku i wsparcie do końca postępowania. Śląsk, zdalnie cała Polska.",
   applicationName: site.name,
   authors: [{ name: site.legalName, url: site.url }],
   creator: site.legalName,
@@ -70,9 +70,9 @@ export const metadata: Metadata = {
     apple: "/apple-icon.png",
   },
   openGraph: {
-    title: "Upadłość Konsumencka Chorzów & Śląsk · Życie bez długów",
+    title: "Upadłość Konsumencka Chorzów & Śląsk",
     description:
-      "Kancelaria przy ul. Hajduckiej 4 w Chorzowie. Wstrzymujemy egzekucję komorniczą i prowadzimy postępowanie upadłościowe na Śląsku. Zadzwoń i sprawdź swoje możliwości.",
+      "Biuro przy ul. Hajduckiej 4 w Chorzowie. Pomagamy przejść przez upadłość konsumencką na całym Śląsku, a zdalnie w całej Polsce. Zadzwoń i umów bezpłatną analizę swojej sytuacji.",
     url: site.url,
     siteName: site.name,
     locale: "pl_PL",
@@ -88,9 +88,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Upadłość Konsumencka Chorzów & Śląsk · Życie bez długów",
+    title: "Upadłość Konsumencka Chorzów & Śląsk",
     description:
-      "Wstrzymaj egzekucję komorniczą i zacznij od nowa. Bezpłatna analiza i prowadzenie upadłości konsumenckiej w Chorzowie.",
+      "Upadłość konsumencka w Chorzowie i na Śląsku, zdalnie w całej Polsce – bezpłatna analiza sytuacji, przygotowanie wniosku i wsparcie w trakcie postępowania.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -124,16 +124,15 @@ const legalServiceSchema = {
       publisher: { "@id": `${site.url}/#legalservice` },
     },
     {
-      "@type": "LegalService",
+      "@type": "LocalBusiness",
       "@id": `${site.url}/#legalservice`,
-      name: "Upadłość Konsumencka Chorzów & Śląsk",
+      name: site.name,
       alternateName: [
         "Kancelaria Upadłości Konsumenckiej Chorzów",
         "Kancelaria Oddłużeniowa Chorzów",
-        site.name,
       ],
       description:
-        "Kompleksowa pomoc w przeprowadzeniu upadłości konsumenckiej dla mieszkańców Chorzowa i całego Śląska – od bezpłatnej analizy sytuacji, przez przygotowanie wniosku, po zakończenie postępowania.",
+        "Pomoc w przeprowadzeniu upadłości konsumenckiej – od bezpłatnej analizy sytuacji, przez przygotowanie wniosku, po zakończenie postępowania. Spotkania w biurze w Chorzowie, obsługa całego Śląska, a zdalnie – całej Polski.",
       legalName: site.company.name,
       taxID: site.company.nip,
       url: site.url,
@@ -165,7 +164,17 @@ const legalServiceSchema = {
           opens: site.hours.weekday.opens,
           closes: site.hours.weekday.closes,
         },
+        {
+          // Dzięki temu Google pokazuje "Zamknięte" zamiast zgadywać.
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Saturday", "Sunday"],
+          opens: "00:00",
+          closes: "00:00",
+        },
       ],
+      // Województwo śląskie obejmuje wszystkie miasta regionu; obsługa
+      // zdalna oznacza, że zasięgiem jest cała Polska. Największe miasta
+      // wymienione osobno, bo pomagają w lokalnych wynikach wyszukiwania.
       areaServed: [
         { "@type": "City", name: "Chorzów" },
         { "@type": "City", name: "Świętochłowice" },
@@ -176,11 +185,11 @@ const legalServiceSchema = {
         { "@type": "City", name: "Zabrze" },
         { "@type": "City", name: "Sosnowiec" },
         { "@type": "AdministrativeArea", name: "Województwo Śląskie" },
+        { "@type": "Country", name: "Polska" },
       ],
       knowsAbout: [
         "Upadłość konsumencka Chorzów",
         "Oddłużanie osób fizycznych",
-        "Wstrzymanie egzekucji komorniczej",
         "Krajowy Rejestr Zadłużonych (KRZ)",
         "Plan spłaty wierzycieli",
         "Upadłość konsumencka bez majątku",
@@ -209,7 +218,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(legalServiceSchema),
+            __html: JSON.stringify(legalServiceSchema).replace(/</g, "\\u003c"),
           }}
         />
       </head>
