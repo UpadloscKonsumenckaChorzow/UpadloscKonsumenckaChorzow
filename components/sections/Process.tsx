@@ -43,36 +43,45 @@ const steps = [
 
 export function Process() {
   return (
-    <section id="jak-to-dziala" className="scroll-mt-24 bg-mint py-8 sm:py-16">
+    // scroll-mt-40: przyklejony nagłówek ma ok. 110–130 px, przy mniejszym
+    // odstępie tytuł sekcji chowa się pod nim po kliknięciu w menu.
+    <section id="jak-to-dziala" className="scroll-mt-40 bg-mint py-10 sm:py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <p className="flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.16em] text-navy">
-            <Workflow className="size-4 text-green" />
+            <Workflow className="size-4 text-green" aria-hidden="true" />
             Jak to działa
           </p>
           <h2 className="mt-2 font-display text-2xl font-bold leading-tight text-ink sm:mt-4 sm:text-4xl lg:text-5xl">
             Prosty proces do wolności od długów
           </h2>
-          <p className="mt-2 text-xs leading-relaxed text-ink/70 sm:mt-4 sm:text-base lg:text-lg">
+          <p className="mt-3 text-sm leading-relaxed text-ink/70 sm:mt-4 sm:text-base lg:text-lg">
             Przeprowadzimy Cię przez całą procedurę bezpiecznie, krok po kroku.
           </p>
         </div>
 
         <div className="relative mx-auto mt-6 max-w-4xl sm:mt-12">
           {/* Linia pionowa na desktopie */}
-          <div className="absolute left-7 top-8 bottom-8 hidden w-0.5 bg-navy/15 sm:block" />
+          <div
+            aria-hidden="true"
+            className="absolute left-7 top-8 bottom-8 hidden w-0.5 bg-navy/15 sm:block"
+          />
 
-          {/* Lista kroków */}
-          <div className="relative space-y-3 sm:space-y-6">
+          {/* Lista kroków – <ol>, bo kolejność ma znaczenie. Numery 01–05
+              zostają jako element graficzny, więc lista nie numeruje sama. */}
+          <ol className="relative list-none space-y-3 sm:space-y-6">
             {steps.map((step) => {
               const Icon = step.icon;
               return (
-                <div
+                <li
                   key={step.number}
                   className="relative flex items-start gap-3 rounded-2xl border border-black/5 bg-white p-4 shadow-sm transition-all hover:border-green/50 hover:shadow-md sm:gap-5 sm:rounded-3xl sm:p-8"
                 >
                   {/* Numer kroku */}
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-navy font-display text-sm font-bold text-green shadow-md sm:size-14 sm:rounded-2xl sm:text-lg">
+                  <span
+                    aria-hidden="true"
+                    className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-navy font-display text-sm font-bold text-green shadow-md sm:size-14 sm:rounded-2xl sm:text-lg"
+                  >
                     {step.number}
                   </span>
 
@@ -80,30 +89,36 @@ export function Process() {
                     {/* Jeden nagłówek dla wszystkich rozdzielczości */}
                     <div className="flex items-center gap-2.5 sm:gap-3">
                       <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-green/15 text-navy">
-                        <Icon className="size-4 shrink-0 text-navy" />
+                        <Icon
+                          className="size-4 shrink-0 text-navy"
+                          aria-hidden="true"
+                        />
                       </span>
-                      <h3 className="min-w-0 flex-1 font-display text-sm font-bold leading-snug text-ink sm:text-xl lg:text-2xl">
+                      <h3 className="min-w-0 flex-1 font-display text-base font-bold leading-snug text-ink sm:text-xl lg:text-2xl">
                         {step.title}
                       </h3>
                     </div>
 
-                    <p className="mt-2 text-xs leading-relaxed text-ink/70 sm:mt-3 sm:text-base">
+                    <p className="mt-2 text-sm leading-relaxed text-ink/70 sm:mt-3 sm:text-base">
                       {step.text}
                     </p>
                   </div>
-                </div>
+                </li>
               );
             })}
-          </div>
+          </ol>
         </div>
 
-        <div className="mt-6 text-center sm:mt-12">
+        <div className="mt-8 text-center sm:mt-12">
           <a
             href="#kontakt"
             className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-navy px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-all hover:bg-navy-700 hover:scale-105 sm:px-8 sm:py-4 sm:text-base"
           >
             Umów bezpłatną konsultację
-            <ArrowRight className="size-4 sm:size-5 text-green" />
+            <ArrowRight
+              className="size-4 sm:size-5 text-green"
+              aria-hidden="true"
+            />
           </a>
         </div>
       </div>
