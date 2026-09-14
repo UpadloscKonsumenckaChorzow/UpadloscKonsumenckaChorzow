@@ -4,6 +4,8 @@ import { Phone, Mail, MapPin } from "lucide-react";
 import { CookieSettingsLink } from "@/components/cookies/CookieSettingsLink";
 import { site } from "@/content/site";
 
+const YEAR = new Date().getFullYear();
+
 // Kotwice nawigacji
 const pageLinks = [
   { label: "Dla kogo", href: "/#dla-kogo" },
@@ -71,7 +73,7 @@ export function Footer() {
   return (
     <footer className="bg-navy-900 border-t border-white/10 text-white">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-        <div className="grid gap-6 sm:gap-10 lg:grid-cols-3 lg:gap-12">
+        <div className="grid gap-8 sm:gap-10 lg:grid-cols-3 lg:gap-12">
           {/* Kolumna 1: Logo, opis i Partner */}
           <div>
             <Link href="/" className="flex items-center gap-3">
@@ -86,13 +88,13 @@ export function Footer() {
                 <span className="block font-display text-sm sm:text-base font-semibold tracking-wide">
                   UPADŁOŚĆ <span className="text-green">KONSUMENCKA</span>
                 </span>
-                <span className="block text-[9px] sm:text-[10px] font-medium tracking-[0.18em] text-white/50">
+                <span className="block text-[10px] sm:text-[11px] font-medium tracking-[0.18em] text-white/55">
                   CHORZÓW · ŚLĄSK
                 </span>
               </span>
             </Link>
 
-            <p className="mt-3 text-xs sm:mt-5 sm:text-sm leading-relaxed text-white/60 max-w-xs">
+            <p className="mt-3 text-sm sm:mt-5 leading-relaxed text-white/65 max-w-xs">
               Kompleksowa pomoc w przeprowadzeniu upadłości konsumenckiej.
               Spokojnie, dyskretnie, od A do Z na terenie Śląska i całej Polski.
             </p>
@@ -102,15 +104,15 @@ export function Footer() {
                 href={site.partner.url}
                 target="_blank"
                 rel="nofollow noopener noreferrer"
+                aria-label={`${site.partner.name} – otwiera się w nowej karcie`}
                 className="inline-block rounded-2xl bg-white p-2 sm:p-2.5 shadow-md border border-white/10 transition-all hover:scale-105"
               >
                 <Image
                   src="/expert-partner.webp"
-                  alt="Grupa Expert Partner - wiedza i doświadczenie"
+                  alt="Grupa Expert Partner"
                   width={130}
                   height={38}
-                  className="h-8 sm:h-10 w-auto object-contain"
-                  style={{ width: "auto", height: "auto" }}
+                  className="h-8 w-auto object-contain sm:h-10"
                 />
               </a>
             </div>
@@ -121,12 +123,12 @@ export function Footer() {
             <h3 className="font-display text-sm sm:text-base font-semibold text-green">
               Nawigacja
             </h3>
-            <ul className="mt-3 grid grid-cols-2 gap-y-2 gap-x-4 sm:mt-5 sm:block sm:space-y-2.5">
+            <ul className="mt-3 grid grid-cols-2 gap-y-2.5 gap-x-4 sm:mt-5 sm:block sm:space-y-2.5">
               {pageLinks.map((l) => (
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="text-xs sm:text-sm text-white/65 transition-colors hover:text-green"
+                    className="text-sm text-white/70 transition-colors hover:text-green"
                   >
                     {l.label}
                   </Link>
@@ -135,17 +137,20 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Kolumna 3: Kontakt i Dane rejestrowe */}
+          {/* Kolumna 3: Kontakt i dane rejestrowe */}
           <div>
             <h3 className="font-display text-sm sm:text-base font-semibold text-green">
               Kontakt & Kancelaria
             </h3>
-            <div className="mt-3 space-y-2.5 text-xs sm:mt-5 sm:space-y-3.5 sm:text-sm text-white/70">
+            <div className="mt-3 space-y-3 text-sm sm:mt-5 sm:space-y-3.5 text-white/75">
               <a
                 href={site.phone.href}
                 className="flex items-center gap-2.5 font-semibold text-white transition-colors hover:text-green"
               >
-                <Phone className="size-3.5 sm:size-4 text-green shrink-0" />
+                <Phone
+                  className="size-4 text-green shrink-0"
+                  aria-hidden="true"
+                />
                 {site.phone.display}
               </a>
 
@@ -153,33 +158,40 @@ export function Footer() {
                 href={site.email.href}
                 className="flex items-center gap-2.5 transition-colors hover:text-green wrap-break-word"
               >
-                <Mail className="size-3.5 sm:size-4 text-green shrink-0" />
+                <Mail
+                  className="size-4 text-green shrink-0"
+                  aria-hidden="true"
+                />
                 {site.email.display}
               </a>
 
-              {/* Naturalnie wkomponowany adres z NIP-em i REGON-em */}
               <div className="flex items-start gap-2.5 leading-relaxed">
-                <MapPin className="size-3.5 sm:size-4 text-green shrink-0 mt-0.5" />
+                <MapPin
+                  className="size-4 text-green shrink-0 mt-0.5"
+                  aria-hidden="true"
+                />
                 <div>
                   <span className="block font-medium text-white/90">
                     {site.address.full}
                   </span>
-                  <span className="block text-[11px] sm:text-xs text-white/50 mt-0.5">
-                    NIP: {site.company.nip}{" "}
-                    {site.company.regon ? `· REGON: ${site.company.regon}` : ""}
+                  <span className="block text-xs text-white/55 mt-0.5">
+                    NIP: {site.company.nip}
+                    {site.company.regon
+                      ? ` · REGON: ${site.company.regon}`
+                      : ""}
                   </span>
                 </div>
               </div>
 
-              <p className="text-[11px] sm:text-xs text-white/60 border-t border-white/10 pt-2 sm:pt-3">
+              <p className="text-xs text-white/65 border-t border-white/10 pt-2.5 sm:pt-3">
                 Obsługa stacjonarna oraz zdalna na terenie całego Śląska i
                 Polski.
               </p>
             </div>
 
             {socialLinks.length > 0 && (
-              <div className="mt-4 sm:mt-6">
-                <p className="text-[11px] sm:text-xs font-semibold text-white/50">
+              <div className="mt-5 sm:mt-6">
+                <p className="text-xs font-semibold text-white/55">
                   Znajdź nas w sieci
                 </p>
                 <ul className="mt-2.5 flex items-center gap-2.5 sm:mt-3 sm:gap-3">
@@ -205,20 +217,14 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Pasek dolny: Prawa autorskie, pełna nazwa i dane firmy */}
-        <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-5 text-[11px] sm:text-xs text-white/50 sm:mt-10 sm:flex-row sm:items-center sm:justify-between sm:pt-6">
-          <div>
-            <p>
-              © 2026 Kancelaria Upadłości Konsumenckiej · Część Grupy Expert
-              Partner
-            </p>
-            <p className="text-[10px] sm:text-[11px] text-white/40 mt-0.5">
-              {site.address.full} · NIP: {site.company.nip}{" "}
-              {site.company.regon ? `· REGON: ${site.company.regon}` : ""}
-            </p>
-          </div>
+        {/* Pasek dolny: prawa autorskie i odnośniki formalne */}
+        <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-5 text-xs text-white/55 sm:mt-10 sm:flex-row sm:items-center sm:justify-between sm:pt-6">
+          <p>
+            © {YEAR} Kancelaria Upadłości Konsumenckiej · Franczyzobiorca sieci{" "}
+            {site.partner.name}
+          </p>
 
-          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 sm:gap-x-4">
             <Link
               href="/polityka-prywatnosci"
               className="transition-colors hover:text-white"
@@ -234,7 +240,7 @@ export function Footer() {
               <a
                 href={site.developer.url}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="nofollow noopener noreferrer"
                 className="font-medium text-white/80 underline underline-offset-2 transition-colors hover:text-green"
               >
                 {site.developer.name}
