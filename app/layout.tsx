@@ -165,11 +165,10 @@ const legalServiceSchema = {
           closes: site.hours.weekday.closes,
         },
         {
-          // Dzięki temu Google pokazuje "Zamknięte" zamiast zgadywać.
           "@type": "OpeningHoursSpecification",
           dayOfWeek: ["Saturday", "Sunday"],
-          opens: "00:00",
-          closes: "00:00",
+          opens: site.hours.weekend.opens,
+          closes: site.hours.weekend.closes,
         },
       ],
       // Województwo śląskie obejmuje wszystkie miasta regionu; obsługa
