@@ -51,26 +51,41 @@ function Logo() {
 function NavAnchor({
   hash,
   isHome,
+  isActive,
   className,
   onClick,
   children,
 }: {
   hash: string;
   isHome: boolean;
+  isActive?: boolean;
   className?: string;
   onClick?: () => void;
   children: React.ReactNode;
 }) {
+  // aria-current mówi czytnikom ekranu, w której sekcji jest użytkownik.
+  const current = isActive ? ("location" as const) : undefined;
+
   if (isHome) {
     return (
-      <a href={hash} className={className} onClick={onClick}>
+      <a
+        href={hash}
+        className={className}
+        onClick={onClick}
+        aria-current={current}
+      >
         {children}
       </a>
     );
   }
 
   return (
-    <Link href={`/${hash}`} className={className} onClick={onClick}>
+    <Link
+      href={`/${hash}`}
+      className={className}
+      onClick={onClick}
+      aria-current={current}
+    >
       {children}
     </Link>
   );
@@ -82,7 +97,7 @@ export function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
-  // Podświetlanie sekcji w trakcie scrollowania (ScrollSpy)
+  // Podświetlanie sekcji w trakcie przewijania (ScrollSpy).
   // Sekcje istnieją tylko na stronie głównej, więc na podstronach pomijamy.
   useEffect(() => {
     if (!isHome) {
@@ -91,9 +106,12 @@ export function Navbar() {
     }
 
     const ids = navLinks.map((link) => link.href.substring(1));
+    let frame = 0;
 
-    function handleScroll() {
-      // Obsługa dojechania na sam dół strony (ostatnia sekcja - Kontakt)
+    function update() {
+      frame = 0;
+
+      // Dojazd na sam dół strony – podświetlamy ostatnią sekcję (Kontakt).
       const isAtBottom =
         window.innerHeight + window.scrollY >=
         document.documentElement.scrollHeight - 60;
@@ -108,20 +126,29 @@ export function Navbar() {
 
       for (const id of ids) {
         const element = document.getElementById(id);
-        if (element) {
-          const top = element.getBoundingClientRect().top;
-          if (top <= scrollOffset) {
-            currentSection = `#${id}`;
-          }
+        if (element && element.getBoundingClientRect().top <= scrollOffset) {
+          currentSection = `#${id}`;
         }
       }
 
       setActiveSection(currentSection);
     }
 
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    // Przeglądarka zgłasza przewijanie nawet kilkadziesiąt razy na sekundę,
+    // a odczyt pozycji elementów zmusza ją do przeliczenia układu strony.
+    // Dlatego liczymy najwyżej raz na klatkę animacji.
+    function onScroll() {
+      if (frame === 0) frame = window.requestAnimationFrame(update);
+    }
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame !== 0) window.cancelAnimationFrame(frame);
+    };
   }, [isHome]);
 
   // Zamknięcie menu mobilnego po zmianie podstrony
@@ -129,19 +156,20 @@ export function Navbar() {
     setOpen(false);
   }, [pathname]);
 
-  // Obsługa zamykania menu klawiszem ESC
+  // Zamykanie menu klawiszem Escape – nasłuchujemy tylko wtedy,
+  // gdy menu jest faktycznie otwarte.
   useEffect(() => {
+    if (!open) return;
+
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape" && open) {
-        setOpen(false);
-      }
+      if (e.key === "Escape") setOpen(false);
     }
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 bg-mint/95 backdrop-blur border-b border-black/5 transition-all">
+    <header className="sticky top-0 z-40 bg-mint/95 backdrop-blur border-b border-black/5">
       {/* Górny pasek informacyjny - E-mail i Telefon widoczne na mobile */}
       <div className="bg-navy text-[10.5px] text-white sm:text-sm">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-1 px-4 py-1.5 sm:h-12 sm:flex-row sm:px-6 sm:py-0 lg:px-8">
@@ -149,14 +177,17 @@ export function Navbar() {
             Upadłość konsumencka Chorzów / Śląsk
           </div>
 
-          <div className="flex w-full flex-col items-center justify-center gap-1 sm:w-auto sm:flex-row sm:justify-end sm:gap-6">
+          <div className="flex w-full min-w-0 flex-col items-center justify-center gap-1 sm:w-auto sm:flex-row sm:justify-end sm:gap-6">
             {/* E-mail (klikalny i widoczny na telefonie) */}
             <a
               href={site.email.href}
-              className="flex items-center gap-1.5 text-white/90 transition-all duration-200 hover:text-green hover:translate-x-0.5"
+              className="flex min-w-0 max-w-full items-center gap-1.5 text-white/90 transition-all duration-200 hover:text-green hover:translate-x-0.5"
             >
-              <Mail className="size-3 sm:size-4 text-green shrink-0" />
-              <span className="tracking-tight sm:tracking-normal">
+              <Mail
+                className="size-3 sm:size-4 text-green shrink-0"
+                aria-hidden="true"
+              />
+              <span className="truncate tracking-tight sm:tracking-normal">
                 {site.email.display}
               </span>
             </a>
@@ -166,7 +197,10 @@ export function Navbar() {
               href={site.phone.href}
               className="flex items-center gap-1.5 text-white/90 transition-all duration-200 hover:text-green hover:translate-x-0.5"
             >
-              <Phone className="size-3 sm:size-4 text-green shrink-0" />
+              <Phone
+                className="size-3 sm:size-4 text-green shrink-0"
+                aria-hidden="true"
+              />
               <span>
                 {site.phone.display}{" "}
                 <span className="font-medium text-green">
@@ -195,6 +229,7 @@ export function Navbar() {
                 key={link.href}
                 hash={link.href}
                 isHome={isHome}
+                isActive={isActive}
                 className={`group relative py-2 text-xs xl:text-sm font-medium transition-colors duration-200 ${
                   isActive
                     ? "text-navy font-semibold"
@@ -205,6 +240,7 @@ export function Navbar() {
 
                 {/* Subtelna zielona linia aktywacji i hover */}
                 <span
+                  aria-hidden="true"
                   className={`absolute bottom-0 left-0 h-0.5 rounded-full bg-green transition-all duration-300 ease-out ${
                     isActive
                       ? "w-full opacity-100"
@@ -226,9 +262,9 @@ export function Navbar() {
           aria-controls="mobile-nav"
         >
           {open ? (
-            <X className="size-5 sm:size-6" />
+            <X className="size-5 sm:size-6" aria-hidden="true" />
           ) : (
-            <Menu className="size-5 sm:size-6" />
+            <Menu className="size-5 sm:size-6" aria-hidden="true" />
           )}
         </button>
       </div>
@@ -248,8 +284,9 @@ export function Navbar() {
                   key={link.href}
                   hash={link.href}
                   isHome={isHome}
+                  isActive={isActive}
                   onClick={() => setOpen(false)}
-                  className={`flex items-center justify-between border-b border-black/5 py-2.5 text-xs font-medium transition-all duration-200 sm:py-3.5 sm:text-sm ${
+                  className={`flex items-center justify-between border-b border-black/5 py-3 text-sm font-medium transition-all duration-200 sm:py-3.5 ${
                     isActive
                       ? "text-navy font-semibold pl-2 bg-black/2"
                       : "text-ink/80 hover:text-navy hover:pl-2"
@@ -257,7 +294,10 @@ export function Navbar() {
                 >
                   <span>{link.label}</span>
                   {isActive && (
-                    <span className="size-1.5 rounded-full bg-green" />
+                    <span
+                      aria-hidden="true"
+                      className="size-1.5 rounded-full bg-green"
+                    />
                   )}
                 </NavAnchor>
               );
@@ -267,16 +307,19 @@ export function Navbar() {
           <div className="mt-3 flex flex-col gap-2 sm:mt-4 sm:gap-3">
             <a
               href={site.email.href}
-              className="flex items-center gap-2 text-xs sm:text-sm font-medium text-ink/80 transition-colors hover:text-navy"
+              className="flex min-w-0 items-center gap-2 text-sm font-medium text-ink/80 transition-colors hover:text-navy"
             >
-              <Mail className="size-3.5 sm:size-4 text-green" />
-              {site.email.display}
+              <Mail className="size-4 text-green shrink-0" aria-hidden="true" />
+              <span className="truncate">{site.email.display}</span>
             </a>
             <a
               href={site.phone.href}
-              className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-navy transition-colors hover:text-green-contrast"
+              className="flex items-center gap-2 text-sm font-semibold text-navy transition-colors hover:text-green-contrast"
             >
-              <Phone className="size-3.5 sm:size-4 text-green" />
+              <Phone
+                className="size-4 text-green shrink-0"
+                aria-hidden="true"
+              />
               {site.phone.display} (bezpłatna konsultacja)
             </a>
           </div>
