@@ -16,7 +16,7 @@ import {
   FileCheck2,
 } from "lucide-react";
 import type { Metadata } from "next";
-import { site } from "@/content/site";
+import { site, toIsoTimestamp } from "@/content/site";
 
 // Dane artykułu w jednym miejscu – używane w metadanych i w JSON-LD,
 // żeby tytuł i daty nigdy się nie rozjechały.
@@ -25,10 +25,9 @@ const ARTICLE_TITLE =
 const ARTICLE_URL = `${site.url}/publikacje`;
 const OG_IMAGE = "/og-image.jpg";
 
-// Data dodania podstrony do serwisu. Przy każdej istotnej zmianie treści
-// artykułu zaktualizuj DATE_MODIFIED.
-const DATE_PUBLISHED = "2026-09-08T10:00:00+02:00";
-const DATE_MODIFIED = "2026-09-08T10:00:00+02:00";
+// Daty pochodzą z site.updated / site.published – tam je aktualizuj.
+const DATE_PUBLISHED = toIsoTimestamp(site.published.publikacje);
+const DATE_MODIFIED = toIsoTimestamp(site.updated.publikacje);
 
 export const metadata: Metadata = {
   title: `${ARTICLE_TITLE} · Publikacja`,

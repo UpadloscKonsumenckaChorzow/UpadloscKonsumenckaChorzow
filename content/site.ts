@@ -75,7 +75,19 @@ export const site = {
     },
     weekend: {
       display: "Zamknięte",
+      opens: "00:00",
+      closes: "00:00",
     },
+  },
+
+  updated: {
+    publikacje: "2026-09-14",
+    politykaPrywatnosci: "2026-09-14",
+  },
+
+  // Data pierwszej publikacji artykułu – nie zmienia się.
+  published: {
+    publikacje: "2026-09-08",
   },
 
   partner: {
@@ -94,3 +106,49 @@ export const site = {
     url: "https://www.instagram.com/filip_wrona/",
   },
 } as const;
+
+/**
+ * Sprawdza, czy data ma format "RRRR-MM-DD" i czy w ogóle istnieje.
+ * Literówka zatrzymuje budowanie strony z czytelnym komunikatem, zamiast
+ * dawać niezrozumiały błąd gdzieś w środku aplikacji.
+ */
+function parseDate(isoDate: string): Date {
+  const date = new Date(`${isoDate}T12:00:00Z`);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(isoDate) || Number.isNaN(date.getTime())) {
+    throw new Error(
+      `Nieprawidłowa data w content/site.ts: "${isoDate}". Oczekiwany format to RRRR-MM-DD, np. 2026-09-14.`,
+    );
+  }
+  return date;
+}
+
+/**
+ * Zamienia "2026-09-14" na "14 września 2026 r." – do pokazania na stronie.
+ * Godzina 12:00 UTC chroni przed przesunięciem daty o jeden dzień
+ * przy przeliczaniu stref czasowych.
+ */
+export function formatPlDate(isoDate: string): string {
+  const formatted = new Intl.DateTimeFormat("pl-PL", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "Europe/Warsaw",
+  }).format(parseDate(isoDate));
+  return `${formatted} r.`;
+}
+
+/**
+ * Zamienia "2026-09-14" na znacznik czasu dla danych strukturalnych:
+ * "2026-09-14T10:00:00Z". Google zaleca podawanie godziny wraz ze strefą,
+ * a czas uniwersalny (Z) jest zawsze poprawny – bez rozróżniania czasu
+ * letniego i zimowego. Sama godzina nie ma tu żadnego znaczenia.
+ */
+export function toIsoTimestamp(isoDate: string): string {
+  parseDate(isoDate); // sprawdzenie formatu
+  return `${isoDate}T10:00:00Z`;
+}
+
+/** Zamienia "2026-09-14" na obiekt Date – używane w mapie strony. */
+export function toDate(isoDate: string): Date {
+  return parseDate(isoDate);
+}

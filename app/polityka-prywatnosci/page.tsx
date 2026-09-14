@@ -2,11 +2,9 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowLeft, ShieldCheck } from "lucide-react";
 import type { Metadata } from "next";
-import { site } from "@/content/site";
+import { site, formatPlDate } from "@/content/site";
 
-// Data w jednym miejscu – widoczna w nagłówku. Zmieniaj ją przy każdej
-// zmianie treści polityki.
-const LAST_UPDATED = "10 września 2026 r.";
+const LAST_UPDATED = formatPlDate(site.updated.politykaPrywatnosci);
 
 export const metadata: Metadata = {
   title: "Polityka Prywatności i RODO",
