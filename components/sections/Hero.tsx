@@ -66,7 +66,7 @@ export function Hero() {
       <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 pt-6 pb-8 sm:gap-10 sm:px-6 sm:pt-10 sm:pb-16 lg:grid-cols-2 lg:gap-12 lg:px-8">
         <div className="mx-auto flex w-full max-w-xl flex-col items-center justify-center text-center">
           <p className="flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.16em] text-green">
-            <ShieldCheck className="size-4" />
+            <ShieldCheck className="size-4" aria-hidden="true" />
             Pomoc prawna · Chorzów i Śląsk
           </p>
 
@@ -81,24 +81,27 @@ export function Hero() {
           </p>
 
           <div className="mt-6 w-full max-w-xl">
-            <p className="mb-2.5 text-center text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-green/90">
+            <p className="mb-2.5 text-center text-xs font-semibold uppercase tracking-wider text-green/90">
               Pomagamy w sytuacjach takich jak:
             </p>
 
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-2.5">
+            <ul className="flex flex-wrap justify-center gap-2 sm:gap-2.5">
               {problemItems.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <div
+                  <li
                     key={item.label}
-                    className="flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-xs font-medium text-white shadow-sm backdrop-blur transition-all hover:border-green/50 hover:bg-white/10 sm:px-4 sm:py-3 sm:text-sm"
+                    className="flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm font-medium text-white shadow-sm transition-all hover:border-green/50 hover:bg-white/10 sm:px-4 sm:py-3"
                   >
-                    <Icon className="size-3.5 sm:size-4 shrink-0 text-green" />
+                    <Icon
+                      className="size-4 shrink-0 text-green"
+                      aria-hidden="true"
+                    />
                     <span>{item.label}</span>
-                  </div>
+                  </li>
                 );
               })}
-            </div>
+            </ul>
           </div>
 
           <div className="mt-7 flex w-full flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
@@ -107,13 +110,13 @@ export function Hero() {
               className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-green px-6 py-3.5 sm:px-7 sm:py-4 text-sm font-semibold text-navy-900 shadow-lg transition-all hover:bg-green-light hover:scale-105"
             >
               Umów bezpłatną konsultację
-              <ArrowRight className="size-4" />
+              <ArrowRight className="size-4" aria-hidden="true" />
             </a>
             <a
               href={site.phone.href}
               className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-white/25 px-6 py-3.5 sm:px-7 sm:py-4 text-sm font-semibold text-white transition-all hover:bg-white/10"
             >
-              <Phone className="size-4 text-green" />
+              <Phone className="size-4 text-green" aria-hidden="true" />
               {site.phone.display}
             </a>
           </div>
@@ -151,24 +154,24 @@ export function Hero() {
             Co możesz zyskać
           </h2>
 
-          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
+          <ul className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
             {benefitsItems.map((item) => {
               const Icon = item.icon;
               return (
-                <div
+                <li
                   key={item.title}
-                  className="flex flex-col items-center justify-start rounded-2xl border border-white/10 bg-white/5 p-3.5 text-center shadow-md backdrop-blur transition-all sm:p-6"
+                  className="flex flex-col items-center justify-start rounded-2xl border border-white/10 bg-white/5 p-3.5 text-center shadow-md transition-all sm:p-6"
                 >
                   <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-green/20 text-green mb-2.5 sm:size-12 sm:mb-4">
-                    <Icon className="size-5 sm:size-6" />
+                    <Icon className="size-5 sm:size-6" aria-hidden="true" />
                   </span>
-                  <h3 className="font-display text-xs font-semibold text-white leading-snug sm:text-base">
+                  <h3 className="font-display text-sm font-semibold text-white leading-snug sm:text-base">
                     {item.title}
                   </h3>
-                </div>
+                </li>
               );
             })}
-          </div>
+          </ul>
         </div>
       </div>
 
@@ -179,24 +182,24 @@ export function Hero() {
             Gwarantujemy
           </h2>
 
-          <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-6 max-w-5xl mx-auto">
+          <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-6 max-w-5xl mx-auto">
             {guaranteeItems.map((item) => {
               const Icon = item.icon;
               return (
-                <div
+                <li
                   key={item.title}
-                  className="flex items-center gap-3.5 rounded-2xl border border-green/30 bg-navy-900/80 p-3.5 text-left shadow-md backdrop-blur transition-all sm:flex-col sm:justify-start sm:gap-0 sm:p-6 sm:text-center hover:border-green"
+                  className="flex items-center gap-3.5 rounded-2xl border border-green/30 bg-navy-900/80 p-3.5 text-left shadow-md transition-all sm:flex-col sm:justify-start sm:gap-0 sm:p-6 sm:text-center hover:border-green"
                 >
                   <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-green text-white shadow-md sm:size-14 sm:mb-4">
-                    <Icon className="size-5 sm:size-7" />
+                    <Icon className="size-5 sm:size-7" aria-hidden="true" />
                   </span>
-                  <h3 className="font-display text-xs font-semibold text-white leading-snug sm:text-base">
+                  <h3 className="font-display text-sm font-semibold text-white leading-snug sm:text-base">
                     {item.title}
                   </h3>
-                </div>
+                </li>
               );
             })}
-          </div>
+          </ul>
         </div>
       </div>
     </section>
