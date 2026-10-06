@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
 :root {
   /* Ciemne odcienie (Navy / Slate) */
@@ -16,44 +15,69 @@
   /* Jasne tła (Miętowe / Jasna zieleń) */
   --mint: #f0fdf4; /* Główne jasne tło strony / kart */
   --mint-dark: #dcfce7; /* Ciemniejszy odcień tła (border / wyróżnienia) */
+
+  /* Wysokość przyklejonego paska nawigacji – kotwice zatrzymują się pod nim. */
+  --header-h: 4rem;
+
+  /* Pozwala płynnie animować wysokość do "auto" (rozwijane FAQ). */
+  interpolate-size: allow-keywords;
+}
+
+@media (min-width: 40rem) {
+  :root {
+    --header-h: 5rem;
+  }
 }
 
 @theme inline {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-poppins), var(--font-inter), sans-serif;
 
-  /* Kolory bazowe */
   --color-navy: var(--navy);
   --color-navy-700: var(--navy-700);
   --color-navy-900: var(--navy-900);
   --color-ink: var(--ink);
 
-  /* Kolory akcentowe */
   --color-green: var(--green);
   --color-green-light: var(--green-light);
   --color-green-contrast: var(--green-contrast);
 
-  /* Kolory tła */
   --color-mint: var(--mint);
   --color-mint-dark: var(--mint-dark);
+
+  /* Zastępują bibliotekę tw-animate-css (używane były tylko dwie animacje). */
+  --animate-drop-in: drop-in 200ms ease-out;
+  --animate-pop-in: pop-in 150ms ease-out;
+}
+
+@keyframes drop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
 }
 
 @layer base {
-  *,
-  ::after,
-  ::before {
-    box-sizing: border-box;
-  }
-
   html {
-    /* Płynne przewijanie do kotwic (spis treści w polityce prywatności).
-       Wyłączane niżej dla osób z ograniczonymi animacjami. */
+    /* Płynne przewijanie do kotwic; kotwice nie chowają się pod menu. */
     scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
 
-    /* Blokuje automatyczne powiększanie tekstu przez iOS przy obrocie
-       telefonu do poziomu – bez tego akapity potrafią urosnąć. */
+    /* Blokuje automatyczne powiększanie tekstu przez iOS przy obrocie. */
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
+  }
+
+  /* Otwarte okno ustawień cookies blokuje przewijanie strony pod spodem. */
+  html:has(dialog[open]:modal) {
+    overflow: hidden;
   }
 
   body {
@@ -62,12 +86,27 @@
     font-family: var(--font-sans);
   }
 
-  /* Widoczne obramowanie przy nawigacji klawiaturą (Tab). Domyślne
-     obramowanie przeglądarki bywa niewidoczne na granatowym tle. */
+  /* Ładniejsze łamanie nagłówków i akapitów (bez "wdów" w ostatniej linii). */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Widoczne obramowanie przy nawigacji klawiaturą (Tab). */
   :focus-visible {
     outline: 3px solid var(--green-light);
     outline-offset: 2px;
     border-radius: 0.375rem;
+  }
+
+  /* Cel linku "Przejdź do treści" nie potrzebuje obwódki. */
+  [tabindex="-1"]:focus {
+    outline: none;
   }
 
   /* Pola ukryte wizualnie (np. przełącznik cookies) mają własne
@@ -80,23 +119,52 @@
     background-color: var(--mint-dark);
     color: var(--navy);
   }
+
+  dialog::backdrop {
+    background: rgb(2 6 23 / 0.6);
+  }
 }
 
-.skip-link {
-  position: absolute;
-  top: -100%;
-  left: 1rem;
-  z-index: 999;
-  padding: 0.75rem 1.25rem;
-  border-radius: 0.75rem;
-  background: var(--navy);
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 0.875rem;
-  border: 2px solid var(--green);
-  transition: top 0.15s ease-out;
-}
+@layer components {
+  .skip-link {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 999;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.75rem;
+    background: var(--navy);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.875rem;
+    border: 2px solid var(--green);
+    transform: translateY(-200%);
+    transition: transform 0.15s ease-out;
+  }
 
-.skip-link:focus {
-  top: 1rem;
+  .skip-link:focus-visible {
+    transform: none;
+  }
+
+  /* FAQ na natywnym <details>: zero JavaScriptu, płynne otwieranie
+     w przeglądarkach, które to wspierają (pozostałe – bez animacji). */
+  .faq-item::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition:
+      block-size 300ms ease,
+      content-visibility 300ms allow-discrete;
+  }
+
+  .faq-item[open]::details-content {
+    block-size: auto;
+  }
+
+  .faq-item > summary {
+    list-style: none;
+  }
+
+  .faq-item > summary::-webkit-details-marker {
+    display: none;
+  }
 }

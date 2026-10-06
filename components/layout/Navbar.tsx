@@ -1,330 +1,142 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Phone, Menu, X, Mail } from "lucide-react";
-import { site } from "@/content/site";
+import { Phone, Mail } from "lucide-react";
+import { LogoMark } from "@/components/brand/LogoMark";
+import { MobileMenu } from "@/components/layout/MobileMenu";
+import { ScrollSpy } from "@/components/layout/ScrollSpy";
+import { sections, site } from "@/content/site";
 
-const navLinks = [
-  { label: "Dla kogo", href: "#dla-kogo" },
-  { label: "Jak to działa", href: "#jak-to-dziala" },
-  { label: "Cennik", href: "#cennik" },
-  { label: "Dlaczego my", href: "#dlaczego-my" },
-  { label: "FAQ / Pytania", href: "#faq" },
-  { label: "Kontakt", href: "#kontakt" },
-];
+/*
+ * Nagłówek renderowany w całości na serwerze (zero JS dla linków i logo).
+ * W przeglądarce działają tylko dwie małe "wyspy":
+ *  - MobileMenu – przycisk i panel menu na telefonie,
+ *  - ScrollSpy – podświetlanie aktualnej sekcji (aria-current).
+ * Linki "/#sekcja" działają na stronie głównej (przewinięcie) i na
+ * podstronach (powrót na stronę główną i przewinięcie).
+ */
 
 function Logo() {
+  // Nazwa linku = widoczny tekst (WCAG 2.5.3), logo jest dekoracyjne.
   return (
-    <Link
-      href="/"
-      className="flex items-center gap-2.5 sm:gap-3 shrink-0 group"
-      aria-label="Strona główna"
-    >
-      <Image
-        src="/logo.svg"
-        alt="Logo Kancelarii Upadłość Konsumencka"
-        width={40}
-        height={40}
-        priority
-        className="size-8 sm:size-10 object-contain transition-transform duration-300 group-hover:scale-105"
-      />
+    <Link href="/" className="flex items-center gap-2.5 sm:gap-3 shrink-0 group">
+      <LogoMark className="h-8 w-auto sm:h-10 transition-transform duration-300 group-hover:scale-105" />
       <span className="leading-tight">
-        <span className="block font-display text-sm font-semibold tracking-wide text-ink sm:text-lg">
-          UPADŁOŚĆ <span className="text-green-contrast">KONSUMENCKA</span>
+        <span className="block font-display text-sm font-semibold uppercase tracking-wide text-ink sm:text-lg">
+          Upadłość <span className="text-green-contrast">Konsumencka</span>
         </span>
-        <span className="block text-[9px] sm:text-[10px] font-medium tracking-[0.18em] text-ink/60">
-          CHORZÓW · ŚLĄSK
+        <span className="block text-[11px] sm:text-xs font-medium uppercase tracking-[0.18em] text-ink/60">
+          Chorzów · Śląsk
         </span>
       </span>
     </Link>
   );
 }
 
-/**
- * Na stronie głównej kotwice działają natywnie (zwykły <a>).
- * Na podstronach trzeba najpierw wrócić na "/" – wtedy używamy <Link>,
- * żeby Next obsłużył nawigację i przewinął do sekcji.
- */
-function NavAnchor({
-  hash,
-  isHome,
-  isActive,
-  className,
-  onClick,
-  children,
-}: {
-  hash: string;
-  isHome: boolean;
-  isActive?: boolean;
-  className?: string;
-  onClick?: () => void;
-  children: React.ReactNode;
-}) {
-  // aria-current mówi czytnikom ekranu, w której sekcji jest użytkownik.
-  const current = isActive ? ("location" as const) : undefined;
+const desktopLink =
+  "relative py-2 text-sm font-medium text-ink/75 transition-colors duration-200 hover:text-navy aria-[current=location]:font-semibold aria-[current=location]:text-navy " +
+  // zielona linia pod aktywnym / najechanym linkiem
+  "after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:rounded-full after:bg-green after:transition-transform after:duration-300 hover:after:scale-x-100 aria-[current=location]:after:scale-x-100";
 
-  if (isHome) {
-    return (
-      <a
-        href={hash}
-        className={className}
-        onClick={onClick}
-        aria-current={current}
-      >
-        {children}
-      </a>
-    );
-  }
-
-  return (
-    <Link
-      href={`/${hash}`}
-      className={className}
-      onClick={onClick}
-      aria-current={current}
-    >
-      {children}
-    </Link>
-  );
-}
+const mobileLink =
+  "group flex items-center justify-between border-b border-black/5 py-3 text-base font-medium text-ink/80 transition-[padding,color] duration-200 hover:pl-2 hover:text-navy sm:py-3.5 aria-[current=location]:pl-2 aria-[current=location]:font-semibold aria-[current=location]:text-navy";
 
 export function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>("");
-  const pathname = usePathname();
-  const isHome = pathname === "/";
-
-  // Podświetlanie sekcji w trakcie przewijania (ScrollSpy).
-  // Sekcje istnieją tylko na stronie głównej, więc na podstronach pomijamy.
-  useEffect(() => {
-    if (!isHome) {
-      setActiveSection("");
-      return;
-    }
-
-    const ids = navLinks.map((link) => link.href.substring(1));
-    let frame = 0;
-
-    function update() {
-      frame = 0;
-
-      // Dojazd na sam dół strony – podświetlamy ostatnią sekcję (Kontakt).
-      const isAtBottom =
-        window.innerHeight + window.scrollY >=
-        document.documentElement.scrollHeight - 60;
-
-      if (isAtBottom) {
-        setActiveSection(navLinks[navLinks.length - 1].href);
-        return;
-      }
-
-      const scrollOffset = 130;
-      let currentSection = "";
-
-      for (const id of ids) {
-        const element = document.getElementById(id);
-        if (element && element.getBoundingClientRect().top <= scrollOffset) {
-          currentSection = `#${id}`;
-        }
-      }
-
-      setActiveSection(currentSection);
-    }
-
-    // Przeglądarka zgłasza przewijanie nawet kilkadziesiąt razy na sekundę,
-    // a odczyt pozycji elementów zmusza ją do przeliczenia układu strony.
-    // Dlatego liczymy najwyżej raz na klatkę animacji.
-    function onScroll() {
-      if (frame === 0) frame = window.requestAnimationFrame(update);
-    }
-
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (frame !== 0) window.cancelAnimationFrame(frame);
-    };
-  }, [isHome]);
-
-  // Zamknięcie menu mobilnego po zmianie podstrony
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
-  // Zamykanie menu klawiszem Escape – nasłuchujemy tylko wtedy,
-  // gdy menu jest faktycznie otwarte.
-  useEffect(() => {
-    if (!open) return;
-
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") setOpen(false);
-    }
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [open]);
-
   return (
-    <header className="sticky top-0 z-40 bg-mint/95 backdrop-blur border-b border-black/5">
-      {/* Górny pasek informacyjny - E-mail i Telefon widoczne na mobile */}
-      <div className="bg-navy text-[10.5px] text-white sm:text-sm">
+    <>
+      {/* Górny pasek informacyjny – przewija się ze stroną, dzięki czemu
+          przyklejony nagłówek zajmuje na telefonie mniej miejsca. */}
+      <aside aria-label="Szybki kontakt" className="bg-navy text-xs text-white sm:text-sm">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-1 px-4 py-1.5 sm:h-12 sm:flex-row sm:px-6 sm:py-0 lg:px-8">
-          <div className="hidden font-medium tracking-wide text-white/90 sm:block">
+          <p className="hidden font-medium tracking-wide text-white/90 sm:block">
             Upadłość konsumencka Chorzów / Śląsk
-          </div>
+          </p>
 
           <div className="flex w-full min-w-0 flex-col items-center justify-center gap-1 sm:w-auto sm:flex-row sm:justify-end sm:gap-6">
-            {/* E-mail (klikalny i widoczny na telefonie) */}
             <a
               href={site.email.href}
-              className="flex min-w-0 max-w-full items-center gap-1.5 text-white/90 transition-all duration-200 hover:text-green hover:translate-x-0.5"
+              className="flex min-w-0 max-w-full items-center gap-1.5 py-0.5 text-white/90 transition-colors duration-200 hover:text-green"
             >
-              <Mail
-                className="size-3 sm:size-4 text-green shrink-0"
-                aria-hidden="true"
-              />
-              <span className="truncate tracking-tight sm:tracking-normal">
-                {site.email.display}
-              </span>
-            </a>
-
-            {/* Telefon */}
-            <a
-              href={site.phone.href}
-              className="flex items-center gap-1.5 text-white/90 transition-all duration-200 hover:text-green hover:translate-x-0.5"
-            >
-              <Phone
-                className="size-3 sm:size-4 text-green shrink-0"
-                aria-hidden="true"
-              />
-              <span>
-                {site.phone.display}{" "}
-                <span className="font-medium text-green">
-                  – bezpłatna konsultacja
-                </span>
-              </span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* Główny pasek nawigacyjny - h-16 na mobile, h-20 na desktopie */}
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:h-20 sm:px-6 lg:px-8">
-        <Logo />
-
-        {/* Nawigacja desktop */}
-        <nav
-          aria-label="Nawigacja główna"
-          className="hidden items-center gap-4 xl:flex xl:gap-7"
-        >
-          {navLinks.map((link) => {
-            const isActive = activeSection === link.href;
-
-            return (
-              <NavAnchor
-                key={link.href}
-                hash={link.href}
-                isHome={isHome}
-                isActive={isActive}
-                className={`group relative py-2 text-xs xl:text-sm font-medium transition-colors duration-200 ${
-                  isActive
-                    ? "text-navy font-semibold"
-                    : "text-ink/75 hover:text-navy"
-                }`}
-              >
-                {link.label}
-
-                {/* Subtelna zielona linia aktywacji i hover */}
-                <span
-                  aria-hidden="true"
-                  className={`absolute bottom-0 left-0 h-0.5 rounded-full bg-green transition-all duration-300 ease-out ${
-                    isActive
-                      ? "w-full opacity-100"
-                      : "w-0 opacity-0 group-hover:w-full group-hover:opacity-100"
-                  }`}
-                />
-              </NavAnchor>
-            );
-          })}
-        </nav>
-
-        {/* Przycisk menu mobilnego */}
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="flex size-9 items-center justify-center rounded-lg text-navy xl:hidden cursor-pointer transition-colors hover:bg-black/5 sm:size-10"
-          aria-label={open ? "Zamknij menu" : "Otwórz menu"}
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-        >
-          {open ? (
-            <X className="size-5 sm:size-6" aria-hidden="true" />
-          ) : (
-            <Menu className="size-5 sm:size-6" aria-hidden="true" />
-          )}
-        </button>
-      </div>
-
-      {/* Menu mobilne (Drawer) */}
-      {open && (
-        <div
-          id="mobile-nav"
-          className="border-t border-black/5 bg-mint px-4 pb-5 pt-1.5 xl:hidden shadow-lg animate-in fade-in slide-in-from-top-2 duration-200 sm:px-5 sm:pb-6 sm:pt-2"
-        >
-          <nav aria-label="Nawigacja mobilna" className="flex flex-col">
-            {navLinks.map((link) => {
-              const isActive = activeSection === link.href;
-
-              return (
-                <NavAnchor
-                  key={link.href}
-                  hash={link.href}
-                  isHome={isHome}
-                  isActive={isActive}
-                  onClick={() => setOpen(false)}
-                  className={`flex items-center justify-between border-b border-black/5 py-3 text-sm font-medium transition-all duration-200 sm:py-3.5 ${
-                    isActive
-                      ? "text-navy font-semibold pl-2 bg-black/2"
-                      : "text-ink/80 hover:text-navy hover:pl-2"
-                  }`}
-                >
-                  <span>{link.label}</span>
-                  {isActive && (
-                    <span
-                      aria-hidden="true"
-                      className="size-1.5 rounded-full bg-green"
-                    />
-                  )}
-                </NavAnchor>
-              );
-            })}
-          </nav>
-
-          <div className="mt-3 flex flex-col gap-2 sm:mt-4 sm:gap-3">
-            <a
-              href={site.email.href}
-              className="flex min-w-0 items-center gap-2 text-sm font-medium text-ink/80 transition-colors hover:text-navy"
-            >
-              <Mail className="size-4 text-green shrink-0" aria-hidden="true" />
+              <Mail className="size-3.5 sm:size-4 text-green shrink-0" aria-hidden="true" />
               <span className="truncate">{site.email.display}</span>
             </a>
             <a
               href={site.phone.href}
-              className="flex items-center gap-2 text-sm font-semibold text-navy transition-colors hover:text-green-contrast"
+              className="flex items-center gap-1.5 py-0.5 text-white/90 transition-colors duration-200 hover:text-green"
             >
-              <Phone
-                className="size-4 text-green shrink-0"
-                aria-hidden="true"
-              />
-              {site.phone.display} (bezpłatna konsultacja)
+              <Phone className="size-3.5 sm:size-4 text-green shrink-0" aria-hidden="true" />
+              <span>
+                {site.phone.display}{" "}
+                <span className="font-medium text-green">– bezpłatna konsultacja</span>
+              </span>
             </a>
           </div>
         </div>
-      )}
-    </header>
+      </aside>
+
+      <header className="sticky top-0 z-40 border-b border-black/5 bg-mint">
+        <div className="relative mx-auto flex h-(--header-h) max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          <Logo />
+
+          <nav aria-label="Nawigacja główna" className="hidden xl:block">
+            <ul className="flex items-center gap-7">
+              {sections.map((s) => (
+                <li key={s.id}>
+                  <Link href={`/#${s.id}`} data-spy={s.id} className={`block ${desktopLink}`}>
+                    {s.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="flex items-center gap-1.5 xl:hidden">
+            {/* Telefon zawsze pod ręką – najczęstsza akcja na komórce. */}
+            <a
+              href={site.phone.href}
+              className="flex size-10 items-center justify-center rounded-lg bg-green text-navy-900 transition-colors hover:bg-green-light"
+            >
+              <Phone className="size-5" aria-hidden="true" />
+              <span className="sr-only">Zadzwoń: {site.phone.display}</span>
+            </a>
+
+            <MobileMenu>
+              <nav aria-label="Nawigacja mobilna" className="mx-auto max-w-7xl">
+                <ul>
+                  {sections.map((s) => (
+                    <li key={s.id}>
+                      <Link href={`/#${s.id}`} data-spy={s.id} className={mobileLink}>
+                        <span>{s.label}</span>
+                        <span
+                          aria-hidden="true"
+                          className="hidden size-1.5 rounded-full bg-green group-aria-[current=location]:block"
+                        />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+
+              <div className="mx-auto mt-3 flex max-w-7xl flex-col gap-2 sm:mt-4 sm:gap-3">
+                <a
+                  href={site.email.href}
+                  className="flex min-w-0 items-center gap-2 py-1 text-sm font-medium text-ink/80 transition-colors hover:text-navy"
+                >
+                  <Mail className="size-4 text-green shrink-0" aria-hidden="true" />
+                  <span className="truncate">{site.email.display}</span>
+                </a>
+                <a
+                  href={site.phone.href}
+                  className="flex items-center gap-2 py-1 text-sm font-semibold text-navy transition-colors hover:text-green-contrast"
+                >
+                  <Phone className="size-4 text-green shrink-0" aria-hidden="true" />
+                  {site.phone.display} (bezpłatna konsultacja)
+                </a>
+              </div>
+            </MobileMenu>
+          </div>
+        </div>
+      </header>
+
+      <ScrollSpy />
+    </>
   );
 }

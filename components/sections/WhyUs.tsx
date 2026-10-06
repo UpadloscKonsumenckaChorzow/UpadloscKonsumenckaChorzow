@@ -54,9 +54,7 @@ const partnerFeatures = [
 
 export function WhyUs() {
   return (
-    // scroll-mt-40: przyklejony nagłówek ma ok. 110–130 px, przy mniejszym
-    // odstępie tytuł sekcji chowa się pod nim po kliknięciu w menu.
-    <section id="dlaczego-my" className="scroll-mt-40 bg-mint py-10 sm:py-16">
+    <section id="dlaczego-my" className="bg-mint py-10 sm:py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <p className="flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.16em] text-navy">
@@ -75,7 +73,7 @@ export function WhyUs() {
             return (
               <li
                 key={item.title}
-                className="flex flex-col items-center rounded-2xl border border-black/5 bg-white p-4 text-center shadow-sm transition-all hover:border-green/50 hover:shadow-md sm:rounded-3xl sm:p-6"
+                className="flex flex-col items-center rounded-2xl border border-black/5 bg-white p-4 text-center shadow-sm sm:rounded-3xl sm:p-6"
               >
                 <span className="flex size-10 items-center justify-center rounded-full bg-navy text-green shadow-md sm:size-14">
                   <Icon className="size-5 sm:size-6" aria-hidden="true" />
@@ -113,17 +111,14 @@ export function WhyUs() {
                 <a
                   href={site.partner.url}
                   target="_blank"
-                  rel="nofollow noopener noreferrer"
-                  aria-label={`${site.partner.name} – otwiera się w nowej karcie`}
-                  className="inline-block rounded-2xl border border-black/5 bg-white p-2.5 shadow-sm transition-all hover:scale-105 hover:shadow-md sm:p-3"
+                  rel="noopener"
+                  className="inline-block rounded-2xl border border-black/5 bg-white p-2.5 shadow-sm transition-[transform,box-shadow] hover:scale-105 hover:shadow-md sm:p-3"
                 >
-                  {/* Bez style={{height:"auto"}} – styl wpisany bezpośrednio
-                      wygrywał z klasami h-8/sm:h-10 i unieważniał skalowanie. */}
                   <Image
                     src="/expert-partner.webp"
-                    alt="Grupa Expert Partner"
+                    alt={`${site.partner.name} – otwiera się w nowej karcie`}
                     width={130}
-                    height={38}
+                    height={35}
                     className="h-8 w-auto object-contain sm:h-10"
                   />
                 </a>
@@ -137,7 +132,7 @@ export function WhyUs() {
                 return (
                   <li
                     key={f.title}
-                    className="flex items-center gap-3 rounded-2xl border border-black/5 bg-white p-3.5 shadow-sm transition-all sm:flex-col sm:items-start sm:gap-0 sm:p-5"
+                    className="flex items-center gap-3 rounded-2xl border border-black/5 bg-white p-3.5 shadow-sm sm:flex-col sm:items-start sm:gap-0 sm:p-5"
                   >
                     <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-navy/5 text-navy sm:size-9 sm:rounded-xl">
                       <Icon className="size-4 sm:size-5" aria-hidden="true" />

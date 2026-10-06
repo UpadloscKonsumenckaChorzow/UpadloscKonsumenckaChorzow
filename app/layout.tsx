@@ -1,19 +1,15 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
-import dynamic from "next/dynamic";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { CookieConsentProvider } from "@/context/CookieConsentContext";
+import { CookieBanner } from "@/components/cookies/CookieBanner";
+import { AnalyticsLoader } from "@/components/cookies/AnalyticsLoader";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { site } from "@/content/site";
 
-const CookieBanner = dynamic(() =>
-  import("@/components/cookies/CookieBanner").then((m) => m.CookieBanner),
-);
-const AnalyticsLoader = dynamic(() =>
-  import("@/components/cookies/AnalyticsLoader").then((m) => m.AnalyticsLoader),
-);
-
+// next/font/google pobiera czcionki podczas budowania i serwuje je
+// z własnej domeny – odwiedzający nie łączą się z Google (RODO).
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
   variable: "--font-inter",
@@ -30,9 +26,11 @@ const poppins = Poppins({
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "G-CLXWVE955N";
 
 export const viewport: Viewport = {
-  themeColor: "#0f172a",
+  themeColor: site.colors.theme,
   width: "device-width",
   initialScale: 1,
+  // Treść nie wchodzi pod "notch" i zaokrąglone rogi telefonów.
+  viewportFit: "cover",
 };
 
 export const metadata: Metadata = {
@@ -55,20 +53,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  manifest: "/site.webmanifest",
-  icons: {
-    icon: [
-      { url: "/favicon.ico" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      {
-        url: "/android-chrome-192x192.png",
-        sizes: "192x192",
-        type: "image/png",
-      },
-    ],
-    apple: "/apple-icon.png",
-  },
+  category: "legal",
   openGraph: {
     title: "Upadłość Konsumencka Chorzów & Śląsk",
     description:
@@ -124,7 +109,8 @@ const legalServiceSchema = {
       publisher: { "@id": `${site.url}/#legalservice` },
     },
     {
-      "@type": "LocalBusiness",
+      // LegalService to podtyp LocalBusiness – precyzyjniej opisuje działalność.
+      "@type": "LegalService",
       "@id": `${site.url}/#legalservice`,
       name: site.name,
       alternateName: [
@@ -136,11 +122,25 @@ const legalServiceSchema = {
       legalName: site.company.name,
       taxID: site.company.nip,
       url: site.url,
-      logo: `${site.url}/android-chrome-512x512.png`,
+      logo: {
+        "@type": "ImageObject",
+        url: `${site.url}/icon-512.png`,
+        width: 512,
+        height: 512,
+      },
       image: `${site.url}/og-image.jpg`,
       telephone: site.phone.schema,
       email: site.email.display,
-      priceRange: "od 2900 PLN",
+      priceRange: `od ${site.price.from} ${site.price.currency}`,
+      makesOffer: {
+        "@type": "Offer",
+        name: "Prowadzenie sprawy o upadłość konsumencką",
+        priceSpecification: {
+          "@type": "PriceSpecification",
+          minPrice: site.price.from,
+          priceCurrency: site.price.currency,
+        },
+      },
       currenciesAccepted: "PLN",
       paymentAccepted: "Gotówka, Przelew, Płatność w ratach",
       hasMap: site.maps.directions,
@@ -163,13 +163,7 @@ const legalServiceSchema = {
           dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
           opens: site.hours.weekday.opens,
           closes: site.hours.weekday.closes,
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: ["Saturday", "Sunday"],
-          opens: site.hours.weekend.opens,
-          closes: site.hours.weekend.closes,
-        },
+        }
       ],
       // Województwo śląskie obejmuje wszystkie miasta regionu; obsługa
       // zdalna oznacza, że zasięgiem jest cała Polska. Największe miasta
@@ -217,28 +211,24 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${inter.variable} ${poppins.variable}`}
     >
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(legalServiceSchema).replace(/</g, "\\u003c"),
-          }}
-        />
-      </head>
       <body className="min-h-screen font-sans text-ink antialiased">
         <a href="#tresc" className="skip-link">
           Przejdź do treści głównej
         </a>
 
-        <CookieConsentProvider>
-          <Navbar />
-          <div id="tresc" tabIndex={-1} className="outline-none">
-            {children}
-          </div>
-          <Footer />
-          <CookieBanner />
-          <AnalyticsLoader gaId={GA_ID} />
-        </CookieConsentProvider>
+        <JsonLd data={legalServiceSchema} />
+
+        <Navbar />
+        {/* Jeden punkt orientacyjny <main> dla wszystkich podstron – cel
+            linku "Przejdź do treści głównej". */}
+        <main id="tresc" tabIndex={-1} className="outline-none">
+          {children}
+        </main>
+        <Footer />
+
+        {/* Jedyne "globalne" komponenty klienckie – małe i niezależne. */}
+        <CookieBanner />
+        <AnalyticsLoader gaId={GA_ID} />
       </body>
     </html>
   );

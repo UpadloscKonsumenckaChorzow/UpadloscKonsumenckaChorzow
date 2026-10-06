@@ -3,31 +3,26 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Cookie, ShieldCheck, BarChart3, X, Settings2 } from "lucide-react";
-import { useCookieConsent } from "@/context/CookieConsentContext";
-
-// Elementy, na które można przejść klawiszem Tab wewnątrz okna ustawień.
-const FOCUSABLE_SELECTOR =
-  'button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])';
+import { consentActions, useConsent } from "@/lib/consent";
 
 export function CookieBanner() {
-  const {
-    isBannerOpen,
-    isSettingsOpen,
-    acceptAll,
-    rejectNonEssential,
-    openSettings,
-  } = useCookieConsent();
+  const { ready, consent, settingsOpen } = useConsent();
+  const { acceptAll, rejectAll, openSettings } = consentActions;
 
-  if (isSettingsOpen) return <CookieSettingsDialog />;
-  if (!isBannerOpen) return null;
+  // Przed odczytem localStorage nic nie renderujemy – brak "mignięcia".
+  if (!ready) return null;
+  if (settingsOpen) {
+    return <CookieSettingsDialog analytics={consent?.analytics === true} />;
+  }
+  if (consent) return null;
 
   return (
     <section
       aria-label="Baner zgody na pliki cookies"
-      className="fixed inset-x-0 bottom-0 z-50 px-3 pb-3 sm:px-6 sm:pb-6"
+      className="fixed inset-x-0 bottom-0 z-50 px-3 pb-3 animate-drop-in sm:px-6 sm:pb-6"
     >
       <div className="mx-auto max-w-5xl overflow-hidden rounded-3xl border border-white/10 bg-navy shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)]">
-        <div className="h-1 w-full bg-linear-to-r from-green via-green-light to-green" />
+        <div aria-hidden="true" className="h-1 w-full bg-linear-to-r from-green via-green-light to-green" />
 
         <div className="flex flex-col gap-5 p-5 sm:p-7 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
           <div className="flex items-start gap-4 lg:items-center">
@@ -57,22 +52,22 @@ export function CookieBanner() {
             <button
               type="button"
               onClick={() => openSettings()}
-              className="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-xs font-semibold text-white transition-all hover:border-white/30 hover:bg-white/10 sm:text-sm"
+              className="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-xs font-semibold text-white transition-colors hover:border-white/30 hover:bg-white/10 sm:text-sm"
             >
               <Settings2 className="size-4 text-green" aria-hidden="true" />
               Ustawienia
             </button>
             <button
               type="button"
-              onClick={() => rejectNonEssential()}
-              className="inline-flex cursor-pointer items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-xs font-semibold text-white transition-all hover:border-white/30 hover:bg-white/10 sm:text-sm"
+              onClick={() => rejectAll()}
+              className="inline-flex cursor-pointer items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-xs font-semibold text-white transition-colors hover:border-white/30 hover:bg-white/10 sm:text-sm"
             >
               Odrzuć zbędne
             </button>
             <button
               type="button"
               onClick={() => acceptAll()}
-              className="inline-flex cursor-pointer items-center justify-center rounded-xl bg-green px-6 py-3 text-xs font-semibold text-navy-900 shadow-lg transition-all hover:bg-green-light hover:scale-[1.02] sm:text-sm"
+              className="inline-flex cursor-pointer items-center justify-center rounded-xl bg-green px-6 py-3 text-xs font-semibold text-navy-900 shadow-lg transition-colors hover:bg-green-light hover:scale-[1.02] sm:text-sm"
             >
               Akceptuj wszystkie
             </button>
@@ -83,81 +78,36 @@ export function CookieBanner() {
   );
 }
 
-function CookieSettingsDialog() {
-  const { consent, acceptAll, savePreferences, closeSettings } =
-    useCookieConsent();
-
-  // Okno montuje się od nowa przy każdym otwarciu, więc przełącznik zawsze
-  // startuje od aktualnie zapisanej zgody (domyślnie wyłączony).
-  const [analyticsDraft, setAnalyticsDraft] = useState(
-    consent?.analytics === true,
-  );
-  const modalRef = useRef<HTMLDivElement>(null);
+/**
+ * Okno ustawień na natywnym <dialog> (showModal). Przeglądarka sama
+ * zapewnia: pułapkę fokusu, Esc, wyłączenie reszty strony dla czytników
+ * ekranu oraz powrót fokusu do przycisku, który okno otworzył.
+ */
+function CookieSettingsDialog({ analytics }: { analytics: boolean }) {
+  const { acceptAll, save, closeSettings } = consentActions;
+  // Przełącznik startuje od aktualnie zapisanej zgody (domyślnie wyłączony).
+  const [analyticsDraft, setAnalyticsDraft] = useState(analytics);
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
-    const modal = modalRef.current;
-    if (!modal) return;
+    const dialog = dialogRef.current;
+    if (dialog && !dialog.open) dialog.showModal();
+  }, []);
 
-    // 1. Zapamiętaj, co miało fokus, i przenieś fokus do okna.
-    const previouslyFocused = document.activeElement as HTMLElement | null;
-    modal.focus();
-
-    // 2. Zablokuj przewijanie strony pod oknem. Szerokość paska przewijania
-    //    dodajemy jako margines, żeby strona nie "przeskakiwała" w bok.
-    const { overflow, paddingRight } = document.body.style;
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth;
-    document.body.style.overflow = "hidden";
-    if (scrollbarWidth > 0) {
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
-    }
-
-    // 3. Escape zamyka okno, a Tab krąży tylko po elementach okna.
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") {
-        closeSettings();
-        return;
-      }
-      if (e.key !== "Tab" || !modal) return;
-
-      const items = Array.from(
-        modal.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
-      );
-      if (items.length === 0) return;
-
-      const first = items[0];
-      const last = items[items.length - 1];
-      const active = document.activeElement;
-
-      if (e.shiftKey && (active === first || active === modal)) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && active === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    }
-    document.addEventListener("keydown", handleKeyDown);
-
-    // 4. Po zamknięciu wszystko wraca do stanu sprzed otwarcia.
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = overflow;
-      document.body.style.paddingRight = paddingRight;
-      if (previouslyFocused?.isConnected) previouslyFocused.focus();
-    };
-  }, [closeSettings]);
+  // Najpierw zamykamy okno (przeglądarka przywraca fokus), potem
+  // zapisujemy wybór, co odmontowuje komponent.
+  function closeThen(action: () => void) {
+    dialogRef.current?.close();
+    action();
+  }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-navy-900/60 p-0 backdrop-blur-sm sm:items-center sm:p-6">
-      <div
-        ref={modalRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="cookie-settings-title"
-        tabIndex={-1}
-        className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-t-3xl bg-white p-6 text-ink shadow-2xl outline-none sm:rounded-3xl sm:p-8"
-      >
+    <dialog
+      ref={dialogRef}
+      aria-labelledby="cookie-settings-title"
+      onClose={closeSettings}
+      className="mt-auto mb-0 max-h-[90dvh] w-full max-w-lg overflow-y-auto rounded-t-3xl bg-white p-6 text-ink shadow-2xl animate-pop-in backdrop:backdrop-blur-sm sm:m-auto sm:w-[calc(100%-3rem)] sm:rounded-3xl sm:p-8"
+    >
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-navy">
@@ -173,7 +123,7 @@ function CookieSettingsDialog() {
           </div>
           <button
             type="button"
-            onClick={() => closeSettings()}
+            onClick={() => closeThen(closeSettings)}
             aria-label="Zamknij okno ustawień"
             className="flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-full bg-black/5 text-ink/60 transition-colors hover:bg-black/10"
           >
@@ -181,7 +131,7 @@ function CookieSettingsDialog() {
           </button>
         </div>
 
-        <p className="mt-3 text-sm leading-relaxed text-ink/70">
+        <p className="mt-3 text-sm leading-relaxed text-ink/65">
           Wybierz, na które pliki cookies wyrażasz zgodę. Swój wybór możesz
           zmienić w każdej chwili w stopce strony.
         </p>
@@ -251,20 +201,19 @@ function CookieSettingsDialog() {
         <div className="mt-7 flex flex-col gap-2.5 sm:flex-row-reverse">
           <button
             type="button"
-            onClick={() => savePreferences({ analytics: analyticsDraft })}
-            className="flex-1 cursor-pointer rounded-xl bg-navy px-6 py-3.5 text-sm font-semibold text-white shadow-md transition-all hover:bg-navy-700 hover:scale-[1.01]"
+            onClick={() => closeThen(() => save(analyticsDraft))}
+            className="flex-1 cursor-pointer rounded-xl bg-navy px-6 py-3.5 text-sm font-semibold text-white shadow-md transition-colors hover:bg-navy-700 hover:scale-[1.01]"
           >
             Zapisz wybór
           </button>
           <button
             type="button"
-            onClick={() => acceptAll()}
-            className="flex-1 cursor-pointer rounded-xl bg-green px-6 py-3.5 text-sm font-semibold text-navy-900 shadow-md transition-all hover:bg-green-light"
+            onClick={() => closeThen(acceptAll)}
+            className="flex-1 cursor-pointer rounded-xl bg-green px-6 py-3.5 text-sm font-semibold text-navy-900 shadow-md transition-colors hover:bg-green-light"
           >
             Akceptuj wszystkie
           </button>
         </div>
-      </div>
-    </div>
+    </dialog>
   );
 }

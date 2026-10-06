@@ -43,9 +43,7 @@ const steps = [
 
 export function Process() {
   return (
-    // scroll-mt-40: przyklejony nagłówek ma ok. 110–130 px, przy mniejszym
-    // odstępie tytuł sekcji chowa się pod nim po kliknięciu w menu.
-    <section id="jak-to-dziala" className="scroll-mt-40 bg-mint py-10 sm:py-16">
+    <section id="jak-to-dziala" className="bg-mint py-10 sm:py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <p className="flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.16em] text-navy">
@@ -75,7 +73,7 @@ export function Process() {
               return (
                 <li
                   key={step.number}
-                  className="relative flex items-start gap-3 rounded-2xl border border-black/5 bg-white p-4 shadow-sm transition-all hover:border-green/50 hover:shadow-md sm:gap-5 sm:rounded-3xl sm:p-8"
+                  className="relative flex items-start gap-3 rounded-2xl border border-black/5 bg-white p-4 shadow-sm sm:gap-5 sm:rounded-3xl sm:p-8"
                 >
                   {/* Numer kroku */}
                   <span
@@ -112,7 +110,7 @@ export function Process() {
         <div className="mt-8 text-center sm:mt-12">
           <a
             href="#kontakt"
-            className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-navy px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-all hover:bg-navy-700 hover:scale-105 sm:px-8 sm:py-4 sm:text-base"
+            className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-navy px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-[background-color,transform] hover:bg-navy-700 hover:scale-105 sm:px-8 sm:py-4 sm:text-base"
           >
             Umów bezpłatną konsultację
             <ArrowRight

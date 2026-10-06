@@ -1,11 +1,26 @@
 "use server";
 
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { Resend } from "resend";
 import { site } from "@/content/site";
 
+type FieldName = "name" | "phone" | "email" | "message" | "agree";
+
 export type ContactFormState = {
-  success?: boolean;
   error?: string;
+  /** Pole, którego dotyczy błąd – formularz oznacza je i ustawia na nim fokus. */
+  field?: FieldName;
+  /** Wpisane dane – po błędzie wracają do formularza, nic nie ginie. */
+  values?: {
+    name?: string;
+    phone?: string;
+    email?: string;
+    message?: string;
+    agree?: boolean;
+  };
+  submittedAt?: number;
 };
 
 /* ==========================================================================
@@ -32,6 +47,8 @@ const ERRORS = {
     "Nie udało się przesłać formularza. Prosimy o bezpośredni kontakt telefoniczny.",
   serverError:
     "Wystąpił błąd serwera. Skontaktuj się z nami bezpośrednio telefonicznie.",
+  tooMany:
+    "Wysłano zbyt wiele zgłoszeń w krótkim czasie. Spróbuj ponownie za minutę lub zadzwoń do nas.",
 } as const;
 
 // Imię i nazwisko: litery z dowolnego alfabetu (w tym ą, ę, ł, ż), spacje,
@@ -136,7 +153,7 @@ type ContactData = {
 
 type ValidationResult =
   | { ok: true; data: ContactData }
-  | { ok: false; error: string };
+  | { ok: false; error: string; field: FieldName };
 
 function validateForm(formData: FormData): ValidationResult {
   const name = cleanSingleLine(readField(formData, "name"));
@@ -150,12 +167,14 @@ function validateForm(formData: FormData): ValidationResult {
     return {
       ok: false,
       error: "Proszę podać imię i nazwisko (minimum 2 znaki).",
+      field: "name",
     };
   }
   if (name.length > LIMITS.nameMax) {
     return {
       ok: false,
       error: "Wprowadzone imię i nazwisko jest zbyt długie (maks. 100 znaków).",
+      field: "name",
     };
   }
   if (!NAME_REGEX.test(name)) {
@@ -163,6 +182,7 @@ function validateForm(formData: FormData): ValidationResult {
       ok: false,
       error:
         "Imię i nazwisko może zawierać tylko litery, spacje, myślniki i apostrofy.",
+      field: "name",
     };
   }
 
@@ -171,19 +191,20 @@ function validateForm(formData: FormData): ValidationResult {
     phoneDisplay.length > LIMITS.phoneDisplayMax ||
     !PHONE_REGEX.test(phone)
   ) {
-    return { ok: false, error: "Proszę podać prawidłowy numer telefonu." };
+    return { ok: false, error: "Proszę podać prawidłowy numer telefonu.", field: "phone" };
   }
 
   // Długość sprawdzamy przed wyrażeniem regularnym, żeby nie analizować
   // bardzo długich ciągów znaków.
   if (email.length > LIMITS.emailMax || !EMAIL_REGEX.test(email)) {
-    return { ok: false, error: "Proszę podać prawidłowy adres e-mail." };
+    return { ok: false, error: "Proszę podać prawidłowy adres e-mail.", field: "email" };
   }
 
   if (message.length > LIMITS.messageMax) {
     return {
       ok: false,
       error: "Wiadomość jest zbyt długa (maksymalnie 3000 znaków).",
+      field: "message",
     };
   }
 
@@ -193,6 +214,7 @@ function validateForm(formData: FormData): ValidationResult {
       ok: false,
       error:
         "Wiadomość zawiera zbyt wiele linków. Opisz swoją sytuację własnymi słowami lub zadzwoń do nas.",
+      field: "message",
     };
   }
 
@@ -200,6 +222,7 @@ function validateForm(formData: FormData): ValidationResult {
     return {
       ok: false,
       error: "Wymagana jest akceptacja polityki prywatności.",
+      field: "agree",
     };
   }
 
@@ -281,6 +304,28 @@ function buildHtmlEmail(data: ContactData, sentAt: string): string {
 }
 
 /* ==========================================================================
+   LIMIT ZGŁOSZEŃ – Cloudflare Rate Limiting (binding w wrangler.jsonc)
+   ========================================================================== */
+
+type RateLimiter = { limit(options: { key: string }): Promise<{ success: boolean }> };
+
+// Zwraca true, gdy z danego adresu IP wysłano zbyt wiele zgłoszeń.
+// Brak bindingu (np. lokalnie bez wranglera) = brak limitu, a nie błąd.
+async function isRateLimited(): Promise<boolean> {
+  try {
+    const { env } = await getCloudflareContext({ async: true });
+    const limiter = (env as unknown as { CONTACT_RATE_LIMITER?: RateLimiter })
+      .CONTACT_RATE_LIMITER;
+    if (!limiter) return false;
+    const ip = (await headers()).get("cf-connecting-ip") ?? "unknown";
+    const { success } = await limiter.limit({ key: ip });
+    return !success;
+  } catch {
+    return false;
+  }
+}
+
+/* ==========================================================================
    SERVER ACTION
    ========================================================================== */
 
@@ -289,28 +334,44 @@ export async function sendContactForm(
   formData: FormData,
 ): Promise<ContactFormState> {
   // 1. Honeypot – pole niewidoczne dla ludzi. Bot, który je wypełni,
-  //    dostaje "sukces", żeby nie wiedział, że został wykryty.
+  //    trafia na stronę podziękowania, żeby nie wiedział, że został wykryty.
   if (readField(formData, "website_url").trim() !== "") {
-    return { success: true };
+    redirect("/dziekujemy");
   }
+
+  // Wpisane dane wracają do formularza przy każdym błędzie.
+  const values: ContactFormState["values"] = {
+    name: readField(formData, "name").slice(0, LIMITS.nameMax * 2),
+    phone: readField(formData, "phone").slice(0, LIMITS.phoneDisplayMax * 2),
+    email: readField(formData, "email").slice(0, LIMITS.emailMax),
+    message: readField(formData, "message").slice(0, LIMITS.messageMax * 2),
+    agree: readField(formData, "agree") === "on",
+  };
+  const fail = (error: string, field?: FieldName): ContactFormState => ({
+    error,
+    field,
+    values,
+    submittedAt: Date.now(),
+  });
 
   // 2. Czyszczenie i walidacja danych
   const result = validateForm(formData);
-  if (!result.ok) {
-    return { error: result.error };
-  }
+  if (!result.ok) return fail(result.error, result.field);
   const data = result.data;
 
-  // 3. Klient Resend – brak klucza nie wysypuje strony, tylko zwraca komunikat
+  // 3. Limit zgłoszeń z jednego adresu IP
+  if (await isRateLimited()) return fail(ERRORS.tooMany);
+
+  // 4. Klient Resend – brak klucza nie wysypuje strony, tylko zwraca komunikat
   const resend = getResendClient();
   if (!resend) {
     console.error("[contact] Brak zmiennej środowiskowej RESEND_API_KEY");
-    return { error: ERRORS.sendFailed };
+    return fail(ERRORS.sendFailed);
   }
 
   const sentAt = formatWarsawDate(new Date());
 
-  // 4. Wysyłka. W logach zapisujemy tylko opis błędu, bez danych osobowych.
+  // 5. Wysyłka. W logach zapisujemy tylko opis błędu, bez danych osobowych.
   try {
     const { error } = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL || DEFAULT_SENDER,
@@ -323,15 +384,16 @@ export async function sendContactForm(
 
     if (error) {
       console.error("[contact] Resend odrzucił wiadomość:", error.message);
-      return { error: ERRORS.sendFailed };
+      return fail(ERRORS.sendFailed);
     }
-
-    return { success: true };
   } catch (err) {
     console.error(
       "[contact] Wyjątek podczas wysyłki:",
       err instanceof Error ? err.message : "nieznany błąd",
     );
-    return { error: ERRORS.serverError };
+    return fail(ERRORS.serverError);
   }
+
+  // redirect() poza try/catch – działa przez rzucenie wyjątku.
+  redirect("/dziekujemy");
 }

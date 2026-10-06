@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import type { Metadata } from "next";
 import { site, toIsoTimestamp } from "@/content/site";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 // Dane artykułu w jednym miejscu – używane w metadanych i w JSON-LD,
 // żeby tytuł i daty nigdy się nie rozjechały.
@@ -30,7 +31,7 @@ const DATE_PUBLISHED = toIsoTimestamp(site.published.publikacje);
 const DATE_MODIFIED = toIsoTimestamp(site.updated.publikacje);
 
 export const metadata: Metadata = {
-  title: `${ARTICLE_TITLE} · Publikacja`,
+  title: { absolute: `${ARTICLE_TITLE} · Chorzów` },
   description:
     "Kompleksowa publikacja o upadłości konsumenckiej w Chorzowie i na Śląsku. Dowiedz się, co to jest, ile kosztuje, jak wygląda upadłość bez majątku i jak przygotować wniosek.",
   alternates: {
@@ -91,10 +92,8 @@ const publicationJsonLd = {
   "@graph": [
     {
       "@type": "Article",
-      "@id": `${ARTICLE_URL}/#article`,
-      isPartOf: {
-        "@id": ARTICLE_URL,
-      },
+      "@id": `${ARTICLE_URL}#article`,
+      isPartOf: { "@id": `${site.url}/#website` },
       headline: ARTICLE_TITLE,
       description:
         "Kompleksowa publikacja prawna o upadłości konsumenckiej w Polsce. Wyjaśniamy procedurę, koszty, upadłość bez majątku i oddłużenie.",
@@ -103,24 +102,20 @@ const publicationJsonLd = {
       mainEntityOfPage: ARTICLE_URL,
       datePublished: DATE_PUBLISHED,
       dateModified: DATE_MODIFIED,
+      // Autor jako osoba (zgodnie z metadanymi OpenGraph) – sygnał E-E-A-T.
       author: {
-        "@type": "Organization",
-        name: site.name,
-        url: site.url,
+        "@type": "Person",
+        name: site.legalName,
+        worksFor: { "@id": `${site.url}/#legalservice` },
       },
-      publisher: {
-        "@type": "Organization",
-        name: site.name,
-        url: site.url,
-        logo: {
-          "@type": "ImageObject",
-          url: `${site.url}/logo.svg`,
-        },
-      },
+      // Wydawca = firma opisana w layout.tsx (logo PNG – SVG nie zawsze
+      // jest akceptowane przez Google w danych strukturalnych).
+      publisher: { "@id": `${site.url}/#legalservice` },
+      about: { "@type": "Thing", name: "Upadłość konsumencka" },
     },
     {
       "@type": "BreadcrumbList",
-      "@id": `${ARTICLE_URL}/#breadcrumb`,
+      "@id": `${ARTICLE_URL}#breadcrumb`,
       itemListElement: [
         {
           "@type": "ListItem",
@@ -149,21 +144,14 @@ const preparationSteps = [
 
 export default function PublicationPage() {
   return (
-    <main className="min-h-screen bg-mint text-ink">
-      {/* Skrypt JSON-LD dla robotów Google. Zamiana "<" na \u003c to zalecane
-          przez Next.js zabezpieczenie przed przedwczesnym zamknięciem tagu. */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(publicationJsonLd).replace(/</g, "\\u003c"),
-        }}
-      />
+    <div className="min-h-screen bg-mint text-ink">
+      <JsonLd data={publicationJsonLd} />
 
       {/* =========================================================================
           HERO SECTION
       ========================================================================== */}
       <section className="relative overflow-hidden bg-navy text-white pt-6 pb-8 sm:pt-14 sm:pb-20">
-        <div className="absolute -inset-2 bg-radial from-green/15 via-transparent to-transparent opacity-70 blur-3xl pointer-events-none" />
+        <div aria-hidden="true" className="absolute -inset-2 bg-radial from-green/15 via-transparent to-transparent opacity-70 blur-3xl pointer-events-none" />
 
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center">
           {/* Breadcrumbs */}
@@ -175,7 +163,7 @@ export default function PublicationPage() {
                 </Link>
               </li>
               <li aria-hidden="true">
-                <ChevronRight className="size-3 text-white/30" />
+                <ChevronRight className="size-3 text-white/30" aria-hidden="true" />
               </li>
               <li>
                 <span aria-current="page" className="font-semibold text-green">
@@ -203,17 +191,17 @@ export default function PublicationPage() {
           <div className="mt-5 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3.5 w-full sm:w-auto">
             <a
               href={site.phone.href}
-              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-green px-5 py-3 text-sm font-semibold text-navy-900 shadow-md transition-all hover:bg-green-light hover:scale-105 whitespace-nowrap"
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-green px-5 py-3 text-sm font-semibold text-navy-900 shadow-md transition-[background-color,border-color,transform] hover:bg-green-light hover:scale-105 whitespace-nowrap"
             >
-              <Phone className="size-4" />
+              <Phone className="size-4" aria-hidden="true" />
               Zadzwoń: {site.phone.display}
             </a>
             <Link
               href="/#kontakt"
-              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition-all hover:border-green hover:bg-white/10 whitespace-nowrap"
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition-[background-color,border-color,transform] hover:border-green hover:bg-white/10 whitespace-nowrap"
             >
               Umów bezpłatną konsultację
-              <ArrowRight className="size-4 text-green" />
+              <ArrowRight className="size-4 text-green" aria-hidden="true" />
             </Link>
           </div>
         </div>
@@ -240,9 +228,9 @@ export default function PublicationPage() {
 
           <div className="grid gap-4 lg:grid-cols-12 lg:gap-12 items-start max-w-6xl mx-auto">
             <div className="lg:col-span-5">
-              <div className="lg:sticky lg:top-24 text-center lg:text-left">
+              <div className="lg:sticky lg:top-28 text-center lg:text-left">
                 <p className="flex items-center justify-center lg:justify-start gap-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-navy">
-                  <Scale className="size-3.5 sm:size-4 text-green" />
+                  <Scale className="size-3.5 sm:size-4 text-green" aria-hidden="true" />
                   Definicja & Istota
                 </p>
                 <h2 className="mt-1 font-display text-lg font-bold leading-tight text-ink sm:mt-2 sm:text-3xl">
@@ -291,7 +279,7 @@ export default function PublicationPage() {
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-8">
             <p className="flex items-center justify-center gap-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-green">
-              <Layers className="size-3.5 sm:size-4" />
+              <Layers className="size-3.5 sm:size-4" aria-hidden="true" />
               Przebieg postępowania
             </p>
             <h2 className="mt-1 font-display text-xl font-bold leading-tight sm:mt-2 sm:text-3xl lg:text-4xl">
@@ -354,7 +342,7 @@ export default function PublicationPage() {
               <div className="flex-1 flex flex-col">
                 <div className="flex items-center gap-2.5 mb-3 sm:mb-4 min-h-9 sm:min-h-11">
                   <span className="inline-flex size-8 sm:size-10 shrink-0 items-center justify-center rounded-xl bg-navy text-green shadow-sm">
-                    <TrendingDown className="size-4 sm:size-5" />
+                    <TrendingDown className="size-4 sm:size-5" aria-hidden="true" />
                   </span>
                   <h2 className="font-display text-base sm:text-xl font-bold text-navy leading-snug">
                     Czy mogę ogłosić upadłość nie mając żadnego majątku?
@@ -388,7 +376,7 @@ export default function PublicationPage() {
               <div className="flex-1 flex flex-col">
                 <div className="flex items-center gap-2.5 mb-3 sm:mb-4 min-h-9 sm:min-h-11">
                   <span className="inline-flex size-8 sm:size-10 shrink-0 items-center justify-center rounded-xl bg-navy text-green shadow-sm">
-                    <CreditCard className="size-4 sm:size-5" />
+                    <CreditCard className="size-4 sm:size-5" aria-hidden="true" />
                   </span>
                   <h2 className="font-display text-base sm:text-xl font-bold text-navy leading-snug">
                     Ile kosztuje upadłość konsumencka?
@@ -435,7 +423,7 @@ export default function PublicationPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center mb-4 sm:mb-10">
             <p className="flex items-center justify-center gap-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-navy">
-              <AlertTriangle className="size-3.5 sm:size-4 text-green" />
+              <AlertTriangle className="size-3.5 sm:size-4 text-green" aria-hidden="true" />
               Kiedy reagować
             </p>
             <h2 className="mt-1 font-display text-xl font-bold leading-tight text-ink sm:mt-2 sm:text-3xl lg:text-4xl">
@@ -486,7 +474,7 @@ export default function PublicationPage() {
             {/* Lewa kolumna: Pomoc kancelarii */}
             <div className="space-y-3 sm:space-y-4">
               <p className="flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-green">
-                <Building2 className="size-3.5 sm:size-4" />
+                <Building2 className="size-3.5 sm:size-4" aria-hidden="true" />
                 Wsparcie profesjonalistów
               </p>
               <h2 className="font-display text-xl font-bold leading-tight sm:text-3xl">
@@ -513,7 +501,7 @@ export default function PublicationPage() {
 
               <div className="rounded-xl sm:rounded-2xl border border-green/40 bg-white/5 p-4">
                 <p className="flex items-center gap-1.5 font-display text-sm font-bold text-green">
-                  <MapPin className="size-3.5 sm:size-4" />
+                  <MapPin className="size-3.5 sm:size-4" aria-hidden="true" />
                   Kancelaria w Chorzowie
                 </p>
                 <p className="mt-1 text-[13px] sm:text-sm text-white/90 leading-relaxed">
@@ -530,7 +518,7 @@ export default function PublicationPage() {
             {/* Prawa kolumna: Czy upadłość oznacza umorzenie */}
             <div className="rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-5 sm:p-8 space-y-3 sm:space-y-4">
               <div className="flex size-9 sm:size-11 items-center justify-center rounded-xl bg-green/20 text-green">
-                <HelpCircle className="size-4 sm:size-5" />
+                <HelpCircle className="size-4 sm:size-5" aria-hidden="true" />
               </div>
 
               <h2 className="font-display text-base sm:text-xl font-bold text-white">
@@ -566,7 +554,7 @@ export default function PublicationPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center mb-4 sm:mb-10">
             <p className="flex items-center justify-center gap-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-navy">
-              <FileCheck2 className="size-3.5 sm:size-4 text-green" />
+              <FileCheck2 className="size-3.5 sm:size-4 text-green" aria-hidden="true" />
               Pierwsze kroki
             </p>
             <h2 className="mt-1 font-display text-xl font-bold leading-tight text-ink sm:mt-2 sm:text-3xl lg:text-4xl">
@@ -596,10 +584,10 @@ export default function PublicationPage() {
               return (
                 <li
                   key={step.label}
-                  className={`col-span-2 md:col-span-1 flex h-full flex-col justify-between rounded-xl sm:rounded-2xl border border-black/5 bg-white p-3 sm:px-3.5 sm:py-4 shadow-xs transition-all hover:border-green hover:shadow-md text-center items-center ${placement}`}
+                  className={`col-span-2 md:col-span-1 flex h-full flex-col justify-between rounded-xl sm:rounded-2xl border border-black/5 bg-white p-3 sm:px-3.5 sm:py-4 shadow-xs transition-[background-color,border-color,transform] hover:border-green hover:shadow-md text-center items-center ${placement}`}
                 >
                   <div className="w-full flex flex-col items-center">
-                    <span className="block text-[11px] font-bold text-green uppercase tracking-wider mb-0.5">
+                    <span className="block text-[11px] font-bold text-green-contrast uppercase tracking-wider mb-0.5">
                       Krok 0{idx + 1}
                     </span>
                     <h3 className="font-display text-sm sm:text-base font-bold text-navy leading-snug min-h-[2.75em] flex items-center justify-center w-full">
@@ -666,7 +654,7 @@ export default function PublicationPage() {
                 lub wysłać{" "}
                 <Link
                   href="/#kontakt"
-                  className="font-bold text-green underline-offset-2 hover:underline"
+                  className="font-bold text-green-light underline-offset-2 hover:underline"
                 >
                   formularz kontaktowy
                 </Link>{" "}
@@ -677,7 +665,7 @@ export default function PublicationPage() {
             {/* Przyciski i informacja o bezpłatnej analizie */}
             <div className="mt-5 sm:mt-8 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-5 border-t border-white/10 pt-4 sm:pt-6">
               <div className="flex items-center gap-2.5 text-center sm:text-left">
-                <ShieldCheck className="size-5 text-green shrink-0" />
+                <ShieldCheck className="size-5 text-green shrink-0" aria-hidden="true" />
                 <span className="text-[13px] sm:text-sm text-white/75">
                   Konsultacja telefoniczna oraz wstępna analiza są bezpłatne.
                 </span>
@@ -687,17 +675,17 @@ export default function PublicationPage() {
               <div className="flex flex-col sm:flex-row items-center gap-2.5 w-full sm:w-auto shrink-0">
                 <a
                   href={site.phone.href}
-                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-green px-5 py-3 text-sm font-semibold text-navy-900 shadow-md transition-all hover:bg-green-light hover:scale-105 whitespace-nowrap"
+                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-green px-5 py-3 text-sm font-semibold text-navy-900 shadow-md transition-[background-color,border-color,transform] hover:bg-green-light hover:scale-105 whitespace-nowrap"
                 >
-                  <Phone className="size-4" />
+                  <Phone className="size-4" aria-hidden="true" />
                   {site.phone.display}
                 </a>
                 <Link
                   href="/#kontakt"
-                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-white/20 whitespace-nowrap"
+                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition-[background-color,border-color,transform] hover:bg-white/20 whitespace-nowrap"
                 >
                   Formularz kontaktowy
-                  <ArrowUpRight className="size-4 text-green" />
+                  <ArrowUpRight className="size-4 text-green" aria-hidden="true" />
                 </Link>
               </div>
             </div>
@@ -708,11 +696,11 @@ export default function PublicationPage() {
               href="/"
               className="inline-flex items-center gap-1.5 text-sm font-semibold text-white/70 hover:text-green transition-colors"
             >
-              ← Wróć do strony głównej
+              <span aria-hidden="true">←</span> Wróć do strony głównej
             </Link>
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

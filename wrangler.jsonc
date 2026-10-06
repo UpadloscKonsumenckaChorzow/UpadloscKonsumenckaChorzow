@@ -13,12 +13,24 @@
       // Self-reference service binding, the service name must match the worker name
       // see https://opennext.js.org/cloudflare/caching
       "binding": "WORKER_SELF_REFERENCE",
-      "service": "upadlosckonsumenckachorzow"
+      "service": "upadlosckonsumenckachorzow",
     },
   ],
   "images": {
-    // Enable image optimization
-    // see https://opennext.js.org/cloudflare/howtos/image
+    // Optymalizacja obrazów (AVIF/WebP) – https://opennext.js.org/cloudflare/howtos/image
     "binding": "IMAGES",
+  },
+  // Limit wysyłek formularza kontaktowego: 5 zgłoszeń na minutę z jednego
+  // adresu IP. Chroni skrzynkę i limit Resend przed spamem z botów.
+  // namespace_id to dowolna, unikalna w ramach konta liczba (jako tekst).
+  "ratelimits": [
+    {
+      "name": "CONTACT_RATE_LIMITER",
+      "namespace_id": "4101",
+      "simple": { "limit": 5, "period": 60 },
+    },
+  ],
+  "observability": {
+    "enabled": true,
   },
 }

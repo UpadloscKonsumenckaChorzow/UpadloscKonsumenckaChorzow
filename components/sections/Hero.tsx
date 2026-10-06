@@ -17,6 +17,7 @@ import {
   Award,
 } from "lucide-react";
 import { site } from "@/content/site";
+import heroImage from "@/public/rodzinka.jpg";
 
 const problemItems = [
   { label: "Komornik", icon: Gavel },
@@ -91,7 +92,7 @@ export function Hero() {
                 return (
                   <li
                     key={item.label}
-                    className="flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm font-medium text-white shadow-sm transition-all hover:border-green/50 hover:bg-white/10 sm:px-4 sm:py-3"
+                    className="flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm font-medium text-white shadow-sm sm:px-4 sm:py-3"
                   >
                     <Icon
                       className="size-4 shrink-0 text-green"
@@ -107,14 +108,14 @@ export function Hero() {
           <div className="mt-7 flex w-full flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <a
               href="#kontakt"
-              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-green px-6 py-3.5 sm:px-7 sm:py-4 text-sm font-semibold text-navy-900 shadow-lg transition-all hover:bg-green-light hover:scale-105"
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-green px-6 py-3.5 sm:px-7 sm:py-4 text-sm font-semibold text-navy-900 shadow-lg transition-[background-color,transform] hover:bg-green-light hover:scale-105"
             >
               Umów bezpłatną konsultację
               <ArrowRight className="size-4" aria-hidden="true" />
             </a>
             <a
               href={site.phone.href}
-              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-white/25 px-6 py-3.5 sm:px-7 sm:py-4 text-sm font-semibold text-white transition-all hover:bg-white/10"
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-white/25 px-6 py-3.5 sm:px-7 sm:py-4 text-sm font-semibold text-white transition-colors hover:bg-white/10"
             >
               <Phone className="size-4 text-green" aria-hidden="true" />
               {site.phone.display}
@@ -124,16 +125,17 @@ export function Hero() {
 
         {/* Zdjęcie rodziny – pełne kadrowanie od góry (bez ucinania głów) */}
         <div className="relative mb-2 flex items-center justify-center sm:mb-0 lg:justify-end">
-          <div className="absolute -inset-2 rounded-[2.5rem] bg-linear-to-tr from-green/20 via-transparent to-green/10 opacity-70 blur-xl" />
+          <div aria-hidden="true" className="absolute -inset-2 rounded-[2.5rem] bg-linear-to-tr from-green/20 via-transparent to-green/10 opacity-70 blur-xl" />
 
           <div className="relative w-full max-w-lg">
             <div className="relative aspect-4/3 sm:aspect-5/4 lg:aspect-4/5 overflow-hidden rounded-3xl border border-white/15 bg-navy-900/50 shadow-2xl">
               <Image
-                src="/rodzinka.jpg"
+                src={heroImage}
                 alt="Szczęśliwa rodzina – życie bez długów po upadłości konsumenckiej"
                 fill
-                priority
-                sizes="(min-width: 1024px) 512px, (min-width: 640px) 60vw, 100vw"
+                preload
+                placeholder="blur"
+                sizes="(min-width: 1024px) 512px, (min-width: 640px) 512px, 100vw"
                 className="object-cover object-top sm:object-center"
               />
             </div>
@@ -160,7 +162,7 @@ export function Hero() {
               return (
                 <li
                   key={item.title}
-                  className="flex flex-col items-center justify-start rounded-2xl border border-white/10 bg-white/5 p-3.5 text-center shadow-md transition-all sm:p-6"
+                  className="flex flex-col items-center justify-start rounded-2xl border border-white/10 bg-white/5 p-3.5 text-center shadow-md sm:p-6"
                 >
                   <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-green/20 text-green mb-2.5 sm:size-12 sm:mb-4">
                     <Icon className="size-5 sm:size-6" aria-hidden="true" />
@@ -188,7 +190,7 @@ export function Hero() {
               return (
                 <li
                   key={item.title}
-                  className="flex items-center gap-3.5 rounded-2xl border border-green/30 bg-navy-900/80 p-3.5 text-left shadow-md transition-all sm:flex-col sm:justify-start sm:gap-0 sm:p-6 sm:text-center hover:border-green"
+                  className="flex items-center gap-3.5 rounded-2xl border border-green/30 bg-navy-900/80 p-3.5 text-left shadow-md sm:flex-col sm:justify-start sm:gap-0 sm:p-6 sm:text-center"
                 >
                   <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-green text-white shadow-md sm:size-14 sm:mb-4">
                     <Icon className="size-5 sm:size-7" aria-hidden="true" />

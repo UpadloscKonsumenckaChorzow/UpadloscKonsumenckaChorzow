@@ -5,14 +5,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: site.url,
+      lastModified: toDate(site.updated.home),
       changeFrequency: "weekly",
       priority: 1.0,
+      images: [`${site.url}/rodzinka.jpg`],
     },
     {
       url: `${site.url}/publikacje`,
       lastModified: toDate(site.updated.publikacje),
       changeFrequency: "monthly",
       priority: 0.8,
+      images: [`${site.url}/og-image.jpg`],
     },
     {
       url: `${site.url}/polityka-prywatnosci`,

@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Phone, Mail, MapPin } from "lucide-react";
-import { CookieSettingsLink } from "@/components/cookies/CookieSettingsLink";
+import { CookieSettingsButton } from "@/components/cookies/CookieSettingsButton";
+import { LogoMark } from "@/components/brand/LogoMark";
 import { site } from "@/content/site";
 
 const YEAR = new Date().getFullYear();
@@ -77,19 +78,13 @@ export function Footer() {
           {/* Kolumna 1: Logo, opis i Partner */}
           <div>
             <Link href="/" className="flex items-center gap-3">
-              <Image
-                src="/logo.svg"
-                alt="Logo Upadłość Konsumencka"
-                width={40}
-                height={40}
-                className="size-9 sm:size-11 object-contain"
-              />
+              <LogoMark className="h-9 w-auto sm:h-11" />
               <span className="leading-tight">
                 <span className="block font-display text-sm sm:text-base font-semibold tracking-wide">
-                  UPADŁOŚĆ <span className="text-green">KONSUMENCKA</span>
+                  <span className="uppercase">Upadłość <span className="text-green">Konsumencka</span></span>
                 </span>
-                <span className="block text-[10px] sm:text-[11px] font-medium tracking-[0.18em] text-white/55">
-                  CHORZÓW · ŚLĄSK
+                <span className="block text-[11px] font-medium uppercase tracking-[0.18em] text-white/55">
+                  Chorzów · Śląsk
                 </span>
               </span>
             </Link>
@@ -103,15 +98,14 @@ export function Footer() {
               <a
                 href={site.partner.url}
                 target="_blank"
-                rel="nofollow noopener noreferrer"
-                aria-label={`${site.partner.name} – otwiera się w nowej karcie`}
-                className="inline-block rounded-2xl bg-white p-2 sm:p-2.5 shadow-md border border-white/10 transition-all hover:scale-105"
+                rel="noopener"
+                className="inline-block rounded-2xl bg-white p-2 sm:p-2.5 shadow-md border border-white/10 transition-transform hover:scale-105"
               >
                 <Image
                   src="/expert-partner.webp"
-                  alt="Grupa Expert Partner"
+                  alt={`${site.partner.name} – otwiera się w nowej karcie`}
                   width={130}
-                  height={38}
+                  height={35}
                   className="h-8 w-auto object-contain sm:h-10"
                 />
               </a>
@@ -119,29 +113,29 @@ export function Footer() {
           </div>
 
           {/* Kolumna 2: Nawigacja */}
-          <div>
-            <h3 className="font-display text-sm sm:text-base font-semibold text-green">
+          <nav aria-label="Nawigacja w stopce">
+            <h2 className="font-display text-sm sm:text-base font-semibold text-green">
               Nawigacja
-            </h3>
+            </h2>
             <ul className="mt-3 grid grid-cols-2 gap-y-2.5 gap-x-4 sm:mt-5 sm:block sm:space-y-2.5">
               {pageLinks.map((l) => (
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="text-sm text-white/70 transition-colors hover:text-green"
+                    className="inline-block py-0.5 text-sm text-white/55 transition-colors hover:text-green"
                   >
                     {l.label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           {/* Kolumna 3: Kontakt i dane rejestrowe */}
           <div>
-            <h3 className="font-display text-sm sm:text-base font-semibold text-green">
+            <h2 className="font-display text-sm sm:text-base font-semibold text-green">
               Kontakt & Kancelaria
-            </h3>
+            </h2>
             <div className="mt-3 space-y-3 text-sm sm:mt-5 sm:space-y-3.5 text-white/75">
               <a
                 href={site.phone.href}
@@ -203,10 +197,10 @@ export function Footer() {
                           href={s.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          aria-label={`${s.label} – otwiera się w nowej karcie`}
-                          className="flex size-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white/70 transition-all hover:border-green/50 hover:bg-white/10 hover:text-green sm:size-10"
+                          className="flex size-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white/55 transition-colors hover:border-green/50 hover:bg-white/10 hover:text-green sm:size-10"
                         >
                           <Icon className="size-4 sm:size-4.5" />
+                          <span className="sr-only">{`${s.label} – otwiera się w nowej karcie`}</span>
                         </a>
                       </li>
                     );
@@ -232,7 +226,7 @@ export function Footer() {
               Polityka prywatności
             </Link>
 
-            <CookieSettingsLink />
+            <CookieSettingsButton className="cursor-pointer transition-colors hover:text-white focus-visible:text-white" />
 
             <span aria-hidden="true">·</span>
             <span>

@@ -1,0 +1,4 @@
+# Skopiuj do .dev.vars (lokalnie) albo ustaw jako sekrety: wrangler secret put RESEND_API_KEY
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxx
+# Opcjonalnie – nadawca musi być z domeny zweryfikowanej w Resend
+RESEND_FROM_EMAIL="Upadłość Konsumencka <kontakt@upadlosckonsumenckachorzow.pl>"

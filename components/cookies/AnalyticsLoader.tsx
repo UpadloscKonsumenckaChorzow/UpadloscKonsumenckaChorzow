@@ -2,20 +2,14 @@
 
 import { useEffect, useRef } from "react";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { useCookieConsent } from "@/context/CookieConsentContext";
+import { useConsent } from "@/lib/consent";
 
 // Ciasteczka zakładane przez Google Analytics 4.
 function isGaCookie(name: string): boolean {
-  return (
-    name === "_ga" ||
-    name.startsWith("_ga_") ||
-    name === "_gid" ||
-    name === "_gat"
-  );
+  return name === "_ga" || name.startsWith("_ga_") || name === "_gid" || name === "_gat";
 }
 
-// Usuwa ciasteczka GA. Google zapisuje je na domenie głównej
-// (.upadlosckonsumenckachorzow.pl), więc kasujemy je w kilku wariantach domeny.
+// GA zapisuje ciasteczka na domenie głównej, więc kasujemy kilka wariantów.
 function removeGaCookies(): void {
   const host = window.location.hostname;
   const rootDomain = host.split(".").slice(-2).join(".");
@@ -24,39 +18,29 @@ function removeGaCookies(): void {
   for (const cookie of document.cookie.split(";")) {
     const name = cookie.split("=")[0]?.trim();
     if (!name || !isGaCookie(name)) continue;
-
     for (const domain of domains) {
-      document.cookie =
-        `${name}=; Max-Age=0; path=/` + (domain ? `; domain=${domain}` : "");
+      document.cookie = `${name}=; Max-Age=0; path=/${domain ? `; domain=${domain}` : ""}`;
     }
   }
 }
 
-// Oficjalny wyłącznik Google: gdy window["ga-disable-<ID>"] === true,
-// gtag.js przestaje wysyłać dane, nawet jeśli skrypt jest już załadowany.
+// Oficjalny wyłącznik: window["ga-disable-<ID>"] = true zatrzymuje wysyłkę.
 function setGaDisabled(gaId: string, disabled: boolean): void {
-  (window as unknown as Record<string, boolean>)[`ga-disable-${gaId}`] =
-    disabled;
+  (window as unknown as Record<string, boolean>)[`ga-disable-${gaId}`] = disabled;
 }
 
+/** Skrypt GA ładuje się dopiero po zgodzie. Cofnięcie zgody go wyłącza. */
 export function AnalyticsLoader({ gaId }: { gaId?: string }) {
-  const { consent } = useCookieConsent();
+  const { consent } = useConsent();
   const hasConsent = consent?.analytics === true;
-
-  // Zapamiętuje, czy w tej wizycie zgoda była już udzielona. Dzięki temu
-  // ciasteczka kasujemy tylko przy faktycznym cofnięciu zgody, a nie przy
-  // każdym wczytaniu strony, zanim kontekst odczyta zapisaną zgodę.
   const wasGranted = useRef(false);
 
   useEffect(() => {
     if (!gaId) return;
-
     if (hasConsent) {
       setGaDisabled(gaId, false);
       wasGranted.current = true;
     } else if (wasGranted.current) {
-      // Użytkownik cofnął zgodę w trakcie wizyty: zatrzymujemy wysyłanie
-      // danych i usuwamy ciasteczka, które GA zdążył założyć.
       setGaDisabled(gaId, true);
       removeGaCookies();
       wasGranted.current = false;
@@ -64,6 +48,5 @@ export function AnalyticsLoader({ gaId }: { gaId?: string }) {
   }, [gaId, hasConsent]);
 
   if (!gaId || !hasConsent) return null;
-
   return <GoogleAnalytics gaId={gaId} />;
 }

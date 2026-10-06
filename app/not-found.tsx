@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main className="flex min-h-[80vh] items-center justify-center bg-mint px-5 py-16">
+    <div className="flex min-h-[80vh] items-center justify-center bg-mint px-5 py-16">
       <div className="mx-auto max-w-xl text-center">
         <div className="mx-auto mb-6 inline-flex items-center justify-center rounded-2xl bg-navy px-6 py-2 shadow-md">
           <span className="font-display text-2xl font-bold tracking-widest text-green">
@@ -34,7 +34,7 @@ export default function NotFound() {
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link
             href="/"
-            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-green px-7 py-3.5 text-sm font-semibold text-navy-900 shadow-md transition-all hover:bg-green-light hover:scale-105"
+            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-green px-7 py-3.5 text-sm font-semibold text-navy-900 shadow-md transition-[background-color,border-color,transform] hover:bg-green-light hover:scale-105"
           >
             <Home className="size-4" aria-hidden="true" />
             Wróć na stronę główną
@@ -42,7 +42,7 @@ export default function NotFound() {
 
           <Link
             href="/#kontakt"
-            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-black/10 bg-white px-7 py-3.5 text-sm font-semibold text-ink transition-all hover:bg-black/5"
+            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-black/10 bg-white px-7 py-3.5 text-sm font-semibold text-ink transition-[background-color,border-color,transform] hover:bg-black/5"
           >
             <HelpCircle className="size-4 text-green" aria-hidden="true" />
             Skontaktuj się z nami
@@ -74,6 +74,6 @@ export default function NotFound() {
           </a>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

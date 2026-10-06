@@ -1,7 +1,5 @@
-"use client";
-
-import { useState } from "react";
 import { HelpCircle, Plus, Minus } from "lucide-react";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 const faqs = [
   {
@@ -48,24 +46,12 @@ const faqSchema = {
 };
 
 export function Faq() {
-  const [open, setOpen] = useState<number | null>(null);
-
   return (
-    // scroll-mt-40: przyklejony nagłówek ma ok. 110–130 px, przy mniejszym
-    // odstępie tytuł sekcji chowa się pod nim po kliknięciu w menu.
-    <section id="faq" className="scroll-mt-40 bg-mint py-10 sm:py-16">
-      {/* Zamiana "<" na \u003c to zalecane przez Next.js zabezpieczenie
-          przed przedwczesnym zamknięciem znacznika script. */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c"),
-        }}
-      />
+    <section id="faq" className="bg-mint py-10 sm:py-16">
+      <JsonLd data={faqSchema} />
       <div className="mx-auto grid max-w-7xl gap-6 px-4 sm:gap-12 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
-        {/* top-36 (144 px) mieści przyklejony nagłówek: pasek kontaktowy
-            48 px + pasek główny 80 px. */}
-        <div className="lg:sticky lg:top-36 lg:self-start">
+        {/* Przyklejony nagłówek ma 80 px – kolumna zatrzymuje się tuż pod nim. */}
+        <div className="lg:sticky lg:top-28 lg:self-start">
           <p className="flex items-center gap-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.16em] text-navy">
             <HelpCircle className="size-4 text-green" aria-hidden="true" />
             FAQ / Pytania
@@ -89,55 +75,30 @@ export function Faq() {
         </div>
 
         <div className="divide-y divide-black/10 border-y border-black/10">
-          {faqs.map((faq, i) => {
-            const isOpen = open === i;
-            return (
-              <div key={faq.q} className="py-1.5 sm:py-3">
-                <h3>
-                  <button
-                    type="button"
-                    id={`faq-btn-${i}`}
-                    onClick={() => setOpen(isOpen ? null : i)}
-                    className="group flex w-full items-center justify-between gap-3 py-2.5 text-left cursor-pointer sm:gap-4 sm:py-3"
-                    aria-expanded={isOpen}
-                    aria-controls={`faq-panel-${i}`}
-                  >
-                    <span className="font-display text-sm font-semibold text-ink transition-colors group-hover:text-navy sm:text-lg">
-                      {faq.q}
-                    </span>
+          {/* Natywne <details>: działa bez JavaScriptu, treść odpowiedzi jest
+              w HTML (widzi ją Google), a atrybut name sprawia, że otwarta
+              jest najwyżej jedna odpowiedź naraz. */}
+          {faqs.map((faq) => (
+            <details key={faq.q} name="faq" className="faq-item group py-1.5 sm:py-3">
+              <summary className="flex w-full cursor-pointer items-center justify-between gap-3 py-2.5 text-left sm:gap-4 sm:py-3">
+                <span className="font-display text-sm font-semibold text-ink transition-colors group-hover:text-navy sm:text-lg">
+                  {faq.q}
+                </span>
 
-                    <span
-                      aria-hidden="true"
-                      className={`flex size-8 shrink-0 items-center justify-center rounded-full transition-all duration-300 sm:size-9 ${
-                        isOpen
-                          ? "bg-navy text-green shadow-md"
-                          : "bg-navy/5 text-navy group-hover:bg-navy/10"
-                      }`}
-                    >
-                      {isOpen ? (
-                        <Minus className="size-4 sm:size-5" />
-                      ) : (
-                        <Plus className="size-4 sm:size-5" />
-                      )}
-                    </span>
-                  </button>
-                </h3>
-
-                {/* Odpowiedź jest zawsze w kodzie strony, tylko ukryta.
-                    Dzięki temu Google widzi jej treść, a aria-controls
-                    zawsze wskazuje istniejący element. */}
-                <div
-                  id={`faq-panel-${i}`}
-                  role="region"
-                  aria-labelledby={`faq-btn-${i}`}
-                  hidden={!isOpen}
-                  className="pb-3 pt-1 text-sm leading-relaxed text-ink/75 sm:pb-4 sm:pt-2 sm:text-base"
+                <span
+                  aria-hidden="true"
+                  className="flex size-8 shrink-0 items-center justify-center rounded-full bg-navy/5 text-navy transition-colors duration-300 group-hover:bg-navy/10 group-open:bg-navy group-open:text-green group-open:shadow-md sm:size-9"
                 >
-                  {faq.a}
-                </div>
-              </div>
-            );
-          })}
+                  <Plus className="size-4 group-open:hidden sm:size-5" />
+                  <Minus className="hidden size-4 group-open:block sm:size-5" />
+                </span>
+              </summary>
+
+              <p className="pb-3 pt-1 text-sm leading-relaxed text-ink/75 sm:pb-4 sm:pt-2 sm:text-base">
+                {faq.a}
+              </p>
+            </details>
+          ))}
         </div>
       </div>
     </section>

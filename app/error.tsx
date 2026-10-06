@@ -30,7 +30,7 @@ export default function ErrorPage({
   }
 
   return (
-    <main className="flex min-h-[80vh] items-center justify-center bg-mint px-5 py-16">
+    <div className="flex min-h-[80vh] items-center justify-center bg-mint px-5 py-16">
       {/* Strona błędu nie powinna trafić do wyników Google. */}
       <meta name="robots" content="noindex" />
 
@@ -56,7 +56,7 @@ export default function ErrorPage({
           <button
             type="button"
             onClick={handleRetry}
-            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-navy px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-navy-700 hover:scale-105 shadow-md cursor-pointer"
+            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-navy px-6 py-3.5 text-sm font-semibold text-white transition-[background-color,border-color,transform] hover:bg-navy-700 hover:scale-105 shadow-md cursor-pointer"
           >
             <RotateCcw className="size-4 text-green" aria-hidden="true" />
             Spróbuj ponownie
@@ -64,7 +64,7 @@ export default function ErrorPage({
 
           <Link
             href="/"
-            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-black/10 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition-all hover:bg-black/5"
+            className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-black/10 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition-[background-color,border-color,transform] hover:bg-black/5"
           >
             <Home className="size-4 text-green" aria-hidden="true" />
             Strona główna
@@ -92,6 +92,6 @@ export default function ErrorPage({
           )}
         </div>
       </div>
-    </main>
+    </div>
   );
 }

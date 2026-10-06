@@ -61,8 +61,11 @@ function daneIdentyfikacyjne() {
 function Section({ numer, children }: { numer: number; children: ReactNode }) {
   const tytul = spisTresci[numer - 1];
   return (
-    <section id={`sekcja-${numer}`} className="scroll-mt-24">
-      <h2 className="font-display text-xl font-bold text-navy border-b border-black/10 pb-3">
+    <section id={`sekcja-${numer}`} aria-labelledby={`sekcja-${numer}-tytul`}>
+      <h2
+        id={`sekcja-${numer}-tytul`}
+        className="font-display text-xl font-bold text-navy border-b border-black/10 pb-3"
+      >
         {numer}. {tytul}
       </h2>
       <div className="mt-4 space-y-3">{children}</div>
@@ -86,7 +89,7 @@ function Kod({ children }: { children: ReactNode }) {
 
 export default function PrivacyPolicyPage() {
   return (
-    <main className="bg-mint min-h-screen py-12 sm:py-16 text-ink">
+    <div className="bg-mint min-h-screen py-12 sm:py-16 text-ink">
       <div className="mx-auto max-w-4xl px-5 lg:px-8">
         <Link
           href="/"
@@ -526,13 +529,13 @@ export default function PrivacyPolicyPage() {
         <div className="mt-8 text-center">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 rounded-xl bg-navy px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-navy-700 hover:scale-105 shadow-md"
+            className="inline-flex items-center gap-2 rounded-xl bg-navy px-8 py-4 text-sm font-semibold text-white transition-[background-color,border-color,transform] hover:bg-navy-700 hover:scale-105 shadow-md"
           >
             <ArrowLeft className="size-4 text-green" aria-hidden="true" />
             Wróć na stronę główną
           </Link>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

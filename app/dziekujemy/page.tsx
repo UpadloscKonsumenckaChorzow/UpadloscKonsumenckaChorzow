@@ -51,7 +51,7 @@ const NEXT_STEPS = [
 
 export default function ThankYouPage() {
   return (
-    <main className="min-h-[85vh] bg-mint py-12 sm:py-16 text-ink flex items-center justify-center">
+    <div className="min-h-[85vh] bg-mint py-12 sm:py-16 text-ink flex items-center justify-center">
       <div className="mx-auto max-w-3xl px-5 lg:px-8 w-full">
         <div className="overflow-hidden rounded-3xl border border-black/10 bg-white shadow-2xl">
           <div className="bg-navy p-8 sm:p-10 text-center text-white relative">
@@ -113,7 +113,7 @@ export default function ThankYouPage() {
               <a
                 href={site.phone.href}
                 aria-label={`Zadzwoń: ${site.phone.display}`}
-                className="inline-flex items-center gap-2 rounded-xl bg-green px-5 py-3 text-sm font-semibold text-navy-900 shadow-md transition-all hover:bg-green-light hover:scale-105 shrink-0"
+                className="inline-flex items-center gap-2 rounded-xl bg-green px-5 py-3 text-sm font-semibold text-navy-900 shadow-md transition-[background-color,border-color,transform] hover:bg-green-light hover:scale-105 shrink-0"
               >
                 <Phone className="size-4" aria-hidden="true" />
                 {site.phone.display}
@@ -156,7 +156,7 @@ export default function ThankYouPage() {
             <div className="text-center pt-2">
               <Link
                 href="/"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-navy px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-navy-700 hover:scale-105 shadow-md"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-navy px-8 py-3.5 text-sm font-semibold text-white transition-[background-color,border-color,transform] hover:bg-navy-700 hover:scale-105 shadow-md"
               >
                 <Home className="size-4 text-green" aria-hidden="true" />
                 Wróć na stronę główną
@@ -165,6 +165,6 @@ export default function ThankYouPage() {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

@@ -45,7 +45,7 @@ const situations = [
 
 export function ForWho() {
   return (
-    <section id="dla-kogo" className="scroll-mt-40 bg-mint py-10 sm:py-16">
+    <section id="dla-kogo" className="bg-mint py-10 sm:py-16">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <p className="flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.16em] text-navy">
@@ -65,7 +65,7 @@ export function ForWho() {
             return (
               <li
                 key={item.text}
-                className={`flex items-center gap-3 rounded-2xl border border-black/5 bg-white p-4 shadow-sm transition-all hover:border-green/50 hover:shadow-md sm:gap-4 sm:p-6 ${
+                className={`flex items-center gap-3 rounded-2xl border border-black/5 bg-white p-4 shadow-sm sm:gap-4 sm:p-6 ${
                   isLast
                     ? "sm:col-span-2 sm:mx-auto sm:w-[calc(50%-0.5rem)]"
                     : "w-full"
@@ -94,14 +94,14 @@ export function ForWho() {
           <div className="mt-6 flex flex-col justify-center gap-3 sm:mt-8 sm:flex-row sm:gap-4">
             <a
               href="#kontakt"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-green px-6 py-3.5 text-sm font-semibold text-navy-900 shadow-lg transition-all hover:bg-green-light hover:scale-105 sm:px-8 sm:py-4 sm:text-base"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-green px-6 py-3.5 text-sm font-semibold text-navy-900 shadow-lg transition-[background-color,transform] hover:bg-green-light hover:scale-105 sm:px-8 sm:py-4 sm:text-base"
             >
               Umów bezpłatną konsultację
               <ArrowRight className="size-4 sm:size-5" aria-hidden="true" />
             </a>
             <a
               href={site.phone.href}
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-6 py-3.5 text-sm font-semibold text-white transition-all hover:border-green hover:bg-white/15 sm:px-8 sm:py-4 sm:text-base"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:border-green hover:bg-white/15 sm:px-8 sm:py-4 sm:text-base"
             >
               <Phone
                 className="size-4 sm:size-5 text-green"

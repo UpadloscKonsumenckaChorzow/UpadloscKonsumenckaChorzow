@@ -1,13 +1,3 @@
-"use client";
-
-import {
-  useState,
-  useTransition,
-  useEffect,
-  useRef,
-  type FormEvent,
-} from "react";
-import { useRouter } from "next/navigation";
 import {
   PhoneCall,
   Phone,
@@ -15,78 +5,22 @@ import {
   MapPin,
   Globe,
   Clock,
-  Send,
-  Loader2,
-  AlertCircle,
-  Copy,
-  Check,
 } from "lucide-react";
 import { site } from "@/content/site";
-import { sendContactForm } from "@/app/actions/contact";
+import { ContactForm } from "@/components/contact/ContactForm";
+import { CopyEmailButton } from "@/components/contact/CopyEmailButton";
+import { MapEmbed } from "@/components/contact/MapEmbed";
 
-// Pola formularza mają na telefonie 16 px. Poniżej tej wartości Safari na
-// iPhonie automatycznie przybliża stronę po kliknięciu w pole i już z niej
-// nie wraca – klasyczny problem formularzy na iOS.
-const INPUT_CLASS =
-  "w-full rounded-xl border border-black/10 px-3 py-2.5 text-base sm:px-4 sm:py-3 sm:text-sm outline-none transition-colors focus:border-navy focus:ring-2 focus:ring-navy/10";
-
+/*
+ * Sekcja kontaktu renderowana na serwerze. W przeglądarce działają tylko
+ * trzy małe "wyspy": formularz, przycisk kopiowania e-maila i mapa.
+ */
 export function Contact() {
-  const router = useRouter();
-  const [agree, setAgree] = useState(false);
-  const [isPending, startTransition] = useTransition();
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [mapLoaded, setMapLoaded] = useState(false);
-  const [emailCopied, setEmailCopied] = useState(false);
-  const errorRef = useRef<HTMLDivElement>(null);
-
-  // Komunikat o błędzie pojawia się nad formularzem, a przycisk wysyłania
-  // jest na dole – bez przewinięcia użytkownik mógłby go nie zauważyć.
-  useEffect(() => {
-    if (errorMessage) {
-      errorRef.current?.scrollIntoView({ block: "center" });
-    }
-  }, [errorMessage]);
-
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setErrorMessage(null);
-
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    startTransition(async () => {
-      const response = await sendContactForm({}, formData);
-
-      if (response.error) {
-        setErrorMessage(response.error);
-        return;
-      }
-
-      if (response.success) {
-        form.reset();
-        // form.reset() nie zmienia stanu Reacta, więc zgodę czyścimy osobno.
-        setAgree(false);
-        router.push("/dziekujemy");
-      }
-    });
-  }
-
-  async function handleCopyEmail() {
-    try {
-      await navigator.clipboard.writeText(site.email.display);
-      setEmailCopied(true);
-      setTimeout(() => setEmailCopied(false), 2000);
-    } catch {
-      // Clipboard API fallback
-    }
-  }
-
   return (
-    // scroll-mt-40: przyklejony nagłówek ma ok. 110–130 px, przy mniejszym
-    // odstępie tytuł sekcji chowa się pod nim po kliknięciu w menu.
     <section
       id="kontakt"
-      className="scroll-mt-40 bg-navy py-10 text-white sm:py-16 overflow-hidden"
+      aria-labelledby="kontakt-title"
+      className="bg-navy py-10 text-white sm:py-16 overflow-hidden"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center mb-6 sm:mb-12">
@@ -94,7 +28,7 @@ export function Contact() {
             <PhoneCall className="size-4" aria-hidden="true" />
             Kontakt
           </p>
-          <h2 className="mt-2 font-display text-2xl font-bold leading-tight sm:mt-3 sm:text-4xl lg:text-5xl">
+          <h2 id="kontakt-title" className="mt-2 font-display text-2xl font-bold leading-tight sm:mt-3 sm:text-4xl lg:text-5xl">
             Zrób pierwszy krok
           </h2>
           <p className="mt-3 text-sm font-medium text-white/90 sm:mt-3 sm:text-base lg:text-xl">
@@ -154,44 +88,7 @@ export function Contact() {
                     </span>
                   </a>
 
-                  {/* Przycisk kopiowania */}
-                  <div className="relative shrink-0 ml-2 translate-x-2.5 sm:translate-x-0">
-                    <button
-                      type="button"
-                      onClick={handleCopyEmail}
-                      aria-label={
-                        emailCopied
-                          ? "Adres e-mail skopiowany"
-                          : "Kopiuj adres e-mail"
-                      }
-                      title={emailCopied ? "Skopiowano!" : "Kopiuj e-mail"}
-                      className="flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-lg text-white/60 transition-colors hover:bg-white/10 hover:text-green"
-                    >
-                      {emailCopied ? (
-                        <Check
-                          className="size-4 text-green"
-                          aria-hidden="true"
-                        />
-                      ) : (
-                        <Copy className="size-4" aria-hidden="true" />
-                      )}
-                    </button>
-
-                    {/* Dymek z komunikatem */}
-                    {emailCopied && (
-                      <div
-                        role="status"
-                        aria-live="polite"
-                        className="pointer-events-none absolute -top-10 right-0 z-30 flex items-center justify-center whitespace-nowrap rounded-lg bg-green px-2.5 py-1 text-xs font-bold text-white shadow-xl animate-in fade-in zoom-in-95 duration-150"
-                      >
-                        Skopiowano!
-                        <div
-                          aria-hidden="true"
-                          className="absolute -bottom-1 right-2.5 size-2 rotate-45 bg-green"
-                        />
-                      </div>
-                    )}
-                  </div>
+                  <CopyEmailButton />
                 </div>
 
                 {/* ADRES */}
@@ -251,35 +148,7 @@ export function Contact() {
                 Lokalizacja biura (Google Maps)
               </p>
 
-              {/* Mapa wczytuje się dopiero po kliknięciu – do tego momentu
-                  Google nie dostaje żadnych danych o odwiedzającym.
-                  Dokładnie tak opisuje to polityka prywatności. */}
-              {mapLoaded ? (
-                <iframe
-                  title="Lokalizacja Kancelarii – ul. Hajducka 4, Chorzów"
-                  src={site.maps.embed}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="h-56 w-full grayscale contrast-125 opacity-90 transition-all hover:grayscale-0 hover:opacity-100 sm:h-72"
-                  style={{ border: 0 }}
-                />
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => setMapLoaded(true)}
-                  className="flex min-h-36 sm:min-h-44 w-full cursor-pointer flex-col items-center justify-center gap-2.5 bg-navy-900/40 px-4 py-5 text-center transition-colors hover:bg-navy-900/60 sm:gap-3 sm:px-6 sm:py-8"
-                >
-                  <span className="flex size-9 sm:size-11 items-center justify-center rounded-xl bg-white/10 text-green">
-                    <MapPin className="size-4 sm:size-5" aria-hidden="true" />
-                  </span>
-                  <span className="max-w-xs text-xs leading-relaxed text-white/75">
-                    Kliknij, aby załadować interaktywną mapę Google.
-                  </span>
-                  <span className="rounded-lg bg-green px-3.5 py-1.5 sm:px-4 sm:py-2 text-xs font-semibold text-navy-900 shadow-md transition-all hover:bg-green-light">
-                    Załaduj mapę Google Maps
-                  </span>
-                </button>
-              )}
+              <MapEmbed />
             </div>
           </div>
 
@@ -291,159 +160,7 @@ export function Contact() {
               Przedstaw swoją sytuację. Odpowiadamy tego samego dnia roboczego.
             </p>
 
-            {/* Bez noValidate: przeglądarka od razu sygnalizuje puste pole
-                albo zły format e-maila, bez wysyłki na serwer. Pełną
-                walidację i tak wykonuje Server Action. */}
-            <form
-              className="mt-4 space-y-3 sm:mt-6 sm:space-y-4"
-              onSubmit={handleSubmit}
-            >
-              {/* Pułapka na boty – człowiek tego pola nie widzi */}
-              <input
-                type="text"
-                name="website_url"
-                tabIndex={-1}
-                autoComplete="off"
-                className="hidden"
-                aria-hidden="true"
-              />
-
-              {errorMessage && (
-                <div
-                  ref={errorRef}
-                  role="alert"
-                  aria-live="assertive"
-                  className="flex items-center gap-2.5 rounded-xl border border-red-200 bg-red-50 p-3 text-sm font-medium text-red-700"
-                >
-                  <AlertCircle className="size-4 shrink-0" aria-hidden="true" />
-                  <span>{errorMessage}</span>
-                </div>
-              )}
-
-              <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
-                <div>
-                  <label
-                    htmlFor="contact-name"
-                    className="mb-1 block text-sm font-semibold text-ink sm:mb-1.5"
-                  >
-                    Imię i nazwisko <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    id="contact-name"
-                    type="text"
-                    required
-                    name="name"
-                    autoComplete="name"
-                    placeholder="Jan Kowalski"
-                    className={INPUT_CLASS}
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="contact-phone"
-                    className="mb-1 block text-sm font-semibold text-ink sm:mb-1.5"
-                  >
-                    Numer telefonu <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    id="contact-phone"
-                    type="tel"
-                    required
-                    name="phone"
-                    autoComplete="tel"
-                    inputMode="tel"
-                    placeholder="515 515 314"
-                    className={INPUT_CLASS}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label
-                  htmlFor="contact-email"
-                  className="mb-1 block text-sm font-semibold text-ink sm:mb-1.5"
-                >
-                  Adres e-mail <span className="text-red-500">*</span>
-                </label>
-                <input
-                  id="contact-email"
-                  type="email"
-                  required
-                  name="email"
-                  autoComplete="email"
-                  inputMode="email"
-                  placeholder="jan@przyklad.pl"
-                  className={INPUT_CLASS}
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="contact-message"
-                  className="mb-1 block text-sm font-semibold text-ink sm:mb-1.5"
-                >
-                  Przedstaw swoją sytuację
-                </label>
-                <textarea
-                  id="contact-message"
-                  rows={3}
-                  name="message"
-                  maxLength={3000}
-                  placeholder="Np. orientacyjna kwota długu, liczba wierzycieli, czy jest komornik..."
-                  className={`${INPUT_CLASS} sm:min-h-28`}
-                />
-              </div>
-
-              <label className="flex items-start gap-2.5 text-xs leading-relaxed text-ink/75 cursor-pointer sm:text-sm">
-                <input
-                  type="checkbox"
-                  required
-                  name="agree"
-                  checked={agree}
-                  onChange={(e) => setAgree(e.target.checked)}
-                  className="mt-0.5 size-4 shrink-0 rounded border-black/20 accent-navy"
-                />
-                <span>
-                  Wyrażam zgodę na kontakt w sprawie upadłości konsumenckiej
-                  zgodnie z{" "}
-                  <a
-                    href="/polityka-prywatnosci"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline text-navy font-semibold hover:text-green-contrast"
-                  >
-                    Polityką Prywatności
-                  </a>
-                  . <span className="text-red-500">*</span>
-                </span>
-              </label>
-
-              <button
-                type="submit"
-                disabled={isPending}
-                aria-busy={isPending}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-navy px-5 py-3.5 sm:px-6 sm:py-4 text-sm font-semibold text-white transition-all hover:bg-navy-700 hover:scale-[1.01] shadow-md disabled:opacity-50 disabled:hover:scale-100 cursor-pointer disabled:cursor-wait"
-              >
-                {isPending ? (
-                  <>
-                    <Loader2
-                      className="size-4 animate-spin text-green"
-                      aria-hidden="true"
-                    />
-                    Wysyłanie formularza...
-                  </>
-                ) : (
-                  <>
-                    <Send className="size-4 text-green" aria-hidden="true" />
-                    Wyślij i umów bezpłatną analizę
-                  </>
-                )}
-              </button>
-
-              <p className="text-center text-xs leading-relaxed text-ink/70">
-                Rozmowa jest całkowicie bezpłatna i poufna.
-              </p>
-            </form>
+            <ContactForm />
           </div>
         </div>
       </div>

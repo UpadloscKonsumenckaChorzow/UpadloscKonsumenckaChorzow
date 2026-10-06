@@ -1,69 +1,11 @@
-"use client";
-
-import { useState, useEffect, useRef } from "react";
 import {
   CreditCard,
   CheckCircle2,
   ArrowRight,
   ShieldCheck,
 } from "lucide-react";
-
-/**
- * Licznik odliczający do kwoty, uruchamiany dopiero gdy element wjedzie
- * na ekran. Stan początkowy to pełna kwota, dzięki czemu poprawną wartość
- * widzi zarówno Google, jak i osoby z wyłączonym JavaScriptem.
- */
-function AnimatedCounter({ target }: { target: number }) {
-  const [count, setCount] = useState(target);
-  const elementRef = useRef<HTMLSpanElement>(null);
-  const animatedRef = useRef(false);
-
-  useEffect(() => {
-    const element = elementRef.current;
-    if (!element || typeof IntersectionObserver === "undefined") return;
-
-    // Osoby, które w systemie wyłączyły animacje, widzą od razu pełną kwotę.
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    let animationFrameId = 0;
-    let startTimestamp: number | null = null;
-    const duration = 1600;
-
-    const step = (timestamp: number) => {
-      if (startTimestamp === null) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      const easeOut = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(easeOut * target));
-
-      if (progress < 1) {
-        animationFrameId = window.requestAnimationFrame(step);
-      } else {
-        setCount(target);
-      }
-    };
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting || animatedRef.current) return;
-        animatedRef.current = true;
-        // Zerowanie dopiero tutaj, w chwili startu animacji. Gdyby działo
-        // się przy wczytaniu strony, kwota mrugałaby z 2900 na 0.
-        setCount(0);
-        animationFrameId = window.requestAnimationFrame(step);
-      },
-      { threshold: 0.2 },
-    );
-
-    observer.observe(element);
-
-    return () => {
-      observer.disconnect();
-      if (animationFrameId) window.cancelAnimationFrame(animationFrameId);
-    };
-  }, [target]);
-
-  return <span ref={elementRef}>{count}</span>;
-}
+import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
+import { site } from "@/content/site";
 
 const features = [
   "Bezpłatna wstępna analiza dokumentów",
@@ -73,13 +15,12 @@ const features = [
   "Możliwość elastycznej płatności w ratach",
 ];
 
-const PRICE_FROM = 2900;
+// Ta sama kwota trafia do danych strukturalnych (content/site.ts).
+const PRICE_FROM = site.price.from;
 
 export function Pricing() {
   return (
-    // scroll-mt-40: przyklejony nagłówek ma ok. 110–130 px, przy mniejszym
-    // odstępie tytuł sekcji chowa się pod nim po kliknięciu w menu.
-    <section id="cennik" className="scroll-mt-40 bg-mint py-10 sm:py-16">
+    <section id="cennik" className="bg-mint py-10 sm:py-16">
       <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
         <p className="flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.16em] text-navy">
           <CreditCard className="size-4 text-green" aria-hidden="true" />
@@ -152,7 +93,7 @@ export function Pricing() {
 
             <a
               href="#kontakt"
-              className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-navy px-5 py-3.5 text-sm font-semibold text-white transition-all hover:bg-navy-700 hover:scale-[1.02] shadow-md sm:mt-8 sm:px-6 sm:py-4 sm:text-base"
+              className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-navy px-5 py-3.5 text-sm font-semibold text-white transition-[background-color,transform] hover:bg-navy-700 hover:scale-[1.02] shadow-md sm:mt-8 sm:px-6 sm:py-4 sm:text-base"
             >
               Umów bezpłatną konsultację
               <ArrowRight
