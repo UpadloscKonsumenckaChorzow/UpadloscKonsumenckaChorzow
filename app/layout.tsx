@@ -36,7 +36,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Upadłość Konsumencka Chorzów & Śląsk · Kancelaria Oddłużeniowa",
+    default: "Upadłość Konsumencka Chorzów & Śląsk · Kancelaria Prawa Upadłościowego",
     template: "%s · Upadłość Konsumencka Chorzów",
   },
   description:
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Kancelaria Upadłość Konsumencka Chorzów — pomoc w oddłużeniu",
+        alt: "Kancelaria Upadłość Konsumencka Chorzów — pomoc w umorzeniu zobowiązań",
       },
     ],
   },
@@ -115,7 +115,7 @@ const legalServiceSchema = {
       name: site.name,
       alternateName: [
         "Kancelaria Upadłości Konsumenckiej Chorzów",
-        "Kancelaria Oddłużeniowa Chorzów",
+        "Kancelaria Prawa Upadłościowego Chorzów",
       ],
       description:
         "Pomoc w przeprowadzeniu upadłości konsumenckiej – od bezpłatnej analizy sytuacji, przez przygotowanie wniosku, po zakończenie postępowania. Spotkania w biurze w Chorzowie, obsługa całego Śląska, a zdalnie – całej Polski.",
@@ -182,7 +182,7 @@ const legalServiceSchema = {
       ],
       knowsAbout: [
         "Upadłość konsumencka Chorzów",
-        "Oddłużanie osób fizycznych",
+        "Umorzenie zobowiązań osób fizycznych",
         "Krajowy Rejestr Zadłużonych (KRZ)",
         "Plan spłaty wierzycieli",
         "Upadłość konsumencka bez majątku",
@@ -190,6 +190,7 @@ const legalServiceSchema = {
       sameAs: [
         ...(site.socials.facebook ? [site.socials.facebook] : []),
         ...(site.socials.instagram ? [site.socials.instagram] : []),
+        ...(site.socials.tiktok ? [site.socials.tiktok] : []),
       ],
       memberOf: {
         "@type": "Organization",

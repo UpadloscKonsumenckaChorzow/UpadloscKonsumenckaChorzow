@@ -12,7 +12,7 @@ export const site = {
   name: "Upadłość Konsumencka Chorzów & Śląsk",
   shortName: "Upadłość Chorzów",
   description:
-    "Kancelaria Prawa Upadłościowego - skuteczna pomoc w oddłużaniu osób fizycznych na terenie Śląska.",
+    "Kancelaria Prawa Upadłościowego - skuteczna pomoc w umorzeniu zobowiązań osób fizycznych na terenie Śląska.",
   // Nazwa prawna zgodna z wpisem w CEIDG – używana w JSON-LD i dokumentach.
   // Nie mylić z "name", które jest marką handlową widoczną na stronie.
   legalName: "Katarzyna Szczepańska",
@@ -113,8 +113,8 @@ export const site = {
   },
 
   socials: {
-    instagram: "",
-    tiktok: "",
+    instagram: "https://www.instagram.com/upadlosc_konsumencka_chorzow/",
+    tiktok: "https://www.tiktok.com/@upado.konsumencka4",
     facebook: "https://www.facebook.com/profile.php?id=61594187752540",
   },
 

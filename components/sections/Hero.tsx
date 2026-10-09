@@ -29,7 +29,7 @@ const problemItems = [
 
 const benefitsItems = [
   {
-    title: "Pewność oddłużenia",
+    title: "Pewność umorzenia zobowiązań",
     icon: CheckCircle2,
   },
   {
