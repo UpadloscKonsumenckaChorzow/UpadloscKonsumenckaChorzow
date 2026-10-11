@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     section: "Prawo i Finanse",
     tags: [
       "upadłość konsumencka",
-      "oddłużanie",
+      "umorzenie zobowiązań",
       "Chorzów",
       "Śląsk",
       "publikacja prawna",
@@ -96,7 +96,7 @@ const publicationJsonLd = {
       isPartOf: { "@id": `${site.url}/#website` },
       headline: ARTICLE_TITLE,
       description:
-        "Kompleksowa publikacja prawna o upadłości konsumenckiej w Polsce. Wyjaśniamy procedurę, koszty, upadłość bez majątku i oddłużenie.",
+        "Kompleksowa publikacja prawna o upadłości konsumenckiej w Polsce. Wyjaśniamy procedurę, koszty, upadłość bez majątku i umorzenie zobowiązań.",
       image: [`${site.url}${OG_IMAGE}`],
       inLanguage: "pl-PL",
       mainEntityOfPage: ARTICLE_URL,
@@ -252,7 +252,7 @@ export default function PublicationPage() {
                   nie jest w stanie płacić wszystkich swoich zobowiązań, czyli
                   jest niewypłacalna. Jego celem jest przede wszystkim
                   uporządkowanie sytuacji osoby zadłużonej oraz, w określonych
-                  prawem warunkach, umożliwienie jej oddłużenia.
+                  prawem warunkach, umożliwienie umorzenia jej zobowiązań.
                 </p>
               </div>
 
@@ -531,7 +531,7 @@ export default function PublicationPage() {
               </p>
 
               <p className="text-sm sm:text-base leading-relaxed text-white/80">
-                Upadłość konsumencka jest procedurą oddłużeniową, ale nie należy
+                Upadłość konsumencka jest procedurą umorzenia zobowiązań, ale nie należy
                 utożsamiać jej automatycznie z natychmiastowym umorzeniem
                 wszystkich zobowiązań. Ostateczne skutki postępowania zależą od
                 konkretnej sprawy i decyzji podejmowanych w jego toku.

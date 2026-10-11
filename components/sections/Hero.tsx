@@ -68,7 +68,7 @@ export function Hero() {
         <div className="mx-auto flex w-full max-w-xl flex-col items-center justify-center text-center">
           <p className="flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.16em] text-green">
             <ShieldCheck className="size-4" aria-hidden="true" />
-            Pomoc prawna · Chorzów i Śląsk
+            Pomoc doradcza · Chorzów i Śląsk
           </p>
 
           <h1 className="mt-3 text-center font-display text-3xl font-bold leading-tight sm:text-5xl lg:text-6xl">
