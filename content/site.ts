@@ -120,7 +120,7 @@ export const site = {
 
   developer: {
     name: "Filip Wrona",
-    url: "https://www.instagram.com/filip_wrona/",
+    url: "https://www.filipwrona.pl/",
   },
 } as const;
 
