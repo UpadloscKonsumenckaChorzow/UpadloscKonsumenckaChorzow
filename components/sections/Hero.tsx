@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
   Gavel,
   Layers,
@@ -17,7 +16,15 @@ import {
   Award,
 } from "lucide-react";
 import { site } from "@/content/site";
+// Import tylko dla rozmytego podglądu (blurDataURL) – samo zdjęcie
+// pochodzi z gotowych plików w public/hero.
 import heroImage from "@/public/rodzinka.jpg";
+
+// Szerokości zgodne z WIDTHS w scripts/optimize-hero.mjs.
+const HERO_WIDTHS = [400, 600, 800, 1024] as const;
+const HERO_SIZES = "(min-width: 640px) 512px, calc(100vw - 2rem)";
+const heroSrcSet = (format: "avif" | "webp") =>
+  HERO_WIDTHS.map((w) => `/hero/rodzinka-${w}.${format} ${w}w`).join(", ");
 
 const problemItems = [
   { label: "Komornik", icon: Gavel },
@@ -129,15 +136,27 @@ export function Hero() {
 
           <div className="relative w-full max-w-lg">
             <div className="relative aspect-4/3 sm:aspect-5/4 lg:aspect-4/5 overflow-hidden rounded-3xl border border-white/15 bg-navy-900/50 shadow-2xl">
-              <Image
-                src={heroImage}
-                alt="Szczęśliwa rodzina – życie bez długów po upadłości konsumenckiej"
-                fill
-                preload
-                placeholder="blur"
-                sizes="(min-width: 1024px) 512px, (min-width: 640px) 512px, 100vw"
-                className="object-cover object-top sm:object-center"
-              />
+              {/* Gotowe pliki z public/hero (scripts/optimize-hero.mjs) zamiast
+                  next/image: serwowane prosto z CDN, bez przetwarzania obrazu
+                  przy każdym wejściu – to element LCP, liczy się każda ms.
+                  Rozmyty podgląd z tła zostaje do czasu wczytania zdjęcia. */}
+              <picture>
+                <source type="image/avif" srcSet={heroSrcSet("avif")} sizes={HERO_SIZES} />
+                <source type="image/webp" srcSet={heroSrcSet("webp")} sizes={HERO_SIZES} />
+                <img
+                  src="/hero/rodzinka-600.webp"
+                  alt="Szczęśliwa rodzina – życie bez długów po upadłości konsumenckiej"
+                  width={1024}
+                  height={1024}
+                  fetchPriority="high"
+                  loading="eager"
+                  className="absolute inset-0 size-full object-cover object-top sm:object-center"
+                  style={{
+                    backgroundImage: `url(${heroImage.blurDataURL})`,
+                    backgroundSize: "cover",
+                  }}
+                />
+              </picture>
             </div>
 
             <div className="absolute inset-x-3 bottom-3 flex items-center justify-center rounded-2xl border border-white/15 bg-navy-900/95 p-2.5 text-center shadow-xl backdrop-blur-md sm:bottom-4 sm:p-4">

@@ -1,0 +1,13 @@
+# Ustawienia pnpm. Od pnpm 11 pole "pnpm" w package.json nie jest czytane,
+# więc nadpisania wersji muszą być tutaj (w package.json zostają dla
+# starszych wersji pnpm).
+
+# Wymuszona wersja hono (zależność wranglera) – poprawka bezpieczeństwa.
+overrides:
+  hono: 4.12.25
+
+# Pakiety, które mogą uruchamiać skrypty instalacyjne (binarki).
+allowBuilds:
+  esbuild: true
+  workerd: true
+  sharp: true
