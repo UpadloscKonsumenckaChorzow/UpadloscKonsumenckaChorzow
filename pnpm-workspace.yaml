@@ -2,6 +2,12 @@
 # więc nadpisania wersji muszą być tutaj (w package.json zostają dla
 # starszych wersji pnpm).
 
+# Jeden pakiet (sam projekt). Pole wymagane przez pnpm 9, którego używa
+# budowanie w Cloudflare – bez niego instalacja kończy się błędem
+# "packages field missing or empty".
+packages:
+  - "."
+
 # Wymuszona wersja hono (zależność wranglera) – poprawka bezpieczeństwa.
 overrides:
   hono: 4.12.25
