@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 /**
- * Podświetla w menu sekcję, którą użytkownik właśnie ogląda.
+ * Podświetla w menu sekcję, którą użytkownik właśnie ogląda, oraz
+ * podstronę, na której jest (aria-current="page" na linkach z data-route).
  * Nie renderuje niczego – ustawia aria-current="location" na linkach
  * z atrybutem data-spy (wygląd zapewniają klasy aria-[current=location]).
  * Dzięki temu całe menu pozostaje komponentem serwerowym.
@@ -13,6 +14,17 @@ export function ScrollSpy() {
   const pathname = usePathname();
 
   useEffect(() => {
+    // Linki do podstron (data-route) – aktywne na tej podstronie i niżej,
+    // np. "Publikacje" także na stronie pojedynczego artykułu.
+    for (const link of document.querySelectorAll<HTMLAnchorElement>("a[data-route]")) {
+      const route = link.dataset.route!;
+      if (pathname === route || pathname.startsWith(`${route}/`)) {
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    }
+
     const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("a[data-spy]"));
     const ids = [...new Set(links.map((link) => link.dataset.spy!))];
     const sections = ids

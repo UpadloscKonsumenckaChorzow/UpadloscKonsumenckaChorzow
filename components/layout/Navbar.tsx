@@ -31,13 +31,18 @@ function Logo() {
   );
 }
 
+// aria-current="location" – sekcja strony głównej (ScrollSpy),
+// aria-current="page" – podstrona, na której jesteśmy (Publikacje).
 const desktopLink =
-  "relative py-2 text-sm font-medium text-ink/75 transition-colors duration-200 hover:text-navy aria-[current=location]:font-semibold aria-[current=location]:text-navy " +
+  "relative py-2 text-sm font-medium text-ink/75 transition-colors duration-200 hover:text-navy aria-[current]:font-semibold aria-[current]:text-navy " +
   // zielona linia pod aktywnym / najechanym linkiem
-  "after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:rounded-full after:bg-green after:transition-transform after:duration-300 hover:after:scale-x-100 aria-[current=location]:after:scale-x-100";
+  "after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:rounded-full after:bg-green after:transition-transform after:duration-300 hover:after:scale-x-100 aria-[current]:after:scale-x-100";
 
 const mobileLink =
-  "group flex items-center justify-between border-b border-black/5 py-3 text-base font-medium text-ink/80 transition-[padding,color] duration-200 hover:pl-2 hover:text-navy sm:py-3.5 aria-[current=location]:pl-2 aria-[current=location]:font-semibold aria-[current=location]:text-navy";
+  "group flex items-center justify-between border-b border-black/5 py-3 text-base font-medium text-ink/80 transition-[padding,color] duration-200 hover:pl-2 hover:text-navy sm:py-3.5 aria-[current]:pl-2 aria-[current]:font-semibold aria-[current]:text-navy";
+
+// Podstrony w menu – po sekcjach strony głównej.
+const pageLinks = [{ href: "/publikacje", label: "Publikacje" }] as const;
 
 export function Navbar() {
   return (
@@ -85,6 +90,13 @@ export function Navbar() {
                   </Link>
                 </li>
               ))}
+              {pageLinks.map((p) => (
+                <li key={p.href}>
+                  <Link href={p.href} data-route={p.href} className={`block ${desktopLink}`}>
+                    {p.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </nav>
 
@@ -107,7 +119,18 @@ export function Navbar() {
                         <span>{s.label}</span>
                         <span
                           aria-hidden="true"
-                          className="hidden size-1.5 rounded-full bg-green group-aria-[current=location]:block"
+                          className="hidden size-1.5 rounded-full bg-green group-aria-[current]:block"
+                        />
+                      </Link>
+                    </li>
+                  ))}
+                  {pageLinks.map((p) => (
+                    <li key={p.href}>
+                      <Link href={p.href} data-route={p.href} className={mobileLink}>
+                        <span>{p.label}</span>
+                        <span
+                          aria-hidden="true"
+                          className="hidden size-1.5 rounded-full bg-green group-aria-[current]:block"
                         />
                       </Link>
                     </li>

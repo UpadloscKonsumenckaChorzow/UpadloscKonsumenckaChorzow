@@ -96,15 +96,10 @@ export const site = {
     currency: "PLN",
   },
 
+  // Daty publikacji i aktualizacji artykułów są w content/publications.ts.
   updated: {
     home: "2026-10-05",
-    publikacje: "2026-09-14",
     politykaPrywatnosci: "2026-09-14",
-  },
-
-  // Data pierwszej publikacji artykułu – nie zmienia się.
-  published: {
-    publikacje: "2026-09-08",
   },
 
   partner: {
