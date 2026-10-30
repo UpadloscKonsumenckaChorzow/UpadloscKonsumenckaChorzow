@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { CalendarDays, Clock } from "lucide-react";
 import { site, formatPlDate, toIsoTimestamp } from "@/content/site";
 import {
+  ogImageJsonLd,
   publications,
   publicationPath,
   publicationsUpdated,
@@ -35,6 +36,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
+        type: "image/jpeg",
         alt: `${PAGE_TITLE} – ${site.name}`,
       },
     ],
@@ -54,16 +56,21 @@ const collectionJsonLd = {
   "@graph": [
     {
       "@type": "CollectionPage",
-      "@id": `${PAGE_URL}#webpage`,
+      "@id": PAGE_URL,
       url: PAGE_URL,
-      name: PAGE_TITLE,
+      name: `${PAGE_TITLE} · Chorzów`,
       description: DESCRIPTION,
       inLanguage: "pl-PL",
       isPartOf: { "@id": `${site.url}/#website` },
+      publisher: { "@id": `${site.url}/#legalservice` },
+      primaryImageOfPage: { "@id": `${site.url}/#ogimage` },
       dateModified: toIsoTimestamp(publicationsUpdated),
       breadcrumb: { "@id": `${PAGE_URL}#breadcrumb` },
       mainEntity: {
         "@type": "ItemList",
+        "@id": `${PAGE_URL}#lista`,
+        numberOfItems: publications.length,
+        itemListOrder: "https://schema.org/ItemListOrderDescending",
         itemListElement: publications.map((pub, i) => ({
           "@type": "ListItem",
           position: i + 1,
@@ -80,6 +87,7 @@ const collectionJsonLd = {
         { "@type": "ListItem", position: 2, name: "Publikacje", item: PAGE_URL },
       ],
     },
+    ogImageJsonLd(),
   ],
 };
 

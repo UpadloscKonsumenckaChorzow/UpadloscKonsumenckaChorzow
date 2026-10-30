@@ -152,6 +152,7 @@ export function publicationMetadata(pub: Publication): Metadata {
           url: OG_IMAGE,
           width: 1200,
           height: 630,
+          type: "image/jpeg",
           alt: `${pub.title} – ${site.name}`,
         },
       ],
@@ -176,33 +177,69 @@ export function publicationMetadata(pub: Publication): Metadata {
   };
 }
 
-/** Dane strukturalne JSON-LD artykułu: Article + okruszki. */
+/** Obraz do udostępniania – ten sam obiekt w OpenGraph i w JSON-LD. */
+export function ogImageJsonLd() {
+  return {
+    "@type": "ImageObject",
+    "@id": `${site.url}/#ogimage`,
+    url: `${site.url}${OG_IMAGE}`,
+    contentUrl: `${site.url}${OG_IMAGE}`,
+    width: 1200,
+    height: 630,
+  };
+}
+
+/**
+ * Dane strukturalne JSON-LD artykułu. Graf: WebPage (strona) ← Article
+ * (treść) + BreadcrumbList (okruszki) + obraz – powiązane przez @id,
+ * tak jak oczekuje tego Google.
+ */
 export function publicationJsonLd(pub: Publication) {
   const url = `${site.url}${publicationPath(pub.slug)}`;
+  const published = toIsoTimestamp(pub.published);
+  const modified = toIsoTimestamp(pub.updated);
   return {
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "WebPage",
+        "@id": url,
+        url,
+        name: pub.metaTitle,
+        description: pub.description,
+        inLanguage: "pl-PL",
+        isPartOf: { "@id": `${site.url}/#website` },
+        primaryImageOfPage: { "@id": `${site.url}/#ogimage` },
+        breadcrumb: { "@id": `${url}#breadcrumb` },
+        datePublished: published,
+        dateModified: modified,
+      },
+      ogImageJsonLd(),
+      {
         "@type": "Article",
         "@id": `${url}#article`,
-        isPartOf: { "@id": `${site.url}/#website` },
+        isPartOf: { "@id": url },
+        mainEntityOfPage: { "@id": url },
         headline: pub.title,
         description: pub.description,
-        image: [`${site.url}${OG_IMAGE}`],
+        image: { "@id": `${site.url}/#ogimage` },
         inLanguage: "pl-PL",
-        mainEntityOfPage: url,
-        datePublished: toIsoTimestamp(pub.published),
-        dateModified: toIsoTimestamp(pub.updated),
+        datePublished: published,
+        dateModified: modified,
         timeRequired: `PT${pub.readingMinutes}M`,
+        articleSection: "Prawo i Finanse",
         keywords: pub.tags.join(", "),
         // Autor jako osoba – sygnał E-E-A-T, zgodny z metadanymi OpenGraph.
         author: {
           "@type": "Person",
           name: site.legalName,
+          url: site.url,
           worksFor: { "@id": `${site.url}/#legalservice` },
         },
         // Wydawca = firma opisana w layout.tsx.
         publisher: { "@id": `${site.url}/#legalservice` },
+        copyrightHolder: { "@id": `${site.url}/#legalservice` },
+        copyrightYear: Number(pub.published.slice(0, 4)),
         about: { "@type": "Thing", name: pub.about },
       },
       {
