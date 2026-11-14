@@ -143,8 +143,10 @@ export default function PublicationsPage() {
               <div className="flex flex-row flex-wrap items-center justify-between gap-3 border-t border-black/5 bg-mint/60 px-4 py-3 sm:px-10 lg:col-span-4 lg:flex-col lg:items-start lg:justify-end lg:border-t-0 lg:border-l lg:p-10">
                 <dl className="space-y-1.5 text-sm text-ink/70">
                   <div className="flex items-center gap-2">
-                    <dt className="sr-only">Data publikacji</dt>
-                    <CalendarDays className="size-4 text-green" aria-hidden="true" />
+                    <dt className="flex">
+                      <CalendarDays className="size-4 text-green" aria-hidden="true" />
+                      <span className="sr-only">Data publikacji</span>
+                    </dt>
                     <dd>
                       <time dateTime={latest.published}>
                         {formatPlDate(latest.published)}
@@ -152,8 +154,10 @@ export default function PublicationsPage() {
                     </dd>
                   </div>
                   <div className="flex items-center gap-2">
-                    <dt className="sr-only">Czas czytania</dt>
-                    <Clock className="size-4 text-green" aria-hidden="true" />
+                    <dt className="flex">
+                      <Clock className="size-4 text-green" aria-hidden="true" />
+                      <span className="sr-only">Czas czytania</span>
+                    </dt>
                     <dd>{latest.readingMinutes} min czytania</dd>
                   </div>
                 </dl>

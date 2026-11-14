@@ -156,7 +156,7 @@ export default function RetireePublicationPage() {
       {/* =========================================================================
           SEKCJA 3: EMERYTURA + MIESZKANIE
       ========================================================================== */}
-      <section className="py-7 sm:py-16 bg-mint">
+      <div className="py-7 sm:py-16 bg-mint">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-3.5 sm:gap-6 lg:grid-cols-2 lg:gap-8 items-stretch max-w-6xl mx-auto">
             <article className="flex h-full flex-col rounded-2xl sm:rounded-3xl border border-black/5 bg-white p-4 sm:p-8 shadow-sm">
@@ -232,7 +232,7 @@ export default function RetireePublicationPage() {
             question="Martwisz się o swoją emeryturę lub mieszkanie?"
           />
         </div>
-      </section>
+      </div>
 
       {/* =========================================================================
           SEKCJA 4: PLAN SPŁATY CZY CAŁKOWITE ODDŁUŻENIE?

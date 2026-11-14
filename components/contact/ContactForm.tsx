@@ -19,7 +19,13 @@ const initialState: ContactFormState = {};
  * - po sukcesie serwer przekierowuje na /dziekujemy.
  */
 export function ContactForm() {
-  const [state, formAction, isPending] = useActionState(sendContactForm, initialState);
+  // Permalink: bez niego React renderuje action="" (błąd walidacji HTML).
+  // Formularz jest tylko na stronie głównej, więc wysyłka bez JS wraca do #kontakt.
+  const [state, formAction, isPending] = useActionState(
+    sendContactForm,
+    initialState,
+    "/#kontakt",
+  );
   const errorRef = useRef<HTMLDivElement>(null);
 
   const values = state.values ?? {};
