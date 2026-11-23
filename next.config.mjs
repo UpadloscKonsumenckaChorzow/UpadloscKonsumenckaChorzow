@@ -60,14 +60,24 @@ const nextConfig = {
   poweredByHeader: false,
 
   images: {
-    formats: ["image/avif", "image/webp"],
-    // Ten sam adres (url + szerokość + jakość) zawsze daje ten sam plik,
-    // więc rok w pamięci podręcznej jest bezpieczny.
-    minimumCacheTTL: 31536000,
-    // Mniej wariantów = mniej transformacji w Cloudflare Images i lepsze
-    // trafienia w cache. Pokrywa telefony (1x–3x) i duże ekrany.
-    deviceSizes: [640, 828, 1080, 1280, 1920],
-    imageSizes: [96, 128, 256, 384],
+    // Zdjęcia są już przygotowane w AVIF/WebP (public/hero) albo bardzo małe,
+    // więc optymalizacja w Workerze nic nie daje, a każde zapytanie
+    // /_next/image zużywało dzienny limit Workerów. Pliki idą prosto ze
+    // static assets, bez uruchamiania Workera.
+    unoptimized: true,
+  },
+
+  // Jeden adres strony: wersja bez "www" przekierowuje na www (301),
+  // żeby Google nie zapisywał dwóch kopii tych samych podstron.
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "upadlosckonsumenckachorzow.pl" }],
+        destination: "https://www.upadlosckonsumenckachorzow.pl/:path*",
+        permanent: true,
+      },
+    ];
   },
 
   experimental: {

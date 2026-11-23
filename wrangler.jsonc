@@ -16,10 +16,6 @@
       "service": "upadlosckonsumenckachorzow",
     },
   ],
-  "images": {
-    // Optymalizacja obrazów (AVIF/WebP) – https://opennext.js.org/cloudflare/howtos/image
-    "binding": "IMAGES",
-  },
   // Limit wysyłek formularza kontaktowego: 5 zgłoszeń na minutę z jednego
   // adresu IP. Chroni skrzynkę i limit Resend przed spamem z botów.
   // namespace_id to dowolna, unikalna w ramach konta liczba (jako tekst).

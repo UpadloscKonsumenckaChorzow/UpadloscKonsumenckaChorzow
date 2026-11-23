@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { CookieBanner } from "@/components/cookies/CookieBanner";
 import { AnalyticsLoader } from "@/components/cookies/AnalyticsLoader";
+import { ContactTracking } from "@/components/cookies/ContactTracking";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { site } from "@/content/site";
 
@@ -230,6 +231,7 @@ export default function RootLayout({
         {/* Jedyne "globalne" komponenty klienckie – małe i niezależne. */}
         <CookieBanner />
         <AnalyticsLoader gaId={GA_ID} />
+        <ContactTracking />
       </body>
     </html>
   );
