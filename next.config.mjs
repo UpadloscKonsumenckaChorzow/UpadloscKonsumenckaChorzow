@@ -67,19 +67,6 @@ const nextConfig = {
     unoptimized: true,
   },
 
-  // Jeden adres strony: wersja bez "www" przekierowuje na www (301),
-  // żeby Google nie zapisywał dwóch kopii tych samych podstron.
-  async redirects() {
-    return [
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "upadlosckonsumenckachorzow.pl" }],
-        destination: "https://www.upadlosckonsumenckachorzow.pl/:path*",
-        permanent: true,
-      },
-    ];
-  },
-
   experimental: {
     serverActions: {
       // Formularz kontaktowy to kilka pól tekstowych – 1 MB (domyślnie)
